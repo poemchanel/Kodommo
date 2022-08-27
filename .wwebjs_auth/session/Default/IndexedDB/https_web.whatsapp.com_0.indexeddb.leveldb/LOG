@@ -1,0 +1,14 @@
+2022/08/27-08:20:50.286 1a5c Reusing MANIFEST C:\Users\Duyy\Desktop\Yudi\WhatsApp 0.6\.wwebjs_auth\session\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
+2022/08/27-08:20:50.288 1a5c Recovering log #2046
+2022/08/27-08:20:50.354 1a5c Reusing old log C:\Users\Duyy\Desktop\Yudi\WhatsApp 0.6\.wwebjs_auth\session\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/002046.log 
+2022/08/27-08:21:24.362 1a5c Compacting 1@1 + 6@2 files
+2022/08/27-08:21:24.497 1a5c Generated table #2070@1: 88265 keys, 1849218 bytes
+2022/08/27-08:21:24.497 1a5c Compacted 1@1 + 6@2 files => 1849218 bytes
+2022/08/27-08:21:24.499 1a5c compacted to: files[ 0 0 31 0 0 0 0 ]
+2022/08/27-08:21:24.499 1a5c Delete type=2 #1781
+2022/08/27-08:21:24.499 1a5c Delete type=2 #1782
+2022/08/27-08:21:24.499 1a5c Delete type=2 #1805
+2022/08/27-08:21:24.499 1a5c Delete type=2 #1828
+2022/08/27-08:21:24.499 1a5c Delete type=2 #1853
+2022/08/27-08:21:24.499 1a5c Delete type=2 #1878
+2022/08/27-08:21:24.499 1a5c Delete type=2 #2050

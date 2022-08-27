@@ -1,0 +1,24 @@
+{
+  "name": "Wa-BotKodommo",
+  "version": "0.0.5",
+  "description": "Whatsapp Bot KODOMMO",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "upload": "node upload.js",
+    "tes": "node tes.js"
+  },
+  "keywords": [
+    "Bot",
+    "WhatsApp"
+  ],
+  "author": "Duyy",
+  "license": "ISC",
+  "dependencies": {
+    "canvas": "^2.9.3",
+    "mongoose": "^6.5.2",
+    "nodemon": "^2.0.19",
+    "qrcode-terminal": "^0.12.0",
+    "whatsapp-web.js": "^1.17.1"
+  }
+}
