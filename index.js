@@ -1,7 +1,7 @@
 const { Client, LocalAuth, MessageMedia } = require("whatsapp-web.js"); // import Module WhatsappBot
 const qrcode = require("qrcode-terminal"); // import Modul Konversi kode otentikasi ke Qr Code
 const { HubungkanDatabase } = require("./db"); // import Fungsi untuk Koneksi ke DataBase
-const { ping, Daftar, Terima, help, CekProduk, CekKonveksi, UpdateHargaProduk, UpdateHargaKonveksi, TidakadaPerintah } = require("./reply"); // import Fungsi untuk membuat pesan yg akan dibalas
+const { ping, Daftar, Terima, help, CekProduk, CekKonveksi, CekKonveksiUndercut, UpdateHargaProduk, UpdateHargaKonveksi, TidakadaPerintah } = require("./reply"); // import Fungsi untuk membuat pesan yg akan dibalas
 
 PreLaunch();
 async function PreLaunch() {
@@ -19,10 +19,10 @@ async function Kodommo() {
   WaBot.on("loading_screen", (percent, message) => {
     console.log("LOADING SCREEN", percent, message);
   });
-  WaBot.on("qr", (qr) => {
-    console.log("QR RECEIVED", qr);
-    qrcode.generate(qr);
-  }); // Konversi kode authentikasi Ke bentuk VR CODE
+  // WaBot.on("qr", (qr) => {
+  //   console.log("QR RECEIVED", qr);
+  //   qrcode.generate(qr, { small: true });
+  // }); // Konversi kode authentikasi Ke bentuk VR CODE
   WaBot.on("authenticated", () => {
     console.log("Login Berhasil");
   }); // Eksekusi jika Login Berhasil
@@ -57,9 +57,22 @@ async function Kodommo() {
           balas = await CekProduk(msg, await msg.getContact());
           msg.reply(balas.caption);
           break;
+        case msg.body.toLowerCase().startsWith("!up_"): // Cek Produk
+          balas = await UpdateHargaProduk(msg, await msg.getContact());
+          msg.reply(balas.caption);
+          break;
         case msg.body.toLowerCase().startsWith("!k_"): // Cek Produk
-          konveksipng = MessageMedia.fromFilePath("./Gambar.PNG"); // Posisi gambar di Directory
           balas = await CekKonveksi(msg, await msg.getContact());
+          konveksipng = MessageMedia.fromFilePath("./Gambar.pdf"); // Posisi gambar di Directory
+          if (balas.status === "Gagal") {
+            msg.reply(balas.caption);
+          } else {
+            msg.reply(konveksipng, undefined, { caption: balas.caption }); // Mengirim Gambar
+          }
+          break;
+        case msg.body.toLowerCase().startsWith("!ku_"): // Cek Produk
+          balas = await CekKonveksiUndercut(msg, await msg.getContact());
+          konveksipng = MessageMedia.fromFilePath("./Gambar.jpeg"); // Posisi gambar di Directory
           if (balas.status === "Gagal") {
             msg.reply(balas.caption);
           } else {

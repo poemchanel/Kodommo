@@ -1,5 +1,5 @@
 const { HubungkanDatabase, TarikProdukKode, CekDatabaseState, TarikProdukKonveksi, TarikPengguna, UpdatePengguna, UpdateProdukKode, TambahPengguna } = require("./db"); // Import Fungsi yang ada di db.js
-const { BuatGambarKonveksi } = require("./MembuatPNG"); // Import Fungsi untuk Merender Gambar
+const { BuatGambarKonveksi, BuatGambarKonveksiUndercut } = require("./MembuatPNG"); // Import Fungsi untuk Merender Gambar
 const { ScrapDataProduk } = require("./scraping"); // Import Fungsi untuk Scraping Web
 
 const SuperAdmin = "Duyy - 082246378074"; // Kontak Admin
@@ -31,19 +31,26 @@ async function help(pesan, kontak, res) {
     case pengguna.pangkat == "admin": // Kontak Berpangkat admin
       res = {
         caption: `Daftar Perintah yang tersedia untuk ${pengguna.pangkat}:
-*!P*_~Kode Produk~ Cek informasi produk dengan kode tersebut
-*!K*_~Konveksi~ Cek semua produk di konveksi tersebut
-*!L*_~Konveksi~ Cek list konveksi yang terdaftar di DB
-*!UP*_~Kode Produk~ Update harga produk dengan kode tersebut`,
+*!ping* Cek Status Bot
+*!help* Menampilkan list perintah
+*!Daftar* Membuat forn pendaftaran Pengguna
+*!Terima* Terima Form Pendaftaran Pengguna
+*!P*_<Kode Produk> *Cek Produk* , informasi produk dengan kode tersebut
+*!K*_<Konveksi> *Cek Konveksi* , list informasi semua produk di konveksi tersebut
+*!KU*_<Konveksi> *Cek Konveksi Undercut* list informasi semua produk yang di undercut
+*!UP*_<Kode Poroduk> *Update Data Prdouk*, Update data harga Produk di Shoppe`,
         nama: pengguna.nama,
       };
       break;
     case pengguna.pangkat == "member": // Kontak Berpangkat member
       res = {
-        caption: `Daftar Perintah yang tersedia :
-*!P*_~Kode Produk~ Cek informasi produk dengan kode tersebut
-*!K*_~Konveksi~ Cek semua produk di konveksi tersebut
-*!L*_~Konveksi~ Cek list konveksi yang terdaftar di DB`,
+        caption: `Daftar Perintah yang tersedia untuk ${pengguna.pangkat}:
+*!ping* Cek Status Bot
+*!help* Menampilkan list perintah
+*!P*_<Kode Produk> *Cek Produk* , informasi produk dengan kode tersebut
+*!K*_<Konveksi> *Cek Konveksi* , list informasi semua produk di konveksi tersebut
+*!KU*_<Konveksi> *Cek Konveksi Undercut* list informasi semua produk yang di undercut
+`,
         nama: pengguna.nama,
       };
       break;
@@ -193,7 +200,6 @@ status anda saat ini : ${pengguna.pangkat}`,
 } //Release //Menampilkan Produk
 async function CekKonveksi(pesan, kontak, res) {
   const pengguna = await VerifikasiKontak(kontak); // Mengambil data Pangkat Pengirim Pesan
-
   switch (true) {
     case pengguna.pangkat == "Kosong": // Kontak tidak Terdaftar di DB
       res = { caption: `Kontak anda belum Terdaftar, Silahkan daftarkan dengan !daftar`, nama: kontak.number };
@@ -208,6 +214,42 @@ async function CekKonveksi(pesan, kontak, res) {
       } // Jika data tidak ditemukan
       else {
         const render = await BuatGambarKonveksi(data); // Membuat file Gambar yang Berisi data semua Produk Berkonveksi
+        res = { status: "Berhasil", caption: `Daftar Produk di konveksi ${tmp1}` };
+      } // Jika data ditemukan
+      break;
+    case pengguna.pangkat == "baru":
+      res = {
+        caption: `Maaf perintah ini hanya dapat diakses oleh pengguna dengan status :
+- Admin
+- Member
+status anda saat ini : ${pengguna.pangkat}`,
+        nama: pengguna.nama,
+      };
+      break;
+    default: //Kontak Tidak Memiliki Pangkat
+      res = {
+        caption: `Terdapat kesalahan pada pangkat Anda, Segera hubungi Admin`,
+      };
+      break;
+  } //Cek Pangkat Pengirim Pesan
+  return res;
+} //Release //Menampilkan Produk berdasarkan Konveksi
+async function CekKonveksiUndercut(pesan, kontak, res) {
+  const pengguna = await VerifikasiKontak(kontak); // Mengambil data Pangkat Pengirim Pesan
+  switch (true) {
+    case pengguna.pangkat == "Kosong": // Kontak tidak Terdaftar di DB
+      res = { caption: `Kontak anda belum Terdaftar, Silahkan daftarkan dengan !daftar`, nama: kontak.number };
+      break;
+    case pengguna.pangkat == "superadmin": // Kontak Berpangkat superadmin
+    case pengguna.pangkat == "admin": // Kontak Berpangkat admin
+    case pengguna.pangkat == "member": // Kontak Berpangkat member
+      const tmp1 = pesan.body.replace(/!ku_/i, "").replace(/ /g, "");
+      const data = await TarikProdukKonveksi(tmp1); // Mengambil data semua produk berkonveksi
+      if (data.length == 0) {
+        res = { status: "Gagal", caption: `Data dengan konveksi : ${tmp1} tidak ditemukan` };
+      } // Jika data tidak ditemukan
+      else {
+        const render = await BuatGambarKonveksiUndercut(data); // Membuat file Gambar yang Berisi data semua Produk Berkonveksi
         res = { status: "Berhasil", caption: `Daftar Produk di konveksi ${tmp1}` };
       } // Jika data ditemukan
       break;
@@ -329,6 +371,7 @@ module.exports = {
   help,
   CekProduk,
   CekKonveksi,
+  CekKonveksiUndercut,
   UpdateHargaProduk,
   UpdateHargaKonveksi,
 }; // Export Fungsi

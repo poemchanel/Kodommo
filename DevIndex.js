@@ -1,5 +1,5 @@
 const { HubungkanDatabase } = require("./db"); // import Fungsi untuk Koneksi ke DataBase
-const { ping, Daftar, Terima, help, CekProduk, CekKonveksi, UpdateHargaProduk, UpdateHargaKonveksi, TidakadaPerintah } = require("./reply"); // import Fungsi untuk membuat pesan yg akan dibalas
+const { ping, Daftar, Terima, help, CekProduk, CekKonveksi, CekKonveksiUndercut, UpdateHargaProduk, UpdateHargaKonveksi, TidakadaPerintah } = require("./reply"); // import Fungsi untuk membuat pesan yg akan dibalas
 
 PreLaunch();
 async function PreLaunch() {
@@ -11,7 +11,7 @@ async function PreLaunch() {
   Kodommo(PesanDiterima);
 }
 const pesan = {
-  body: "!up_D1000",
+  body: "!ku_KBOGOR",
   from: "6282246378074@c.us",
 };
 
@@ -41,6 +41,10 @@ async function Kodommo(msg) {
         break;
       case msg.body.toLowerCase().startsWith("!k_"): // Cek Produk
         balas = await CekKonveksi(msg, await msg.getContact());
+        msg.reply(balas.caption);
+        break;
+      case msg.body.toLowerCase().startsWith("!ku_"): // Cek Produk
+        balas = await CekKonveksiUndercut(msg, await msg.getContact());
         msg.reply(balas.caption);
         break;
       case msg.body.toLowerCase().startsWith("!up_"): // Cek Produk

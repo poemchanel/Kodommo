@@ -1,9 +1,14 @@
-#BOT KODOMMO
+**#BOT KODOMMO**
 adalah whatsapp bot
 
 ##ChangeLog
 
-###0.0.6
+###0.0.7 - 28/8
+
+- Optimalisasi Cek Konveksi , media .png -> pdf karena file terkompress
+- Menambahkan fitur Cek Konveksi Undercut
+
+###0.0.6 - 27/8
 
 - Menambahkan Fitur Mendaftarkan Pengguna
 - Menambahkan Fitur Update Pangkat Pengguna
