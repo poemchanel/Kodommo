@@ -1,13 +1,6 @@
 const mongoose = require("mongoose"); // Import Module untuk manipulasi DataBase MongoDB
 const { Produk, Konveksi, Pengguna } = require("./produk"); // Import Format Dokumen
 
-async function HubungkanDatabase(req, res) {
-  const DB = "mongodb://localhost:27017/produk"; // Alamat Database lokal
-  //const DB ="mongodb+srv://poem:Coba1234@cluster0.qmdwcrb.mongodb.net/?retryWrites=true&w=majority"; // Alamat Cloud Database
-  mongoose.connect(DB, { useNewUrlParser: true }); //Hubungkan ke Ke Database
-  res = await CekDatabaseState(); // Memamanggil funsi untuk cek status Database
-  return res;
-} // Mengubungkan ke Database
 async function CekDatabaseState(req, res) {
   const StatusDB = mongoose.connection.readyState; //Ambil status koneksi
   switch (true) {

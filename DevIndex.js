@@ -1,67 +1,10 @@
-const { HubungkanDatabase } = require("./db"); // import Fungsi untuk Koneksi ke DataBase
-const { ping, Daftar, Terima, help, CekProduk, CekKonveksi, CekKonveksiUndercut, UpdateHargaProduk, UpdateHargaKonveksi, TidakadaPerintah } = require("./reply"); // import Fungsi untuk membuat pesan yg akan dibalas
+const HubungkanDatabase = require("./Function/Routes/HubungkanDatabase"); // import Fungsi untuk Koneksi ke DataBase
 
-PreLaunch();
-async function PreLaunch() {
-  try {
-    const StatusDB = await HubungkanDatabase();
-  } catch (error) {
-    console.log(error);
-  }
-  Kodommo(PesanDiterima);
-}
+const Help = require("./Function/Generator/Help");
 const pesan = {
-  body: "!ku_KBOGOR",
-  from: "6282246378074@c.us",
+  body: "!help",
+  from: "6282178026053@c.us",
 };
-
-async function Kodommo(msg) {
-  console.log(`-> ${msg.from} : ${msg.body}`);
-  if (msg.body.startsWith("!")) {
-    switch (true) {
-      case msg.body.toLowerCase() === "!ping": // Untuk apakah bot membalas
-        balas = await ping(msg.getContact());
-        msg.reply(balas.caption); // Membalas Pesan
-        break;
-      case msg.body.toLowerCase() === "!help": // Cek Perintah yang Tersedia
-        balas = await help(msg, await msg.getContact());
-        msg.reply(balas.caption);
-        break;
-      case msg.body.toLowerCase().startsWith("!daftar"): // Untuk apakah bot membalas
-        balas = await Daftar(msg, await msg.getContact());
-        msg.reply(balas.caption); // Membalas Pesan
-        break;
-      case msg.body.toLowerCase().startsWith("!terima"): // Untuk apakah bot membalas
-        balas = await Terima(msg, await msg.getContact());
-        msg.reply(balas.caption); // Membalas Pesan
-        break;
-      case msg.body.toLowerCase().startsWith("!p_"): // Cek Produk
-        balas = await CekProduk(msg, await msg.getContact());
-        msg.reply(balas.caption);
-        break;
-      case msg.body.toLowerCase().startsWith("!k_"): // Cek Produk
-        balas = await CekKonveksi(msg, await msg.getContact());
-        msg.reply(balas.caption);
-        break;
-      case msg.body.toLowerCase().startsWith("!ku_"): // Cek Produk
-        balas = await CekKonveksiUndercut(msg, await msg.getContact());
-        msg.reply(balas.caption);
-        break;
-      case msg.body.toLowerCase().startsWith("!up_"): // Cek Produk
-        balas = await UpdateHargaProduk(msg, await msg.getContact());
-        msg.reply(balas.caption);
-        break;
-      default: // Jika Perintah tidak Terdaftar
-        balas = await TidakadaPerintah(msg, await msg.getContact());
-        msg.reply(balas);
-        break;
-    } // Verifikasi Perintah yang di Terima
-  } // Verifikasi jika Pesan Merupakan Perintah
-  else {
-    console.log("Pesan ini Bukan Perintah");
-  }
-}
-
 const PesanDiterima = {
   id: {
     fromMe: false,
@@ -102,10 +45,10 @@ const PesanDiterima = {
     res = {
       id: {
         server: "c.us",
-        user: "6282246378074",
+        user: pesan.from.replace("@c.us", ""),
         _serialized: "6282246378074@c.us",
       },
-      number: "6282246378074",
+      number: pesan.from.replace("@c.us", ""),
       isBusiness: false,
       name: "Saya A",
       pushname: "Duyy",
@@ -140,7 +83,8 @@ const group = {
       remote: "120363043606962064@g.us",
       id: "E64B9108C21CBDBAEEFBB51DC3129610",
       participant: "6282246378074@c.us",
-      _serialized: "false_120363043606962064@g.us_E64B9108C21CBDBAEEFBB51DC3129610_6282246378074@c.us",
+      _serialized:
+        "false_120363043606962064@g.us_E64B9108C21CBDBAEEFBB51DC3129610_6282246378074@c.us",
     },
     body: pesan.body,
     type: "chat",
@@ -178,7 +122,8 @@ const group = {
     remote: "120363043606962064@g.us",
     id: "E64B9108C21CBDBAEEFBB51DC3129610",
     participant: "6282246378074@c.us",
-    _serialized: "false_120363043606962064@g.us_E64B9108C21CBDBAEEFBB51DC3129610_6282246378074@c.us",
+    _serialized:
+      "false_120363043606962064@g.us_E64B9108C21CBDBAEEFBB51DC3129610_6282246378074@c.us",
   },
   ack: 1,
   hasMedia: false,
@@ -207,3 +152,30 @@ const group = {
   isEphemeral: false,
   links: [],
 };
+
+PreLaunch();
+async function PreLaunch() {
+  HubungkanDatabase();
+  Kodommo(PesanDiterima);
+}
+
+async function Kodommo(msg) {
+  console.log(`-> ${msg.from} : ${msg.body}`);
+  if (msg.body.startsWith("!")) {
+    switch (true) {
+      case msg.body.toLowerCase() === "!ping": // Untuk apakah bot membalas
+        msg.reply("Pong"); // Membalas Pesan
+        break;
+      case msg.body.toLowerCase() === "!help": // Cek Perintah yang Tersedia
+        balas = await Help(msg, await msg.getContact());
+        msg.reply(balas.caption);
+        break;
+
+      default: // Jika Perintah tidak Terdaftar
+        break;
+    } // Verifikasi Perintah yang di Terima
+  } // Verifikasi jika Pesan Merupakan Perintah
+  else {
+    console.log("Pesan ini Bukan Perintah");
+  }
+}

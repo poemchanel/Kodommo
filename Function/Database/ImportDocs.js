@@ -1,26 +1,47 @@
-const mongoose = require("mongoose");
-const { Produk, Pengguna, Konveksi } = require("./produks");
+const Produk = require("./Models/Produks");
 const fs = require("fs");
 const csv = require("csv-parser");
-const { Console } = require("console");
 
-mongoose.connect(
-  "mongodb+srv://poem:Coba1234@cluster0.qmdwcrb.mongodb.net/kodommo?retryWrites=true&w=majority",
-  () => {
-    console.log("Terhubung ke database");
-  },
-  (e) => console.error(e)
-);
+const HubungkanDatabase = require("../Routes/HubungkanDatabase");
+const CekStatusDB = require("../Routes/CekStatusDB");
+
+HubungkanDatabase();
+//Cek Status Koneksi Database
+const PersiapanDB = setInterval(StatusDB, 1000);
+async function StatusDB() {
+  const Status = await CekStatusDB();
+  switch (Status) {
+    case 0:
+      console.log("Terjadi Kesalahan, Tidak Dapat Terhubung");
+      clearInterval(PersiapanDB);
+      break;
+    case 1:
+      console.log("Berhasil Terhubung");
+      clearInterval(PersiapanDB);
+      BacaCSV();
+      break;
+    case 2:
+      console.log("Sedang Menghubungkan...");
+      break;
+    case 3:
+      console.log("Koneksi Terputus, Mencoba Menghubungkan Kembali...");
+      HubungkanDatabase();
+      break;
+    default:
+      break;
+  }
+}
 
 const konveksi = [];
 
-fs.createReadStream("APEN.csv")
-  .pipe(csv({}))
-  .on("data", (data) => konveksi.push(data))
-  .on("end", () => {
-    uploadKonveksi();
-  });
-
+function BacaCSV() {
+  fs.createReadStream("./Docs/APEN.csv")
+    .pipe(csv({}))
+    .on("data", (data) => konveksi.push(data))
+    .on("end", () => {
+      uploadKonveksi();
+    });
+}
 async function uploadKonveksi() {
   konveksi.forEach((element) => {
     const produk = new Produk({
@@ -37,22 +58,22 @@ async function uploadKonveksi() {
         {
           namapesaing: element.anamapesaing,
           linkpesaing: element.alinkpesaing,
-          linkpesaingstatus: element.astatuslinkpesaing,
+          linkpesaingstatus: element.alinkpesaingstatus,
           hargapesaing: element.ahargapesaing,
           hargapesaingmin: element.ahargapesaingmin,
         },
         {
           namapesaing: element.bnamapesaing,
           linkpesaing: element.blinkpesaing,
-          linkpesaingstatus: element.bstatuslinkpesaing,
+          linkpesaingstatus: element.blinkpesaingstatus,
           hargapesaing: element.bhargapesaing,
           hargapesaingmin: element.bhargapesaingmin,
         },
       ],
-      updatedAt: new Date(),
       deskripsi: element.deskripsi,
     });
     produk.save();
     console.log(`${element.kodebarang} Saved`);
   });
+  console.log("Document Seleasi Import");
 }

@@ -3,7 +3,7 @@ const mongoose = require("mongoose"); // Export Module Manipulasi Database Mongo
 const penggunaSchema = new mongoose.Schema({
   namapengguna: String,
   nama: String,
-  notelepon: Number,
+  notelepon: String,
   nomor: String,
   pangkat: String,
   updatedAt: {
@@ -12,6 +12,6 @@ const penggunaSchema = new mongoose.Schema({
   },
 }); // Format Dokumen Pengguna
 
-const Pengguna = mongoose.model("Pengguna", penggunaSchema);
+const Penggunas = mongoose.model("Penggunas", penggunaSchema);
 
-module.exports = Pengguna;
+module.exports = Penggunas;
