@@ -32,24 +32,24 @@ function ScrapUpdateOff() {
 
 async function StatusDB(res) {
   const Status = await CekStatusDB();
-  switch (Status) {
+  switch (Status.state) {
     case 0:
-      console.log("Terjadi Kesalahan, Tidak Dapat Terhubung");
+      console.log(Status.caption);
       HubungkanDatabase();
       res = 0;
       break;
     case 1:
-      console.log("Berhasil Terhubung");
+      console.log(Status.caption);
       clearInterval(StatusDB);
       ScrapHargaProduk();
       res = 1;
       break;
     case 2:
-      console.log("Sedang Menghubungkan...");
+      console.log(Status.caption);
       res = 2;
       break;
     case 3:
-      console.log("Koneksi Terputus, Mencoba Menghubungkan Kembali...");
+      console.log(Status.caption);
       HubungkanDatabase();
       res = 3;
       break;

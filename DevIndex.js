@@ -1,11 +1,18 @@
-const HubungkanDatabase = require("./Function/Routes/HubungkanDatabase"); // import Fungsi untuk Koneksi ke DataBase
+const readline = require("readline").createInterface({
+  input: process.stdin,
+  output: process.stdout,
+});
 
+const HubungkanDatabase = require("./Function/Routes/HubungkanDatabase"); // import Fungsi untuk Koneksi ke DataBase
 const Help = require("./Function/Generator/Help");
-const pesan = {
+const Daftar = require("./Function/Generator/Daftar");
+const Terima = require("./Function/Generator/Terima");
+
+let pesan = {
   body: "!help",
   from: "6282178026053@c.us",
 };
-const PesanDiterima = {
+let PesanDiterima = {
   id: {
     fromMe: false,
     remote: "6282246378074@c.us",
@@ -27,7 +34,7 @@ const PesanDiterima = {
   isFromTemplate: false,
   pollInvalidated: false,
   broadcast: false,
-  mentionedJidList: ["62895625865900@c.us"],
+  mentionedJidList: ["62895625865900@c.us", "6282282170805@c.us"],
   isVcardOverMmsDocument: false,
   isForwarded: false,
   hasReaction: false,
@@ -74,6 +81,7 @@ const PesanDiterima = {
 ${req}
 ------------------------------------
     `);
+    AmbilPerintah();
   },
 };
 const group = {
@@ -153,10 +161,18 @@ const group = {
   links: [],
 };
 
+function AmbilPerintah() {
+  readline.question("Perintah : ", (perintah) => {
+    PesanDiterima.body = perintah;
+
+    Kodommo(PesanDiterima);
+  });
+}
+
 PreLaunch();
-async function PreLaunch() {
+function PreLaunch() {
   HubungkanDatabase();
-  Kodommo(PesanDiterima);
+  AmbilPerintah();
 }
 
 async function Kodommo(msg) {
@@ -170,7 +186,6 @@ async function Kodommo(msg) {
         balas = await Help(msg, await msg.getContact());
         msg.reply(balas.caption);
         break;
-
       default: // Jika Perintah tidak Terdaftar
         break;
     } // Verifikasi Perintah yang di Terima

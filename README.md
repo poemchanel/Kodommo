@@ -3,6 +3,21 @@ adalah whatsapp bot
 
 ##ChangeLog
 
+###0.0.9 - 8/9
+
+- Menambahkan/Mengoptimalisasi Fungsi Bot
+  - Perintah !Daftar
+  - Perintah !Terima
+
+###0.0.8 - 7/9
+
+- Rebuild Web Scraping Memudahkan Mengembangkan Fungsi Bot
+  - Perintah !Ping Ditambahkan
+  - Perintah !Help Ditambahkan
+- Menambahkan Fungsi ImportDocument ke DataBase
+- Optimalisasi Objeck di DB
+- Menambahkan Fungsi WebScraping&UpdateHarga Semua Produk
+
 ###0.0.7 - 28/8
 
 - Optimalisasi Cek Konveksi , media .png -> pdf karena file terkompress

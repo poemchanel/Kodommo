@@ -4,16 +4,16 @@ async function CekStatusDB(req, res) {
   const StatusDB = mongoose.connection.readyState; //Ambil status koneksi
   switch (true) {
     case StatusDB == 0: // Status jika Disconected
-      res = 0;
+      res = { state: 0, caption: "Terjadi Kesalahan, DB Tidak Dapat Terhubung" };
       break;
     case StatusDB == 1: // Status jika Connected
-      res = 1;
+      res = { state: 1, caption: "DB Berhasil Terhubung" };
       break;
     case StatusDB == 2: // Status Connecting
-      res = 2;
+      res = { state: 2, caption: "Sedang Menghubungkan ke DB..." };
       break;
     case StatusDB == 3: // Status jika Disconnecting
-      res = 3;
+      res = { state: 3, caption: "Koneksi ke DB Terputus" };
       break;
     default:
       break;
