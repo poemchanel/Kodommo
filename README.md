@@ -3,6 +3,15 @@ adalah whatsapp bot
 
 ##ChangeLog
 
+###0.1.0 - 9/9
+
+- Pre-release Bot :)
+- Menambahkan/Mengoptimalisasi Fungsi Bot
+  - Perintah !Produk
+  - Perintah !Konveksi
+  - Perintah !Undercut
+  - Perintah !Scrap & !Update
+
 ###0.0.9 - 8/9
 
 - Menambahkan/Mengoptimalisasi Fungsi Bot

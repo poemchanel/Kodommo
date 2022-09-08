@@ -13,7 +13,7 @@ async function Terima(pesan, kontak, nomor, res) {
       case "admin":
         const form = await TarikPengguna(nomor);
         if (form.length === 0) {
-          res = { caption: `Nomor @${nomor} belum melakukan pendaftaran` };
+          res = { caption: `Nomor @${nomor} tidak terdaftar` };
         } else {
           switch (form[0].pangkat) {
             case "admin":
@@ -29,7 +29,7 @@ async function Terima(pesan, kontak, nomor, res) {
                 pangkat: "member",
               });
               res = {
-                caption: `Berhasil mengupdate @${form[0].notelepon} dengan pangkat : member`,
+                caption: `Berhasil menerima @${form[0].notelepon} dengan pangkat : member`,
               };
               break;
           }
@@ -39,19 +39,20 @@ async function Terima(pesan, kontak, nomor, res) {
       case "baru":
       case "Kosong":
         res = {
-          nama: pengguna.nama,
-          caption: `Maaf anda tidak dapat mengakses perintah ini`,
+          caption: `╭─「 *Perintah Ditolak* 」
+│Perintah ini hanya dapat diakses :
+│• *Admin*
+│────────────────
+│Status anda saat ini : ${pengguna.pangkat}
+╰────────────────`,
         };
         break;
       default: //Kontak Tidak Memiliki Pangkat
-        res = {
-          nama: pengguna.nama,
-          caption: `Terjadi kesalahan terhadap kontak anda, Segera hubungi Admin`,
-        };
+        res = { caption: `Terjadi kesalahan terhadap kontak ${kontak.number}, Segera hubungi Admin` };
         break;
     } // Cek Pangkat Pengirim Pesan
   } else {
-    res = { nama: kontak.number, caption: "Maaf Bot sedang dalam Maintenence.." };
+    res = { caption: `Maaf ${kontak.number}, Bot sedang dalam Maintenence..` };
   }
   return res;
 }

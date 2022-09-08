@@ -6,7 +6,8 @@ const readline = require("readline").createInterface({
 const HubungkanDatabase = require("./Function/Routes/HubungkanDatabase"); // import Fungsi untuk Koneksi ke DataBase
 const Help = require("./Function/Generator/Help");
 const Daftar = require("./Function/Generator/Daftar");
-const Terima = require("./Function/Generator/Terima");
+const Produk = require("./Function/Generator/Produk");
+const ScrapdanUpdate = require("./Function/Generator/ScrapdanUpdate");
 
 let pesan = {
   body: "!help",
@@ -91,8 +92,7 @@ const group = {
       remote: "120363043606962064@g.us",
       id: "E64B9108C21CBDBAEEFBB51DC3129610",
       participant: "6282246378074@c.us",
-      _serialized:
-        "false_120363043606962064@g.us_E64B9108C21CBDBAEEFBB51DC3129610_6282246378074@c.us",
+      _serialized: "false_120363043606962064@g.us_E64B9108C21CBDBAEEFBB51DC3129610_6282246378074@c.us",
     },
     body: pesan.body,
     type: "chat",
@@ -130,8 +130,7 @@ const group = {
     remote: "120363043606962064@g.us",
     id: "E64B9108C21CBDBAEEFBB51DC3129610",
     participant: "6282246378074@c.us",
-    _serialized:
-      "false_120363043606962064@g.us_E64B9108C21CBDBAEEFBB51DC3129610_6282246378074@c.us",
+    _serialized: "false_120363043606962064@g.us_E64B9108C21CBDBAEEFBB51DC3129610_6282246378074@c.us",
   },
   ack: 1,
   hasMedia: false,
@@ -186,7 +185,19 @@ async function Kodommo(msg) {
         balas = await Help(msg, await msg.getContact());
         msg.reply(balas.caption);
         break;
+      case msg.body.toLowerCase().startsWith("!produk"): // Cek Produk
+        balas = await Produk(msg, await msg.getContact());
+        for (let i = 0; i < balas.length; i++) {
+          msg.reply(balas[i].caption);
+        }
+        break;
+      case msg.body.toLowerCase().startsWith("!update"):
+      case msg.body.toLowerCase().startsWith("!scrap"):
+        balas = await ScrapdanUpdate(msg, await msg.getContact());
+        msg.reply(balas.caption);
+        break;
       default: // Jika Perintah tidak Terdaftar
+        msg.reply("Perintah tidak Terdaftar");
         break;
     } // Verifikasi Perintah yang di Terima
   } // Verifikasi jika Pesan Merupakan Perintah

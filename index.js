@@ -6,6 +6,10 @@ const Ping = require("./Function/Generator/Ping");
 const Help = require("./Function/Generator/Help");
 const Daftar = require("./Function/Generator/Daftar");
 const Terima = require("./Function/Generator/Terima");
+const Produk = require("./Function/Generator/Produk");
+const Konveksi = require("./Function/Generator/Konveksi");
+const Undercut = require("./Function/Generator/Undercut");
+const ScrapdanUpdate = require("./Function/Generator/ScrapdanUpdate");
 
 PreLaunch();
 async function PreLaunch() {
@@ -41,7 +45,7 @@ async function Kodommo() {
           msg.reply("pong");
           break;
         case msg.body.toLowerCase() === "!help": // Cek Perintah yang Tersedia
-          balas = await Help(msg, await msg.getContact());
+          balas = await Help(await msg.getContact());
           msg.reply(balas.caption);
           break;
         case msg.body.toLowerCase().startsWith("!daftar"): // Untuk apakah bot membalas
@@ -49,7 +53,7 @@ async function Kodommo() {
             for (let i = 0; i < msg.mentionedIds.length; i++) {
               let mentionid = await WaBot.getNumberId(msg.mentionedIds[i]);
               let contact = await WaBot.getContactById(mentionid._serialized);
-              balas = await Daftar(msg, contact);
+              balas = await Daftar(contact);
               msg.reply(balas.caption, undefined, { mentions: [contact] });
             }
           } else {
@@ -69,7 +73,41 @@ async function Kodommo() {
             msg.reply(`Harap tag kontak yang ingin diterima. cth: !daftar @kontak`);
           }
           break;
+        case msg.body.toLowerCase().startsWith("!produk"): // Cek Produk
+          balas = await Produk(msg, await msg.getContact());
+          for (let i = 0; i < balas.length; i++) {
+            msg.reply(balas[i].caption);
+          }
+          break;
+        case msg.body.toLowerCase().startsWith("!konveksi"): // Cek Produk
+          balas = await Konveksi(msg, await msg.getContact());
+          for (let i = 0; i < balas.length; i++) {
+            if (balas[i].status !== "gagal") {
+              let konveksipdf = MessageMedia.fromFilePath(`${balas[i].status}`);
+              msg.reply(konveksipdf, undefined, { caption: `${balas[i].caption}` });
+            } else {
+              msg.reply(balas[i].caption);
+            }
+          }
+          break;
+        case msg.body.toLowerCase().startsWith("!undercut"):
+          balas = await Undercut(msg, await msg.getContact());
+          for (let i = 0; i < balas.length; i++) {
+            if (balas[i].status !== "gagal") {
+              let undercut = MessageMedia.fromFilePath(`${balas[i].status}`);
+              msg.reply(undercut, undefined, { caption: balas[i].caption });
+            } else {
+              msg.reply(balas[i].caption);
+            }
+          }
+          break;
+        case msg.body.toLowerCase().startsWith("!update"):
+        case msg.body.toLowerCase().startsWith("!scrap"):
+          balas = await ScrapdanUpdate(msg, await msg.getContact());
+          msg.reply(balas.caption);
+          break;
         default: // Jika Perintah tidak Terdaftar
+          msg.reply("Perintah tidak Terdaftar");
           break;
       } // Verifikasi Perintah yang di Terima
     } // Verifikasi jika Pesan Merupakan Perintah

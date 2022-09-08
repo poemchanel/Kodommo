@@ -16,7 +16,7 @@ const produkSchema = new mongoose.Schema(
         namapesaing: String,
         linkpesaing: String,
         linkpesaingstatus: String,
-        hargapesaing: String,
+        hargapesaing: Number,
         hargapesaingmin: Boolean,
       },
     ],

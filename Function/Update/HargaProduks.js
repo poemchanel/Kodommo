@@ -5,71 +5,45 @@ puppeteer.use(require("puppeteer-extra-plugin-anonymize-ua")());
 puppeteer.use(StealthPlugin());
 puppeteer.use(AdblockerPlugin({ blockTrackers: true }));
 
-const HubungkanDatabase = require("../Routes/HubungkanDatabase");
-const CekStatusDB = require("../Routes/CekStatusDB");
 const TarikProduks = require("../Routes/TarikProduks");
 const UpdateProduk = require("../Routes/UpdateProduk");
 
 let ScrapUpdate = false;
-ScrapUpdateOn();
 
 function ScrapUpdateCek(res) {
-  res = ScrapUpdate;
+  if (ScrapUpdate === true) {
+    res = `Status Scrap dan Update Aktif`;
+  } else {
+    res = `Status Scrap dan Update NonAktif`;
+  }
   return res;
 }
-async function ScrapUpdateOn() {
-  ScrapUpdate = true;
-  console.log(`Status ScrapUpdate ${ScrapUpdate}`);
-  let Status = await StatusDB();
-  if (Status !== 1) {
-    setTimeout(ScrapUpdateOn, 5000);
+async function ScrapUpdateOn(res) {
+  if (ScrapUpdate === false) {
+    ScrapUpdate = true;
+    ScrapHargaProduk();
+    res = `Mengaktifkan Scrap dan Update`;
+  } else {
+    res = `Status Telah Aktif`;
   }
+  return res;
 }
-function ScrapUpdateOff() {
+function ScrapUpdateOff(res) {
   ScrapUpdate = false;
-  console.log(`Status ScrapUpdate ${ScrapUpdate}`);
-}
-
-async function StatusDB(res) {
-  const Status = await CekStatusDB();
-  switch (Status.state) {
-    case 0:
-      console.log(Status.caption);
-      HubungkanDatabase();
-      res = 0;
-      break;
-    case 1:
-      console.log(Status.caption);
-      clearInterval(StatusDB);
-      ScrapHargaProduk();
-      res = 1;
-      break;
-    case 2:
-      console.log(Status.caption);
-      res = 2;
-      break;
-    case 3:
-      console.log(Status.caption);
-      HubungkanDatabase();
-      res = 3;
-      break;
-    default:
-      break;
-  }
+  res = `Menonaktifkan Scrap dan Update`;
   return res;
 }
 
 async function ScrapHargaProduk() {
   console.log("Persiapan Data Produk Dimulai");
   const Produks = await TarikProduks();
-
   if (Produks.length !== 0) {
     let i = 0;
     ProduksLoop();
     async function ProduksLoop() {
       let Berhasil = 1;
       let data = Produks[i];
-      const browser = await puppeteer.launch({ headless: true }); // Membuka Browser
+      const browser = await puppeteer.launch({ headless: false }); // Membuka Browser
       try {
         const page = await browser.newPage(); // Membuka Tab Baru di Browser
         console.log(`Update Produk ${i} : ${data.kodebarang} - ${data.namabarang}`);
@@ -98,9 +72,7 @@ async function ScrapHargaProduk() {
             } else {
               data.hargaproduk = value;
             }
-            console.log(
-              `Status Link Produk ${data.kodebarang} Aktif - Harga Berhasil didapatkan : Rp.${value}`
-            );
+            console.log(`Status Link Produk ${data.kodebarang} Aktif - Harga Berhasil didapatkan : Rp.${value}`);
           }
         } else {
           data.linkstatus = "Kosong";
