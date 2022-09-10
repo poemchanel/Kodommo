@@ -18,6 +18,9 @@ function ScrapUpdateCek(res) {
   }
   return res;
 }
+// const HubungkanDatabase = require("../Routes/HubungkanDatabase");
+// HubungkanDatabase();
+// ScrapUpdateOn();
 async function ScrapUpdateOn(res) {
   if (ScrapUpdate === false) {
     ScrapUpdate = true;
@@ -147,6 +150,7 @@ async function ScrapHargaProduk() {
         const UpdateStatus = await UpdateProduk(data);
         console.log(UpdateStatus);
       } catch (error) {
+        console.log(error);
         console.log(
           `Shopee Menghentikan Proses Scraping!
 Proses Scraping akan dilanjutkan kembali setelah 90 detik...`
@@ -165,6 +169,7 @@ Proses Scraping akan dilanjutkan kembali setelah 90 detik...`
           UlangiScrap();
         }
       } else {
+        // i++;
         setTimeout(() => {
           if (i < Produks.length) {
             if (ScrapUpdate === true) {
