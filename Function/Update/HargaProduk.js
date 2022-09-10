@@ -10,10 +10,10 @@ const UpdateProduk = require("../Routes/UpdateProduk");
 async function HargaProduk(Produks, res) {
   let log = [];
   let data = Produks[0];
-  const browser = await puppeteer.launch({ headless: false }); // Membuka Browser
+  const browser = await puppeteer.launch({ headless: true }); // Membuka Browser
   try {
     const page = await browser.newPage(); // Membuka Tab Baru di Browser
-    log.push(`Memulai Update : ${data.konveksi}-${data.kodebarang}`);
+    log.push(`│Memulai Update: ${data.konveksi}-${data.kodebarang}`);
     if (data.linkproduk !== "-") {
       await page.goto(data.linkproduk);
       try {
@@ -21,7 +21,7 @@ async function HargaProduk(Produks, res) {
         let statusclass = await page.$("[class='_1WIqzi']");
         let statusvalue = await page.evaluate((el) => el.textContent, statusclass);
         data.linkstatus = statusvalue;
-        log.push(`->Produk ${data.kodebarang} link ${statusvalue}`);
+        log.push(`│->Produk link ${statusvalue}`);
       } catch (error) {
         try {
           await page.waitForSelector("[class='_2Shl1j']");
@@ -39,16 +39,16 @@ async function HargaProduk(Produks, res) {
           } else {
             data.hargaproduk = value;
           }
-          data.linkstatus = "aktif";
-          log.push(`->Produk ${data.kodebarang} link Aktif - Harga : Rp.${value}`);
+          data.linkstatus = "Aktif";
+          log.push(`│->Produk link Aktif\n│   ╰ Harga: Rp.${value}`);
         } catch (error) {
           data.linkstatus = "Bermasalah";
-          log.push(`->Produk ${data.kodebarang} link Bermasalah`);
+          log.push(`│->Produk link Bermasalah`);
         }
       }
     } else {
       data.linkstatus = "Kosong";
-      log.push(`->Produk ${data.kodebarang} link Kosong`);
+      log.push(`│->Produk link Kosong`);
     }
     if (data.pesaing[0].linkpesaing != "-") {
       await page.goto(data.pesaing[0].linkpesaing);
@@ -57,7 +57,7 @@ async function HargaProduk(Produks, res) {
         let statusclass0 = await page.$("[class='_1WIqzi']");
         let statusvalue0 = await page.evaluate((el) => el.textContent, statusclass0);
         data.pesaing[0].linkpesaingstatus = statusvalue0;
-        log.push(`->Pesaing ${data.pesaing[0].namapesaing} link ${statusvalue0}`);
+        log.push(`│->Pesaing ${data.pesaing[0].namapesaing} link ${statusvalue0}`);
       } catch (error) {
         try {
           await page.waitForSelector("[class='_2Shl1j']");
@@ -75,16 +75,16 @@ async function HargaProduk(Produks, res) {
           } else {
             data.pesaing[0].hargapesaing = value0;
           }
-          data.pesaing[0].linkpesaingstatus = "aktif";
-          log.push(`->Pesaing ${data.pesaing[0].namapesaing} link Aktif - Harga : Rp.${value0}`);
+          data.pesaing[0].linkpesaingstatus = "Aktif";
+          log.push(`│->Pesaing ${data.pesaing[0].namapesaing} link Aktif\n│   ╰ Harga : Rp.${value0}`);
         } catch (error) {
           data.pesaing[0].linkpesaingstatus = "Bermasalah";
-          log.push(`->Pesaing ${data.pesaing[0].namapesaing} link Bermasalah`);
+          log.push(`│->Pesaing ${data.pesaing[0].namapesaing} link Bermasalah`);
         }
       }
     } else {
       data.pesaing[0].linkpesaingstatus = "Kosong";
-      log.push(`->Pesaing ${data.pesaing[0].namapesaing} link Kosong`);
+      log.push(`│->Pesaing ${data.pesaing[0].namapesaing} link Kosong`);
     }
     if (data.pesaing[1].linkpesaing != "-") {
       await page.goto(data.pesaing[1].linkpesaing);
@@ -93,7 +93,7 @@ async function HargaProduk(Produks, res) {
         let statusclass1 = await page.$("[class='_1WIqzi']");
         let statusvalue1 = await page.evaluate((el) => el.textContent, statusclass1);
         data.pesaing[1].linkpesaingstatus = statusvalue1;
-        log.push(`->Pesaing ${data.pesaing[1].namapesaing} link ${statusvalue1}`);
+        log.push(`│->Pesaing ${data.pesaing[1].namapesaing} link ${statusvalue1}`);
       } catch (error) {
         try {
           await page.waitForSelector("[class='_2Shl1j']");
@@ -111,16 +111,16 @@ async function HargaProduk(Produks, res) {
           } else {
             data.pesaing[1].hargapesaing = value1;
           }
-          data.pesaing[1].linkpesaingstatus = "aktif";
-          log.push(`->Pesaing ${data.pesaing[1].namapesaing} link Aktif - Harga : Rp.${value1}`);
+          data.pesaing[1].linkpesaingstatus = "Aktif";
+          log.push(`│->Pesaing ${data.pesaing[1].namapesaing} link Aktif\n│   ╰ Harga : Rp.${value1}`);
         } catch (error) {
           data.pesaing[1].linkpesaingstatus = "Bermasalah";
-          log.push(`->Pesaing ${data.pesaing[1].namapesaing} link Bermasalah`);
+          log.push(`│->Pesaing ${data.pesaing[1].namapesaing} link Bermasalah`);
         }
       }
     } else {
       data.pesaing[1].linkpesaingstatus = "Kosong";
-      log.push(`->Pesaing ${data.pesaing[1].namapesaing} link Kosong`);
+      log.push(`│->Pesaing ${data.pesaing[1].namapesaing} link Kosong`);
     }
     const UpdateStatus = await UpdateProduk(data);
     log.push(UpdateStatus);

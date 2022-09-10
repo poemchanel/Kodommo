@@ -20,38 +20,63 @@ async function Konveksi(pesan, kontak, res) {
               if (produks.length !== 0) {
                 const render = await RenderProduksKonveksiPDF(produks, tmp[i]);
 
-                res.push({ status: render, caption: `Tes` });
+                res.push({ status: render, caption: `Konveksi` });
               } else {
-                res.push({ status: "gagal", caption: `Tidak dapat menemukan konvekesi dengan kode : ${tmp[i]}` });
+                res.push({
+                  status: "gagal",
+                  caption: `╭──「 *Perintah Gagal* 」
+│Tidak dapat menemukan konveksi
+│dengan kode : ${tmp[i]}
+╰───────────────`,
+                });
               }
             }
           }
         } else {
           res.push({
             status: "gagal",
-            caption: `Harap masukan kode konveksi setelah !konveksi. cth: !konveksi SONY APEN ...`,
+            caption: `╭──「 *Perintah Gagal* 」
+│Harap masukan kode konveksi
+│setelah perintah !konveksi
+│Contoh: 
+│!konveksi SONY APEN ...
+╰───────────────`,
           });
         }
         break;
       case "Kosong":
-        res.push({ status: "gagal", caption: `Anda belum Terdaftar, Silahkan mendaftar dengan !daftar` });
-        break;
-      case "baru":
-      default: //Kontak Tidak Memiliki Pangkat
         res.push({
           status: "gagal",
-          caption: `╭─「 *Perintah Ditolak* 」
-│Perintah ini hanya dapat diakses :
+          caption: `╭──「 *Perintah Ditolak* 」
+│Anda belum Terdaftar, Silahkan
+│mendaftar dengan !daftar
+╰───────────────`,
+        });
+        break;
+      case "baru":
+      default:
+        res.push({
+          status: "gagal",
+          caption: `╭──「 *Perintah Ditolak* 」
+│Perintah ini hanya dapat 
+│diakses oleh :
 │• *Admin*
 │• *Member*
-│────────────────
+│───────────────
 │Status anda saat ini : ${pengguna.pangkat}
-╰────────────────`,
+╰───────────────`,
         });
         break;
     } // Cek Pangkat Pengirim Pesan
   } else {
-    res.push({ status: "gagal", caption: "Maaf Bot sedang dalam Maintenence.." });
+    res.push({
+      status: "gagal",
+      caption: `╭──「 *Maintenence* 」
+│Mohon Maaf ${kontak.number}, :)
+│Saat ini Bot sedang dalam
+│Maintenence...
+╰───────────────`,
+    });
   }
   return res;
 }

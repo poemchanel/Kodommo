@@ -7,7 +7,7 @@ const HargaProduk = require("../Update/HargaProduk");
 const { HargaKonveksiMulai, HargaKonveksiOff, HargaKonveksiOn, HargaKonveksiCek } = require("../Update/HargaKonveksi");
 const { AutoOff, AutoOn } = require("../Update/HargaProduks");
 
-async function Update(pesan, kontak, nomor, res) {
+async function Update(pesan, kontak, res) {
   const StatusDB = await CekStatusDB();
   if (StatusDB.state === 1) {
     const pengguna = await VerifikasiKontak(kontak);
@@ -24,47 +24,54 @@ async function Update(pesan, kontak, nomor, res) {
             case "CEK":
               status = await HargaKonveksiCek();
               res = {
-                caption: `Status Update Konveksi : ${status.status}
-Berhasil mengupdate ${status.diupdate}/${status.totalproduk}
-Gagal mengupdate ${status.gagal.length}
-Antrian Update Saat ini ${status.antrian}/${status.totalproduk}
-`,
+                caption: `╭──「 *Perintah Berhasil* 」
+│Status Update Konveksi : ${status.status}
+│Berhasil mengupdate ${status.diupdate}/${status.totalproduk}
+│Gagal mengupdate ${status.gagal.length} produk
+│Antrian update saat ini ${status.antrian}/${status.totalproduk}
+╰───────────────`,
               };
               break;
             case "LOG":
               status = await HargaKonveksiCek();
               res = {
-                caption: `Log Update Konveksi :
-${status.log.join(`\r\n`)}`,
+                caption: `╭──「 *Perintah Berhasil* 」
+│Log Update Konveksi :
+${status.log.join(`\n\r`)}
+╰───────────────`,
               };
               break;
             case "GAGAL":
               status = await HargaKonveksiCek();
               res = {
-                caption: `Log Gagal Update Konveksi :
-${status.gagal.join(`\r\n`)}`,
+                caption: `╭──「 *Perintah Berhasil* 」
+│Log produk yang gagal diupdate :${status.gagal.join(`\n│\r`)}
+╰───────────────`,
               };
               break;
             case "ON":
+              status = await HargaKonveksiOff();
               status = await AutoOff();
               await setTimeout(5000);
               status = await HargaKonveksiOn();
               res = {
-                caption: `${status.status}
-  Berhasil mengupdate ${status.diupdate}/${status.totalproduk}
-  Gagal mengupdate ${status.gagal.length}
-  Antrian update saat ini ${status.antrian}/${status.totalproduk}
-  `,
+                caption: `╭──「 *Perintah Berhasil* 」
+│${status.status}
+│Berhasil mengupdate ${status.diupdate}/${status.totalproduk}
+│Gagal mengupdate ${status.gagal.length} produk
+│Antrian update saat ini ${status.antrian}/${status.totalproduk}
+╰───────────────`,
               };
               break;
             case "OFF":
               status = await HargaKonveksiOff();
               res = {
-                caption: `${status.status}
-Berhasil mengupdate ${status.diupdate}/${status.totalproduk}
-Gagal mengupdate ${status.gagal.length}
-Antrian update saat ini ${status.antrian}/${status.totalproduk}
-`,
+                caption: `╭──「 *Perintah Berhasil* 」
+│${status.status}
+│Berhasil mengupdate ${status.diupdate}/${status.totalproduk}
+│Gagal mengupdate ${status.gagal.length} produk
+│Antrian update saat ini ${status.antrian}/${status.totalproduk}
+╰───────────────`,
               };
               break;
             default:
@@ -83,15 +90,19 @@ Antrian update saat ini ${status.antrian}/${status.totalproduk}
                 let update = await HargaProduk(produk);
                 if (update.status === true) {
                   res = {
-                    caption: `Berhasil Mengupdate Produk ${tmp}
-Log:
-${update.log.join(`\r\n`)}`,
+                    caption: `╭──「 *Perintah Berhasil* 」
+│Berhasil Mengupdate Produk ${tmp}
+│Log:
+${update.log.join(`\n\r`)}
+╰───────────────`,
                   };
                 } else {
                   res = {
-                    caption: `Gagal Mengupdate Produk ${tmp}
-Log:
-${update.log.join(`\r\n`)}`,
+                    caption: `╭──「 *Perintah Gagal* 」
+│Gagal Mengupdate Produk ${tmp}
+│Log:
+${update.log.join(`\n\r`)}
+╰───────────────`,
                   };
                 }
                 if (on === "konveksi") {
@@ -107,37 +118,66 @@ ${update.log.join(`\r\n`)}`,
                   await setTimeout(5000);
                   const update = await HargaKonveksiMulai(konveksi, 0);
                   res = {
-                    caption: `${update.status} ${tmp.toUpperCase()}
-Total Porduk ${update.totalproduk}`,
+                    caption: `╭──「 *Perintah Berhasil* 」
+│${update.status} ${tmp.toUpperCase()}
+│Total Porduk ${update.totalproduk}
+╰───────────────`,
                   };
                 } else {
-                  res = { caption: `Tidak dapat menemukan konvekesi/produk dengan kode : ${tmp}` };
+                  res = {
+                    caption: `╭──「 *Perintah Gagal* 」
+│Tidak dapat menemukan produk
+│atau konveksi dengan
+│kode : ${tmp}
+╰───────────────`,
+                  };
                 }
               }
               break;
           }
         } else {
-          res = { caption: `Harap Masukan Konveksi/KodeBarang setelah !update/!scrap. contoh !update D1002` };
+          res = {
+            caption: `╭──「 *Perintah Gagal* 」
+│Harap masukan kode produk
+│atau konveksi setelah 
+│perintah !Update
+│Contoh: 
+│!Update D1008
+╰───────────────`,
+          };
         }
+        break;
+      case "Kosong":
+        res = {
+          caption: `╭──「 *Perintah Ditolak* 」
+│Anda belum Terdaftar, Silahkan
+│mendaftar dengan !daftar
+╰───────────────`,
+        };
         break;
       case "member": // Kontak Berpangkat member
       case "baru":
-      case "Kosong":
+      default:
         res = {
-          caption: `╭─「 *Perintah Ditolak* 」
-│Perintah ini hanya dapat diakses :
+          caption: `╭──「 *Perintah Ditolak* 」
+│Perintah ini hanya dapat 
+│diakses oleh :
 │• *Admin*
-│────────────────
+│• *Member*
+│───────────────
 │Status anda saat ini : ${pengguna.pangkat}
-╰────────────────`,
+╰───────────────`,
         };
-        break;
-      default: //Kontak Tidak Memiliki Pangkat
-        res = { caption: `Terjadi kesalahan terhadap kontak anda, Segera hubungi Admin` };
         break;
     } // Cek Pangkat Pengirim Pesan
   } else {
-    res = { caption: "Maaf Bot sedang dalam Maintenence.." };
+    res = {
+      caption: `╭──「 *Maintenence* 」
+│Mohon Maaf @${kontak.number}, :)
+│Saat ini Bot sedang dalam
+│Maintenence...
+╰───────────────`,
+    };
   }
   return res;
 }

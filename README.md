@@ -3,6 +3,16 @@ adalah whatsapp bot
 
 ##ChangeLog
 
+##0.1.2 - 11/9
+
+- Fix
+  - Tampilan Text reply
+  - Double instance puppeteer
+  - Log view format
+- Menambahkan Fungsi Bot
+  - Kirim informsi saat Auto update selesai
+  - Kirim informasi saat Update Konveksi selesai
+
 ###0.1.1 - 10/9
 
 - Fix

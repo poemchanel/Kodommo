@@ -23,7 +23,7 @@ let berhenti = 0;
 function AutoCek(res) {
   if (ScrapUpdate === true) {
     res = {
-      status: `Status Auto Scrap dan Update Aktif`,
+      status: `│Status Auto Scrap\n│dan Update Aktif`,
       log: log,
       diupdate: updated,
       totalproduk: produklength,
@@ -32,7 +32,7 @@ function AutoCek(res) {
     };
   } else {
     res = {
-      status: `Status Auto Scrap dan Update NonAktif`,
+      status: `│Status Auto Scrap\n│dan Update NonAktif`,
       log: log,
       diupdate: updated,
       totalproduk: produklength,
@@ -47,7 +47,7 @@ function AutoOn(res) {
     ScrapUpdate = true;
     ScrapHargaProduk();
     res = {
-      status: `Mengaktifkan Auto Scrap dan Update`,
+      status: `│Mengaktifkan Auto\n│Scrap dan Update`,
       log: log,
       diupdate: updated,
       totalproduk: produklength,
@@ -55,7 +55,7 @@ function AutoOn(res) {
     };
   } else {
     res = {
-      status: `Status Auto Scrap dan Update Telah Aktif`,
+      status: `│Status Auto Scrap\n│dan Update Telah Aktif`,
       log: log,
       diupdate: updated,
       totalproduk: produklength,
@@ -67,7 +67,7 @@ function AutoOn(res) {
 function AutoOff(res) {
   ScrapUpdate = false;
   res = {
-    status: `Menonaktifkan Auto Scrap dan Update`,
+    status: `│Menonaktifkan Auto Scrap\n│dan Update`,
     log: log,
     diupdate: updated,
     totalproduk: produklength,
@@ -77,7 +77,7 @@ function AutoOff(res) {
 }
 function AutoSelesai(res) {
   res = {
-    nomor: "6282246378074@c.us",
+    nomor: "120363043606962064@g.us",
     status: `Auto Update Selesai`,
     log: log,
     diupdate: updated,
@@ -98,7 +98,7 @@ function Restart() {
 }
 async function ScrapHargaProduk() {
   berhenti = 0;
-  log.push("Persiapan Data Produk Dimulai");
+  log.push("│Persiapan Data Produk Dimulai");
   const Produks = await TarikProduks();
   produklength = Produks.length;
   if (Produks.length !== 0) {
@@ -111,10 +111,10 @@ async function ScrapHargaProduk() {
       queue = i;
       let data = Produks[i];
       if (ScrapUpdate === true) {
-        const browser = await puppeteer.launch({ headless: false }); // Membuka Browser
+        const browser = await puppeteer.launch({ headless: true }); // Membuka Browser
         try {
           const page = await browser.newPage(); // Membuka Tab Baru di Browser
-          log.push(`Memulai Update ${i}: ${data.konveksi}-${data.kodebarang}`);
+          log.push(`│Memulai Update ${i}: ${data.konveksi}-${data.kodebarang}`);
           if (ScrapUpdate === true) {
             if (data.linkproduk !== "-") {
               await page.goto(data.linkproduk);
@@ -123,7 +123,7 @@ async function ScrapHargaProduk() {
                 let statusclass = await page.$("[class='_1WIqzi']");
                 let statusvalue = await page.evaluate((el) => el.textContent, statusclass);
                 data.linkstatus = statusvalue;
-                log.push(`->Produk ${data.kodebarang} link ${statusvalue}`);
+                log.push(`│->Produk ${data.kodebarang} link ${statusvalue}`);
               } catch (error) {
                 try {
                   await page.waitForSelector("[class='_2Shl1j']");
@@ -141,16 +141,16 @@ async function ScrapHargaProduk() {
                   } else {
                     data.hargaproduk = value;
                   }
-                  data.linkstatus = "aktif";
-                  log.push(`->Produk ${data.kodebarang} link Aktif - Harga : Rp.${value}`);
+                  data.linkstatus = "Aktif";
+                  log.push(`│->Produk ${data.kodebarang} link Aktif\n│   ╰ Harga : Rp.${value}`);
                 } catch (error) {
                   data.linkstatus = "Bermasalah";
-                  log.push(`->Produk ${data.kodebarang} link Bermasalah`);
+                  log.push(`│->Produk ${data.kodebarang} link Bermasalah`);
                 }
               }
             } else {
               data.linkstatus = "Kosong";
-              log.push(`->Produk ${data.kodebarang} link Kosong`);
+              log.push(`│->Produk ${data.kodebarang} link Kosong`);
             }
           } else {
             berhenti = berhenti + 1;
@@ -163,7 +163,7 @@ async function ScrapHargaProduk() {
                 let statusclass0 = await page.$("[class='_1WIqzi']");
                 let statusvalue0 = await page.evaluate((el) => el.textContent, statusclass0);
                 data.pesaing[0].linkpesaingstatus = statusvalue0;
-                log.push(`->Pesaing ${data.pesaing[0].namapesaing} link ${statusvalue0}`);
+                log.push(`│->Pesaing ${data.pesaing[0].namapesaing} link ${statusvalue0}`);
               } catch (error) {
                 try {
                   await page.waitForSelector("[class='_2Shl1j']");
@@ -181,16 +181,16 @@ async function ScrapHargaProduk() {
                   } else {
                     data.pesaing[0].hargapesaing = value0;
                   }
-                  data.pesaing[0].linkpesaingstatus = "aktif";
-                  log.push(`->Pesaing ${data.pesaing[0].namapesaing} link Aktif - Harga : Rp.${value0}`);
+                  data.pesaing[0].linkpesaingstatus = "Aktif";
+                  log.push(`│->Pesaing ${data.pesaing[0].namapesaing} link Aktif\n│   ╰ Harga : Rp.${value0}`);
                 } catch (error) {
                   data.pesaing[0].linkpesaingstatus = "Bermasalah";
-                  log.push(`->Pesaing ${data.pesaing[0].namapesaing} link Bermasalah`);
+                  log.push(`│->Pesaing ${data.pesaing[0].namapesaing} link Bermasalah`);
                 }
               }
             } else {
               data.pesaing[0].linkpesaingstatus = "Kosong";
-              log.push(`->Pesaing ${data.pesaing[0].namapesaing} link Kosong`);
+              log.push(`│->Pesaing ${data.pesaing[0].namapesaing} link Kosong`);
             }
           } else {
             berhenti = berhenti + 1;
@@ -203,7 +203,7 @@ async function ScrapHargaProduk() {
                 let statusclass1 = await page.$("[class='_1WIqzi']");
                 let statusvalue1 = await page.evaluate((el) => el.textContent, statusclass1);
                 data.pesaing[1].linkpesaingstatus = statusvalue1;
-                log.push(`->Pesaing ${data.pesaing[1].namapesaing} link ${statusvalue1}`);
+                log.push(`│->Pesaing ${data.pesaing[1].namapesaing} link ${statusvalue1}`);
               } catch (error) {
                 try {
                   await page.waitForSelector("[class='_2Shl1j']");
@@ -221,16 +221,16 @@ async function ScrapHargaProduk() {
                   } else {
                     data.pesaing[1].hargapesaing = value1;
                   }
-                  data.pesaing[1].linkpesaingstatus = "aktif";
-                  log.push(`->Pesaing ${data.pesaing[1].namapesaing} link Aktif - Harga : Rp.${value1}`);
+                  data.pesaing[1].linkpesaingstatus = "Aktif";
+                  log.push(`│->Pesaing ${data.pesaing[1].namapesaing} link Aktif\n│   ╰ Harga : Rp.${value1}`);
                 } catch (error) {
                   data.pesaing[1].linkpesaingstatus = "Bermasalah";
-                  log.push(`->Pesaing ${data.pesaing[1].namapesaing} link Bermasalah`);
+                  log.push(`│->Pesaing ${data.pesaing[1].namapesaing} link Bermasalah`);
                 }
               }
             } else {
               data.pesaing[1].linkpesaingstatus = "Kosong";
-              log.push(`->Pesaing ${data.pesaing[1].namapesaing} link Kosong`);
+              log.push(`│->Pesaing ${data.pesaing[1].namapesaing} link Kosong`);
             }
           } else {
             berhenti = berhenti + 1;
@@ -244,7 +244,7 @@ async function ScrapHargaProduk() {
           }
         } catch (error) {
           console.log(error);
-          log.push(`Proses scraping terhenti! melanjutkan proses setelah 90 detik...`);
+          log.push(`│Proses scraping terhenti!\n│melanjutkan ulang proses\n│setelah 90 detik...`);
           Berhasil = 0;
         }
         await browser.close();
@@ -276,7 +276,7 @@ async function ScrapHargaProduk() {
       }
     }
     function UlangiScrap() {
-      log.push(`Berhasil MenScraping dan Mengupdate ${i} Produk\nMengulagi Proses Dalam 30m...`);
+      log.push(`│Berhasil MenScraping dan\nMengupdate ${i} Produk\nMengulang Proses Dalam 30m...`);
       finish = true;
       setTimeout(Restart, 1800000);
     }

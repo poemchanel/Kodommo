@@ -10,28 +10,54 @@ async function Daftar(kontak, res) {
       case "superadmin":
       case "admin":
       case "member": // Kontak Berpangkat member
-        res = { caption: `@${kontak.number} telah terdaftar dengan Pangkat : ${pengguna.pangkat}` };
+        res = {
+          caption: `╭──「 *Perintah Gagal* 」
+│Kontak @${kontak.number} 
+│Telah terdaftar dengan 
+│Pangkat : ${pengguna.pangkat}
+╰───────────────`,
+        };
         break;
       case "baru":
-        res = { caption: `Form pendaftaran @${kontak.number} telah diterima, Harap tunggu konfirmasi dari Admin` };
+        res = {
+          caption: `╭──「 *Perintah Gagal* 」
+│Kontak @${kontak.number} 
+│Telah terdaftar, Harap hubungi 
+│admin untuk proses penerimaan
+╰───────────────`,
+        };
         break;
       case "Kosong":
         const daftar = await TambahPengguna(kontak);
         res = {
-          caption: `╭─「 *Berhasil Mendaftarkan* 」  : 
+          caption: `╭──「 *Perintah Berhasil* 」 
+│Berhasil Mendaftarkan @${kontak.number}
 │• *Nama* : ${kontak.pushname}
 │• *Nomor* : ${kontak.number}
-│────────────────
-│Silahkan hubungi Admin untuk konfirmasi 
-╰────────────────`,
+│───────────────
+│Silahkan hubungi Admin untuk
+│proses penerimaan
+╰───────────────`,
         };
         break;
       default: //Kontak Tidak Memiliki Pangkat
-        res = { caption: `Terjadi kesalahan terhadap kontak ${kontak.number}, Segera hubungi Admin` };
+        res = {
+          caption: `╭──「 *Perintah Gagal* 」
+│Terjadi kesalahan terhadap 
+│kontak @${kontak.number}, Segera 
+│hubungi Admin
+╰───────────────`,
+        };
         break;
     } // Cek Pangkat Pengirim Pesan
   } else {
-    res = { caption: `Maaf ${kontak.number}, Bot sedang dalam Maintenence..` };
+    res = {
+      caption: `╭──「 *Maintenence* 」
+│Mohon Maaf ${kontak.number}, :)
+│Saat ini Bot sedang dalam
+│Maintenence...
+╰───────────────`,
+    };
   }
 
   return res;

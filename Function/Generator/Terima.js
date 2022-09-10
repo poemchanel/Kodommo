@@ -13,14 +13,23 @@ async function Terima(pesan, kontak, nomor, res) {
       case "admin":
         const form = await TarikPengguna(nomor);
         if (form.length === 0) {
-          res = { caption: `Nomor @${nomor} tidak terdaftar` };
+          res = {
+            caption: `╭──「 *Perintah Gagal* 」
+│Kontak @${nomor} 
+│Belum melakukan pendaftaran 
+╰───────────────`,
+          };
         } else {
           switch (form[0].pangkat) {
             case "admin":
             case "superadmin":
             case "member":
               res = {
-                caption: `Nomor @${form[0].notelepon} telah terdaftar dengan pangkat : ${form[0].pangkat}`,
+                caption: `╭──「 *Perintah Gagal* 」
+│Kontak @${form[0].notelepon} 
+│Telah terdaftar dengan 
+│Pangkat : ${form[0].pangkat}
+╰───────────────`,
               };
               break;
             default:
@@ -29,7 +38,11 @@ async function Terima(pesan, kontak, nomor, res) {
                 pangkat: "member",
               });
               res = {
-                caption: `Berhasil menerima @${form[0].notelepon} dengan pangkat : member`,
+                caption: `╭──「 *Perintah Berhasil* 」
+│Berhasil menerima
+│Kontak @${form[0].notelepon} 
+│dengan pangkat : member
+╰───────────────`,
               };
               break;
           }
@@ -39,20 +52,33 @@ async function Terima(pesan, kontak, nomor, res) {
       case "baru":
       case "Kosong":
         res = {
-          caption: `╭─「 *Perintah Ditolak* 」
-│Perintah ini hanya dapat diakses :
+          caption: `╭──「 *Perintah Ditolak* 」
+│Perintah ini hanya dapat 
+│diakses oleh :
 │• *Admin*
-│────────────────
+│───────────────
 │Status anda saat ini : ${pengguna.pangkat}
-╰────────────────`,
+╰───────────────`,
         };
         break;
       default: //Kontak Tidak Memiliki Pangkat
-        res = { caption: `Terjadi kesalahan terhadap kontak ${kontak.number}, Segera hubungi Admin` };
+        res = {
+          caption: `╭──「 *Perintah Gagal* 」
+│Terjadi kesalahan terhadap 
+│kontak @${kontak.number}, Segera 
+│hubungi Admin
+╰───────────────`,
+        };
         break;
     } // Cek Pangkat Pengirim Pesan
   } else {
-    res = { caption: `Maaf ${kontak.number}, Bot sedang dalam Maintenence..` };
+    res = {
+      caption: `╭──「 *Maintenence* 」
+│Mohon Maaf @${kontak.number}, :)
+│Saat ini Bot sedang dalam
+│Maintenence...
+╰───────────────`,
+    };
   }
   return res;
 }

@@ -11,6 +11,8 @@ const Konveksi = require("./Function/Generator/Konveksi");
 const Undercut = require("./Function/Generator/Undercut");
 const Update = require("./Function/Generator/Update");
 const Auto = require("./Function/Generator/Auto");
+
+// Notifikasi
 const { AutoSelesai } = require("./Function/Update/HargaProduks");
 const { KonveksiSelesai } = require("./Function/Update/HargaKonveksi");
 
@@ -45,7 +47,7 @@ async function Kodommo() {
       switch (true) {
         case msg.body.toLowerCase().startsWith("!ping"):
           generator = await Ping(msg, await msg.getContact());
-          msg.reply("pong");
+          msg.reply("Pong");
           break;
         case msg.body.toLowerCase() === "!help": // Cek Perintah yang Tersedia
           balas = await Help(await msg.getContact());
@@ -60,7 +62,7 @@ async function Kodommo() {
               msg.reply(balas.caption, undefined, { mentions: [contact] });
             }
           } else {
-            balas = await Daftar(msg, await msg.getContact());
+            balas = await Daftar(await msg.getContact());
             msg.reply(balas.caption, undefined, { mentions: [await msg.getContact()] }); // Membalas Pesan
           }
           break;
@@ -73,7 +75,11 @@ async function Kodommo() {
               msg.reply(balas.caption, undefined, { mentions: [contact] });
             }
           } else {
-            msg.reply(`Harap tag kontak yang ingin diterima. cth: !daftar @kontak`);
+            msg.reply(`╭──「 *Perintah Gagal* 」
+│Harap tag kontak yang 
+│ingin diterima. 
+│cth: !daftar @kontak
+╰───────────────`);
           }
           break;
         case msg.body.toLowerCase().startsWith("!produk"): // Cek Produk
@@ -133,20 +139,26 @@ async function Kodommo() {
     if (selesai.selesai === true) {
       WaBot.sendMessage(
         selesai.nomor,
-        `${selesai.status}
-Berhasil Mengupdate ${selesai.diupdate}/${selesai.totalproduk}`
+        `╭──「 *Informasi Update* 」
+│${selesai.status}
+│Berhasil Mengupdate ${selesai.diupdate}/${selesai.totalproduk} produk
+╰───────────────`
       );
     }
   }
   setInterval(CekKonveksiSelesai, 30000);
   async function CekKonveksiSelesai() {
     let selesai = await KonveksiSelesai();
-    console.log(`Auto Selesai : ${selesai.selesai}`);
+    console.log(`Konveksi Selesai : ${selesai.selesai}`);
     if (selesai.selesai === true) {
       WaBot.sendMessage(
         selesai.nomor,
-        `${selesai.status}
-Berhasil Mengupdate ${selesai.diupdate}/${selesai.totalproduk}`
+        `╭──「 *Informasi Update* 」
+│${selesai.status}
+│Total Produk ${selesai.totalproduk}
+│Berhasil Mengupdate ${selesai.diupdate} produk
+│Gagal Mengupdate ${selesai.failed.length} produk
+╰───────────────`
       );
     }
   }

@@ -9,50 +9,69 @@ async function Help(kontak, res) {
       case "superadmin":
       case "admin":
         res = {
-          caption: `╭─「 *Daftar Perintah ${pengguna.pangkat}* 」
-│• *!Ping* : Cek status Bot
-│• *!Help* : Menampilkan list perintah
-│• *!Daftar* <Tag> : Daftarkan pengguna
-│• *!Terima* <Tag> : Terima form pendaftaran
-│• *!Produk* <KodeProduk> : Detail produk
-│• *!Konveksi* <KodeKonveksi> : List harga produk
-│• *!Undercut* <KodeKonveksi> : List harga produk Undercuted
-│• *!Scrap* <Perintah> : Scraping dan Update harga
-│• *!Update* <Perintah> : Scraping dan Update harga
-╰────────────────`,
+          caption: `╭──「 *Daftar Perintah ${pengguna.pangkat}* 」
+│ *!Help* : Menampilkan list perintah
+│ *!Daftar* <TagKontak>
+│    ╰ Mendaftarkan kontak pengguna
+│ *!Terima* <TagKontak>
+│    ╰ Menerima kontak pengguna
+│ *!Produk* <Produk>
+│    ╰ Detail informasi produk
+│ *!Konveksi* <Konveksi>
+│    ╰ List harga produk
+│ *!Undercut* <Konveksi> :
+│    ╰ List harga produk Undercuted
+│ *!Update* <Produk/Konveksi/Perintah>
+│    ╰ Scraping dan Update harga
+│ *!Auto* <Perintah>
+│    ╰ Auto Scraping dan Update
+│       Semua Produk
+╰───────────────`,
         };
         break;
       case "member": // Kontak Berpangkat member
         res = {
-          caption: `╭─「 *Daftar Perintah ${pengguna.pangkat}* 」
-│• *!Ping* : Cek status Bot
-│• *!Help* : Menampilkan list perintah
-│• *!Daftar* <Tag> : Daftarkan pengguna
-│• *!Produk* <KodeProduk> : Detail produk
-│• *!Konveksi* <KodeKonveksi> : List harga produk
-│• *!Undercut* <KodeKonveksi> : List harga produk Undercuted
-╰────────────────`,
+          caption: `╭──「 *Daftar Perintah ${pengguna.pangkat}* 」
+│ *!Daftar* <TagKontak>
+│    ╰ Mendaftarkan kontak pengguna
+│ *!Produk* <Produk>
+│    ╰ Detail informasi produk
+│ *!Konveksi* <Konveksi>
+│    ╰ List harga produk
+│ *!Undercut* <Konveksi> :
+│    ╰ List harga produk Undercuted
+╰───────────────`,
         };
         break;
       case "Kosong":
         res = {
-          caption: `Anda belum Terdaftar, Silahkan mendaftar dengan !daftar`,
+          caption: `╭──「 *Perintah Ditolak* 」
+│Anda belum Terdaftar, Silahkan
+│mendaftar dengan !daftar
+╰───────────────`,
         };
         break;
       default: //Kontak Tidak Memiliki Pangkat
         res = {
-          caption: `╭─「 *Perintah Ditolak* 」
-│Perintah ini hanya dapat diakses :
+          caption: `╭──「 *Perintah Ditolak* 」
+│Perintah ini hanya dapat 
+│diakses oleh :
 │• *Admin*
 │• *Member*
-│────────────────
+│───────────────
 │Status anda saat ini : ${pengguna.pangkat}
-╰────────────────`,
+╰───────────────`,
         };
         break;
     } // Cek Pangkat Pengirim Pesan
   } else {
-    res = { caption: "Maaf Bot sedang dalam Maintenence.." };
+    res = {
+      caption: `╭──「 *Maintenence* 」
+│Mohon Maaf @${kontak.number}, :)
+│Saat ini Bot sedang dalam
+│Maintenence...
+╰───────────────`,
+    };
   }
   return res;
 }

@@ -18,80 +18,104 @@ async function Produk(pesan, kontak, res) {
               let produk = await TarikProduk(tmp[i].toUpperCase());
               if (produk.length !== 0) {
                 res.push({
-                  caption: `╭─「 *Detail Produk ${produk[0].kodebarang}* 」
-│• *Konveksi* : ${produk[0].konveksi}
-│• *Produk* : ${produk[0].kodebarang} ${produk[0].namabarang}
-│• *Harga Modal* : Rp.${produk[0].hargamodal}
-│───────     *Jual     |  Selisih   |  %* ─
-│• *Daily Price*     : Rp.${produk[0].dailyprice} | Rp.${produk[0].dailyprice - produk[0].hargamodal} | ${Math.abs(
+                  caption: `╭──「 *Detail Produk ${produk[0].kodebarang}* 」
+*│Konveksi* : ${produk[0].konveksi}
+*│Produk* : ${produk[0].namabarang}
+*│Harga Modal* : Rp.${produk[0].hargamodal}
+│─────      *Jual*   |  *Selisih*  |  *%* 
+*│Daily Price*: Rp.${produk[0].dailyprice} | Rp.${produk[0].dailyprice - produk[0].hargamodal} | ${Math.abs(
                     ((produk[0].dailyprice - produk[0].hargamodal) / produk[0].dailyprice) * 100
                   ).toFixed(1)}%
-│• *Flash Sale*      : Rp.${Math.round(produk[0].dailyprice - (produk[0].dailyprice * 0.5) / 100)} | Rp.${
+*│Flash Sale* : Rp.${Math.round(produk[0].dailyprice - (produk[0].dailyprice * 0.5) / 100)} | Rp.${
                     Math.round(produk[0].dailyprice - (produk[0].dailyprice * 0.5) / 100) - produk[0].hargamodal
                   } | ${Math.abs(
                     ((produk[0].dailyprice - (produk[0].dailyprice * 0.5) / 100 - produk[0].hargamodal) /
                       (produk[0].dailyprice - (produk[0].dailyprice * 0.5) / 100)) *
                       100
                   ).toFixed(1)}%
-│• *Payday/Event* : Rp.${parseInt(produk[0].hargamodal) + (produk[0].hargamodal * 8.5) / 100} | Rp.${
-                    parseInt(produk[0].hargamodal) + (produk[0].hargamodal * 8.5) / 100 - produk[0].hargamodal
-                  } | ${Math.abs(
+*│Pday/Evn* : Rp.${Math.round(produk[0].hargamodal + (produk[0].hargamodal * 8.5) / 100)} | Rp.${Math.round(
+                    produk[0].hargamodal + (produk[0].hargamodal * 8.5) / 100 - produk[0].hargamodal
+                  )} | ${Math.abs(
                     ((parseInt(produk[0].hargamodal) + (produk[0].hargamodal * 8.5) / 100 - produk[0].hargamodal) /
                       (parseInt(produk[0].hargamodal) + (produk[0].hargamodal * 8.5) / 100)) *
                       100
                   ).toFixed(1)}%
-│• *Harga Produk*  : ${(() => {
+*│Harga Produk*  : ${(() => {
                     if (produk[0].linkstatus === "aktif") {
                       return `Rp.${produk[0].hargaproduk}`;
                     } else {
                       return `~Rp.${produk[0].hargaproduk}~ *${produk[0].linkstatus}*`;
                     }
                   })()}
-│─「 *Pesaing* 」─────────
-│• *${produk[0].pesaing[0].namapesaing}* : ${(() => {
+│──「 *Pesaing* 」───────
+*│${produk[0].pesaing[0].namapesaing}* : ${(() => {
                     if (produk[0].pesaing[0].linkpesaingstatus === "aktif") {
                       return `Rp.${produk[0].pesaing[0].hargapesaing}`;
                     } else {
                       return `~Rp.${produk[0].pesaing[0].hargapesaing}~ *${produk[0].pesaing[0].linkpesaingstatus}*`;
                     }
                   })()}
-│• *${produk[0].pesaing[1].namapesaing}* : ${(() => {
+*│${produk[0].pesaing[1].namapesaing}* : ${(() => {
                     if (produk[0].pesaing[1].linkpesaingstatus === "aktif") {
                       return `Rp.${produk[0].pesaing[1].hargapesaing}`;
                     } else {
                       return `~Rp.${produk[0].pesaing[1].hargapesaing}~ *${produk[0].pesaing[1].linkpesaingstatus}*`;
                     }
                   })()}
-│────────────────
-│• *UpdatedAt* : ${produk[0].updatedAt.getHours()}:${produk[0].updatedAt.getMinutes()} ${produk[0].updatedAt.getDate()}/${produk[0].updatedAt.getMonth()}/${produk[0].updatedAt.getFullYear()}
-╰────────────────`,
+│───────────────
+*│UpdatedAt* : ${produk[0].updatedAt.getHours()}:${produk[0].updatedAt.getMinutes()} - ${produk[0].updatedAt.getDate()}/${produk[0].updatedAt.getMonth()}/${produk[0].updatedAt.getFullYear()}
+╰───────────────`,
                 });
               } else {
-                res.push({ caption: `Tidak dapat menemukan produk dengan kode : ${tmp[i]}` });
+                res.push({
+                  caption: `╭──「 *Perintah Gagal* 」
+│Tidak dapat menemukan produk
+│dengan kode : ${tmp[i]}
+╰───────────────`,
+                });
               }
             }
           }
         } else {
-          res.push({ caption: `Harap masukan kode produk setelah !produk. cth: !produk D1008 D1200 ...` });
+          res.push({
+            caption: `╭──「 *Perintah Gagal* 」
+│Harap masukan kode produk
+│setelah perintah !produk
+│Contoh: 
+│!Produk D1008 D1200 ...
+╰───────────────`,
+          });
         }
         break;
       case "Kosong":
-        res.push({ caption: `Anda belum Terdaftar, Silahkan mendaftar dengan !daftar` });
+        res.push({
+          caption: `╭──「 *Perintah Ditolak* 」
+│Anda belum Terdaftar, Silahkan
+│mendaftar dengan !daftar
+╰───────────────`,
+        });
         break;
       default: //Kontak Tidak Memiliki Pangkat
         res.push({
-          caption: `╭─「 *Perintah Ditolak* 」
-│Perintah ini hanya dapat diakses :
+          caption: `╭──「 *Perintah Ditolak* 」
+│Perintah ini hanya dapat 
+│diakses oleh :
 │• *Admin*
 │• *Member*
-│────────────────
+│───────────────
 │Status anda saat ini : ${pengguna.pangkat}
-╰────────────────`,
+╰───────────────`,
         });
         break;
     } // Cek Pangkat Pengirim Pesan
   } else {
-    res.push({ caption: "Maaf Bot sedang dalam Maintenence.." });
+    res.push({
+      caption: `╭──「 *Maintenence* 」
+│Mohon Maaf @${kontak.number}, :)
+│Saat ini Bot sedang dalam
+│Maintenence...
+╰───────────────`,
+    });
   }
   return res;
 }
