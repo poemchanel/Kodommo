@@ -9,7 +9,10 @@ const Terima = require("./Function/Generator/Terima");
 const Produk = require("./Function/Generator/Produk");
 const Konveksi = require("./Function/Generator/Konveksi");
 const Undercut = require("./Function/Generator/Undercut");
-const ScrapdanUpdate = require("./Function/Generator/ScrapdanUpdate");
+const Update = require("./Function/Generator/Update");
+const Auto = require("./Function/Generator/Auto");
+const { AutoSelesai } = require("./Function/Update/HargaProduks");
+const { KonveksiSelesai } = require("./Function/Update/HargaKonveksi");
 
 PreLaunch();
 async function PreLaunch() {
@@ -103,7 +106,11 @@ async function Kodommo() {
           break;
         case msg.body.toLowerCase().startsWith("!update"):
         case msg.body.toLowerCase().startsWith("!scrap"):
-          balas = await ScrapdanUpdate(msg, await msg.getContact());
+          balas = await Update(msg, await msg.getContact());
+          msg.reply(balas.caption);
+          break;
+        case msg.body.toLowerCase().startsWith("!auto"):
+          balas = await Auto(msg, await msg.getContact());
           msg.reply(balas.caption);
           break;
         default: // Jika Perintah tidak Terdaftar
@@ -119,4 +126,28 @@ async function Kodommo() {
   WaBot.on("disconnected", (reason) => {
     console.log("Client was logged out", reason);
   }); // Eksekusi Jika Bot LogOut
+  setInterval(CekAutoSelesai, 30000);
+  async function CekAutoSelesai() {
+    let selesai = await AutoSelesai();
+    console.log(`Auto Selesai : ${selesai.selesai}`);
+    if (selesai.selesai === true) {
+      WaBot.sendMessage(
+        selesai.nomor,
+        `${selesai.status}
+Berhasil Mengupdate ${selesai.diupdate}/${selesai.totalproduk}`
+      );
+    }
+  }
+  setInterval(CekKonveksiSelesai, 30000);
+  async function CekKonveksiSelesai() {
+    let selesai = await KonveksiSelesai();
+    console.log(`Auto Selesai : ${selesai.selesai}`);
+    if (selesai.selesai === true) {
+      WaBot.sendMessage(
+        selesai.nomor,
+        `${selesai.status}
+Berhasil Mengupdate ${selesai.diupdate}/${selesai.totalproduk}`
+      );
+    }
+  }
 } // Bot KODOMMO

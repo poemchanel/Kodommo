@@ -3,6 +3,15 @@ adalah whatsapp bot
 
 ##ChangeLog
 
+###0.1.1 - 10/9
+
+- Fix
+  - Warna Text di table !konveksi dan !undercut
+- Menambahkan/Mengoptimalisasi Fungsi Bot
+  - Perintah !Auto on, cek, off, log
+  - Perintah !Update !Scrap `<KodeProduk>`
+  - Perintah !Update !Scrap `<Konveksi>`
+
 ###0.1.0 - 9/9
 
 - Pre-release Bot :)

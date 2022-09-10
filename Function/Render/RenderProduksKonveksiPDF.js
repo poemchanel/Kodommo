@@ -48,15 +48,15 @@ async function RenderProduksKonveksiPDF(req, konveksi, res) {
   // isi tabel
   produk.forEach((element) => {
     pt.y = pt.y + 30; //Setiap Produk Baru Letak Awal + 30
-    if (element.pesaing[0].linkpesaingstatus !== "aktif") {
-      if (element.pesaing[0].hargapesaing != "-") {
+    if (element.pesaing[0].linkpesaingstatus === "aktif") {
+      if (element.pesaing[0].hargapesaing !== 0) {
         if (element.pesaing[0].hargapesaing < element.hargaproduk) {
           context.fillStyle = "#FF0000"; // Warna Tulisan Merah
         } // Jika Harga Pesaing 1 Lebih Rendah maka Warna Tulisan akan menjadi Merah
       } // Cek Jika ada data Pesaing 1
     }
-    if (element.pesaing[1].linkpesaingstatus !== "aktif") {
-      if (element.pesaing[1].hargapesaing != "-") {
+    if (element.pesaing[1].linkpesaingstatus === "aktif") {
+      if (element.pesaing[1].hargapesaing !== 0) {
         if (element.pesaing[1].hargapesaing < element.hargaproduk) {
           context.fillStyle = "#FF0000"; // Warna tulisan Merah
         } // Jika Harga Pesaing 2 Lebih Rendah maka Warna Tulisan akan menjadi Merah
@@ -71,20 +71,20 @@ async function RenderProduksKonveksiPDF(req, konveksi, res) {
     context.fillText(element.kodebarang, 82, pt.y + 20); // Kode Barang
     context.fillText(element.namabarang.substring(0, 20), 215, pt.y + 20); // Nama Barang
     context.fillText(element.hargamodal, 355, pt.y + 20); // Harga Modal
-    if (element.linkstatus !== "aktif") {
-      context.fillText(element.linkstatus, 445, pt.y + 20); // Harga Produk
-    } else {
+    if (element.linkstatus === "aktif") {
       context.fillText(element.hargaproduk, 445, pt.y + 20); // Harga Produk
-    }
-    if (element.pesaing[0].linkpesaingstatus !== "aktif") {
-      context.fillText(element.pesaing[0].linkpesaingstatus, 535, pt.y + 20); // Harga Pesaing 1
     } else {
+      context.fillText(element.linkstatus, 445, pt.y + 20); // Harga Produk
+    }
+    if (element.pesaing[0].linkpesaingstatus === "aktif") {
       context.fillText(element.pesaing[0].hargapesaing, 535, pt.y + 20); // Harga Pesaing 1
-    }
-    if (element.pesaing[1].linkpesaingstatus !== "aktif") {
-      context.fillText(element.pesaing[1].linkpesaingstatus, 625, pt.y + 20); // Harga Pesaing 2
     } else {
+      context.fillText(element.pesaing[0].linkpesaingstatus, 535, pt.y + 20); // Harga Pesaing 1
+    }
+    if (element.pesaing[1].linkpesaingstatus === "aktif") {
       context.fillText(element.pesaing[1].hargapesaing, 625, pt.y + 20); // Harga Pesaing 2
+    } else {
+      context.fillText(element.pesaing[1].linkpesaingstatus, 625, pt.y + 20); // Harga Pesaing 2
     }
     context.fillStyle = "#FFFFFF"; // Kembalikan Warna Tulisan ke Putih
   }); // Ulangi Untuk setiap Produk yang ada

@@ -7,7 +7,8 @@ const HubungkanDatabase = require("./Function/Routes/HubungkanDatabase"); // imp
 const Help = require("./Function/Generator/Help");
 const Daftar = require("./Function/Generator/Daftar");
 const Produk = require("./Function/Generator/Produk");
-const ScrapdanUpdate = require("./Function/Generator/ScrapdanUpdate");
+const Auto = require("./Function/Generator/Auto");
+const Update = require("./Function/Generator/Update");
 
 let pesan = {
   body: "!help",
@@ -193,7 +194,11 @@ async function Kodommo(msg) {
         break;
       case msg.body.toLowerCase().startsWith("!update"):
       case msg.body.toLowerCase().startsWith("!scrap"):
-        balas = await ScrapdanUpdate(msg, await msg.getContact());
+        balas = await Update(msg, await msg.getContact());
+        msg.reply(balas.caption);
+        break;
+      case msg.body.toLowerCase().startsWith("!auto"):
+        balas = await Auto(msg, await msg.getContact());
         msg.reply(balas.caption);
         break;
       default: // Jika Perintah tidak Terdaftar
