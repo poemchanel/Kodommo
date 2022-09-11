@@ -3,7 +3,13 @@ adalah whatsapp bot
 
 ##ChangeLog
 
-##0.1.2 - 11/9
+###0.1.3 - 12/9
+
+- Last Commit before Rescaling 0.2.x
+- Fix
+  - Double Produk Kode
+
+###0.1.2 - 11/9
 
 - Fix
   - Tampilan Text reply

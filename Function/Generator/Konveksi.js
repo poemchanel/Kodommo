@@ -3,8 +3,7 @@ const CekStatusDB = require("../Routes/CekStatusDB");
 const TarikProduksKonveksi = require("../Routes/TarikProduksKonveksi");
 const RenderProduksKonveksiPDF = require("../Render/RenderProduksKonveksiPDF");
 
-async function Konveksi(pesan, kontak, res) {
-  res = [];
+async function Konveksi(pesan, kontak, res = []) {
   const StatusDB = await CekStatusDB();
   if (StatusDB.state === 1) {
     const pengguna = await VerifikasiKontak(kontak);

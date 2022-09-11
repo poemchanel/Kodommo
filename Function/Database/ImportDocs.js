@@ -36,7 +36,7 @@ BacaCSV();
 const konveksi = [];
 
 function BacaCSV() {
-  fs.createReadStream("./Docs/SONY.csv")
+  fs.createReadStream("./Docs/Semua.csv")
     .pipe(csv({}))
     .on("data", (data) => konveksi.push(data))
     .on("end", () => {
@@ -44,6 +44,7 @@ function BacaCSV() {
     });
 }
 async function uploadKonveksi() {
+  let i = 0;
   konveksi.forEach((element) => {
     const produk = new Produk({
       konveksi: element.konveksi,
@@ -52,29 +53,30 @@ async function uploadKonveksi() {
       hargamodal: element.hargamodal,
       dailyprice: element.dailyprice,
       linkproduk: element.linkproduk,
-      linkstatus: element.linkstatus,
-      hargaproduk: element.hargaproduk,
-      hargaprodukmin: element.hargaprodukmin,
+      linkstatus: "baru",
+      hargaproduk: element.dailyprice,
+      hargaprodukmin: true,
       pesaing: [
         {
           namapesaing: element.anamapesaing,
           linkpesaing: element.alinkpesaing,
-          linkpesaingstatus: element.alinkpesaingstatus,
-          hargapesaing: element.ahargapesaing,
-          hargapesaingmin: element.ahargapesaingmin,
+          linkpesaingstatus: "baru",
+          hargapesaing: element.dailyprice,
+          hargapesaingmin: true,
         },
         {
           namapesaing: element.bnamapesaing,
           linkpesaing: element.blinkpesaing,
-          linkpesaingstatus: element.blinkpesaingstatus,
-          hargapesaing: element.bhargapesaing,
-          hargapesaingmin: element.bhargapesaingmin,
+          linkpesaingstatus: "baru",
+          hargapesaing: element.dailyprice,
+          hargapesaingmin: true,
         },
       ],
       deskripsi: element.deskripsi,
     });
     produk.save();
-    console.log(`${element.kodebarang} Saved`);
+    i++;
+    console.log(`${i} ${element.kodebarang} Saved`);
   });
   console.log("Document Seleasi Import");
 }

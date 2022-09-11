@@ -237,7 +237,7 @@ async function ScrapHargaProduk() {
           }
           if (ScrapUpdate === true) {
             const UpdateStatus = await UpdateProduk(data);
-            log.push(UpdateStatus);
+            log.push(`│${UpdateStatus}`);
             Berhasil = 1;
           } else {
             berhenti = berhenti + 1;

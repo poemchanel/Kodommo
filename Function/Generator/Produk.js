@@ -17,55 +17,59 @@ async function Produk(pesan, kontak, res) {
             if (tmp[i].toLowerCase() !== "!produk") {
               let produk = await TarikProduk(tmp[i].toUpperCase());
               if (produk.length !== 0) {
-                res.push({
-                  caption: `╭──「 *Detail Produk ${produk[0].kodebarang}* 」
-*│Konveksi* : ${produk[0].konveksi}
-*│Produk* : ${produk[0].namabarang}
-*│Harga Modal* : Rp.${produk[0].hargamodal}
+                for (let i = 0; i < produk.length; i++) {
+                  res.push({
+                    caption: `╭──「 *Detail Produk ${produk[i].kodebarang}* 」
+*│Konveksi* : ${produk[i].konveksi}
+*│Produk* : ${produk[i].namabarang}
+*│Harga Modal* : Rp.${produk[i].hargamodal}
 │─────      *Jual*   |  *Selisih*  |  *%* 
-*│Daily Price*: Rp.${produk[0].dailyprice} | Rp.${produk[0].dailyprice - produk[0].hargamodal} | ${Math.abs(
-                    ((produk[0].dailyprice - produk[0].hargamodal) / produk[0].dailyprice) * 100
-                  ).toFixed(1)}%
-*│Flash Sale* : Rp.${Math.round(produk[0].dailyprice - (produk[0].dailyprice * 0.5) / 100)} | Rp.${
-                    Math.round(produk[0].dailyprice - (produk[0].dailyprice * 0.5) / 100) - produk[0].hargamodal
-                  } | ${Math.abs(
-                    ((produk[0].dailyprice - (produk[0].dailyprice * 0.5) / 100 - produk[0].hargamodal) /
-                      (produk[0].dailyprice - (produk[0].dailyprice * 0.5) / 100)) *
-                      100
-                  ).toFixed(1)}%
-*│Pday/Evn* : Rp.${Math.round(produk[0].hargamodal + (produk[0].hargamodal * 8.5) / 100)} | Rp.${Math.round(
-                    produk[0].hargamodal + (produk[0].hargamodal * 8.5) / 100 - produk[0].hargamodal
-                  )} | ${Math.abs(
-                    ((parseInt(produk[0].hargamodal) + (produk[0].hargamodal * 8.5) / 100 - produk[0].hargamodal) /
-                      (parseInt(produk[0].hargamodal) + (produk[0].hargamodal * 8.5) / 100)) *
-                      100
-                  ).toFixed(1)}%
+*│Daily Price*: Rp.${produk[i].dailyprice} | Rp.${produk[i].dailyprice - produk[i].hargamodal} | ${Math.abs(
+                      ((produk[i].dailyprice - produk[i].hargamodal) / produk[i].dailyprice) * 100
+                    ).toFixed(1)}%
+*│Flash Sale* : Rp.${Math.round(produk[i].dailyprice - (produk[i].dailyprice * 0.5) / 100)} | Rp.${
+                      Math.round(produk[i].dailyprice - (produk[i].dailyprice * 0.5) / 100) - produk[i].hargamodal
+                    } | ${Math.abs(
+                      ((produk[i].dailyprice - (produk[i].dailyprice * 0.5) / 100 - produk[i].hargamodal) /
+                        (produk[i].dailyprice - (produk[i].dailyprice * 0.5) / 100)) *
+                        100
+                    ).toFixed(1)}%
+*│Pday/Evn* : Rp.${Math.round(produk[i].hargamodal + (produk[i].hargamodal * 8.5) / 100)} | Rp.${Math.round(
+                      produk[i].hargamodal + (produk[i].hargamodal * 8.5) / 100 - produk[i].hargamodal
+                    )} | ${Math.abs(
+                      ((parseInt(produk[i].hargamodal) + (produk[i].hargamodal * 8.5) / 100 - produk[i].hargamodal) /
+                        (parseInt(produk[i].hargamodal) + (produk[i].hargamodal * 8.5) / 100)) *
+                        100
+                    ).toFixed(1)}%
 *│Harga Produk*  : ${(() => {
-                    if (produk[0].linkstatus === "aktif") {
-                      return `Rp.${produk[0].hargaproduk}`;
-                    } else {
-                      return `~Rp.${produk[0].hargaproduk}~ *${produk[0].linkstatus}*`;
-                    }
-                  })()}
+                      if (produk[i].linkstatus === "aktif") {
+                        return `Rp.${produk[i].hargaproduk}`;
+                      } else {
+                        return `~Rp.${produk[i].hargaproduk}~ *${produk[i].linkstatus}*`;
+                      }
+                    })()}
 │──「 *Pesaing* 」───────
-*│${produk[0].pesaing[0].namapesaing}* : ${(() => {
-                    if (produk[0].pesaing[0].linkpesaingstatus === "aktif") {
-                      return `Rp.${produk[0].pesaing[0].hargapesaing}`;
-                    } else {
-                      return `~Rp.${produk[0].pesaing[0].hargapesaing}~ *${produk[0].pesaing[0].linkpesaingstatus}*`;
-                    }
-                  })()}
-*│${produk[0].pesaing[1].namapesaing}* : ${(() => {
-                    if (produk[0].pesaing[1].linkpesaingstatus === "aktif") {
-                      return `Rp.${produk[0].pesaing[1].hargapesaing}`;
-                    } else {
-                      return `~Rp.${produk[0].pesaing[1].hargapesaing}~ *${produk[0].pesaing[1].linkpesaingstatus}*`;
-                    }
-                  })()}
+*│${produk[i].pesaing[0].namapesaing}* : ${(() => {
+                      if (produk[i].pesaing[0].linkpesaingstatus === "aktif") {
+                        return `Rp.${produk[i].pesaing[0].hargapesaing}`;
+                      } else {
+                        return `~Rp.${produk[i].pesaing[0].hargapesaing}~ *${produk[i].pesaing[0].linkpesaingstatus}*`;
+                      }
+                    })()}
+*│${produk[i].pesaing[1].namapesaing}* : ${(() => {
+                      if (produk[i].pesaing[1].linkpesaingstatus === "aktif") {
+                        return `Rp.${produk[i].pesaing[1].hargapesaing}`;
+                      } else {
+                        return `~Rp.${produk[i].pesaing[1].hargapesaing}~ *${produk[i].pesaing[1].linkpesaingstatus}*`;
+                      }
+                    })()}
 │───────────────
-*│UpdatedAt* : ${produk[0].updatedAt.getHours()}:${produk[0].updatedAt.getMinutes()} - ${produk[0].updatedAt.getDate()}/${produk[0].updatedAt.getMonth()}/${produk[0].updatedAt.getFullYear()}
+*│UpdatedAt* : ${produk[i].updatedAt.getHours()}:${produk[i].updatedAt.getMinutes()} - ${produk[
+                      i
+                    ].updatedAt.getDate()}/${produk[i].updatedAt.getMonth()}/${produk[i].updatedAt.getFullYear()}
 ╰───────────────`,
-                });
+                  });
+                }
               } else {
                 res.push({
                   caption: `╭──「 *Perintah Gagal* 」

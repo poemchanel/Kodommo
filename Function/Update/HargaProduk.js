@@ -9,7 +9,7 @@ const UpdateProduk = require("../Routes/UpdateProduk");
 
 async function HargaProduk(Produks, res) {
   let log = [];
-  let data = Produks[0];
+  let data = Produks;
   const browser = await puppeteer.launch({ headless: true }); // Membuka Browser
   try {
     const page = await browser.newPage(); // Membuka Tab Baru di Browser
@@ -123,7 +123,7 @@ async function HargaProduk(Produks, res) {
       log.push(`│->Pesaing ${data.pesaing[1].namapesaing} link Kosong`);
     }
     const UpdateStatus = await UpdateProduk(data);
-    log.push(UpdateStatus);
+    log.push(`│${UpdateStatus}`);
     res = { status: true, log: log };
   } catch (error) {
     console.log(error);

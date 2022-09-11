@@ -113,7 +113,9 @@ async function Kodommo() {
         case msg.body.toLowerCase().startsWith("!update"):
         case msg.body.toLowerCase().startsWith("!scrap"):
           balas = await Update(msg, await msg.getContact());
-          msg.reply(balas.caption);
+          for (let i = 0; i < balas.length; i++) {
+            msg.reply(balas[i].caption);
+          }
           break;
         case msg.body.toLowerCase().startsWith("!auto"):
           balas = await Auto(msg, await msg.getContact());
