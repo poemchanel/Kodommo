@@ -9,6 +9,9 @@ const Daftar = require("./Function/Generator/Daftar");
 const Produk = require("./Function/Generator/Produk");
 const Auto = require("./Function/Generator/Auto");
 const Update = require("./Function/Generator/Update");
+const Konveksi = require("./Function/Generator/Konveksi");
+
+const { AutoSelesai } = require("./Function/Update/HargaProduks");
 
 let pesan = {
   body: "!help",
@@ -192,6 +195,15 @@ async function Kodommo(msg) {
           msg.reply(balas[i].caption);
         }
         break;
+      case msg.body.toLowerCase().startsWith("!konveksi"): // Cek Produk
+        balas = await Konveksi(msg, await msg.getContact());
+        for (let i = 0; i < balas.length; i++) {
+          if (balas[i].status !== "gagal") {
+            msg.reply(balas[i].caption);
+          } else {
+            msg.reply(balas[i].caption);
+          }
+        }
       case msg.body.toLowerCase().startsWith("!update"):
       case msg.body.toLowerCase().startsWith("!scrap"):
         balas = await Update(msg, await msg.getContact());
@@ -208,5 +220,18 @@ async function Kodommo(msg) {
   } // Verifikasi jika Pesan Merupakan Perintah
   else {
     console.log("Pesan ini Bukan Perintah");
+  }
+  setInterval(CekAutoSelesai, 30000);
+  async function CekAutoSelesai() {
+    let selesai = await AutoSelesai();
+    console.log(`Auto Selesai : ${selesai.selesai}`);
+    if (selesai.selesai === true) {
+      msg.reply(
+        `╭──「 *Informasi Update* 」
+│${selesai.status}
+│Berhasil Mengupdate ${selesai.diupdate}/${selesai.totalproduk} produk
+╰───────────────`
+      );
+    }
   }
 }

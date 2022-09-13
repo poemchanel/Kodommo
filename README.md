@@ -3,6 +3,15 @@ adalah whatsapp bot
 
 ##ChangeLog
 
+###0.2.0 - 13/9
+
+- Rebuild Bot & DB agar support kode barang yang sama
+- DB Schema baru agar suport puppetter button click
+- !Auto telah support klik varian/akuran/warna etc..
+- Fix
+  - !Produk untuk support schema db baru
+  - !Konveksi untuk support schema db baru
+
 ###0.1.3 - 12/9
 
 - Last Commit before Rescaling 0.2.x
