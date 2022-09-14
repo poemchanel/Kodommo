@@ -16,9 +16,9 @@ let produklength = 0;
 let finish = false;
 let stop = 0;
 let i = 0;
-let Berhasil = 0;
 let Produks;
 let failed = [];
+let interfered = false;
 
 function HargaKonveksiCek(res) {
   let tmp = "";
@@ -109,73 +109,89 @@ async function HargaKonveksiMulai(req, res) {
 }
 
 function Ulang() {
-  if (Berhasil === 1) {
-    i++;
-    if (i < produklength) {
-      if (ScrapUpdate === true) {
-        ProduksLoop();
-      }
-    } else {
-      finish = true;
-      ScrapUpdate = false;
+  i++;
+  if (i < produklength) {
+    if (ScrapUpdate === true) {
+      ProduksLoop();
     }
   } else {
-    i++;
-    setTimeout(() => {
-      if (i < produklength) {
-        if (ScrapUpdate === true) {
-          ProduksLoop();
-        }
-      } else {
-        finish = true;
-        ScrapUpdate = false;
-      }
-    }, 60000);
+    finish = true;
+    ScrapUpdate = false;
+    i = 0;
   }
 }
 
 async function ProduksLoop() {
   stop = 0;
-  Berhasil = 1;
   if (log.length > 30) {
     log.splice(0, 5);
   }
   let data = Produks[i];
   if (ScrapUpdate === true) {
-    const browser = await puppeteer.launch({ headless: false }); // Membuka Browser
-    const page = await browser.newPage();
+    let browser = await puppeteer.launch({ headless: true }); // Membuka Browser
+    let page = await browser.newPage();
     log.push(`│Memulai Update ${i}: ${data.konveksi}-${data.kodebarang}`);
     shopee = data.shopee;
-    for (let j = 0; j < shopee.length; j++) {
-      if (ScrapUpdate === true) {
-        if (shopee[j].link !== "-") {
-          try {
-            await page.goto(shopee[j].link);
+    if (shopee !== undefined) {
+      for (let j = 0; j < shopee.length; j++) {
+        if (interfered === true) {
+          browser = await puppeteer.launch({ headless: true }); // Membuka Browser
+          page = await browser.newPage();
+          interfered = false;
+        }
+        if (ScrapUpdate === true) {
+          if (shopee[j].link !== "-") {
             try {
-              await page.waitForSelector("[class='_1WIqzi']", { timeout: 2000 });
-              let statusclass = await page.$("[class='_1WIqzi']");
-              let statusvalue = await page.evaluate((el) => el.textContent, statusclass);
-              shopee[j].status = statusvalue;
-              log.push(`│->Produk ${shopee[j].nama} link ${statusvalue}`);
-            } catch (error) {
+              await page.goto(shopee[j].link);
               try {
-                let disable = [];
-                for (let k = 0; k < shopee[j].click.length; k++) {
-                  let element = await page.waitForSelector(`button[aria-label="${shopee[j].click[k]}"]`);
-                  let button = await page.evaluate((el) => el.getAttribute("aria-disabled"), element);
-                  if (button === false) {
-                    await page.click(`button[aria-label="${shopee[j].click[k]}"]`);
+                await page.waitForSelector("[class='_1WIqzi']", { timeout: 3000 });
+                let statusclass = await page.$("[class='_1WIqzi']");
+                let statusvalue = await page.evaluate((el) => el.textContent, statusclass);
+                shopee[j].status = statusvalue;
+                log.push(`│->Produk ${shopee[j].nama} link ${statusvalue}`);
+              } catch (error) {
+                try {
+                  let disable = [];
+                  for (let k = 0; k < shopee[j].click.length; k++) {
+                    let element = await page.waitForSelector(`button[aria-label="${shopee[j].click[k]}"]`);
+                    let button = await page.evaluate((el) => el.getAttribute("aria-disabled"), element);
+                    if (button === false) {
+                      await page.click(`button[aria-label="${shopee[j].click[k]}"]`);
+                    }
+                    disable.push(button);
                   }
-                  disable.push(button);
-                }
-                console.log(disable);
-                if (disable.includes("true") === true) {
-                  shopee[j].status = "Disable";
-                  log.push(`│->Produk ${shopee[j].nama} link Disable`);
-                } else {
-                  await setTimeout(500);
+                  console.log(disable);
+                  if (disable.includes("true") === true) {
+                    shopee[j].status = "Disable";
+                    log.push(`│->Produk ${shopee[j].nama} link Disable`);
+                  } else {
+                    await setTimeout(500);
+                    try {
+                      await page.waitForSelector("[class='_2Shl1j']", { timeout: 3000 });
+                      let element = await page.$("[class='_2Shl1j']");
+                      let value = await page.evaluate((el) => el.textContent, element);
+                      value = value.replace(/Rp/g, "").replace(/ /g, "").replace(".", "").replace(".", "");
+                      if (value.includes("-") === true) {
+                        shopee[j].harga = value;
+                        shopee[j].status = "Range";
+                        log.push(`│->Produk ${shopee[j].nama} link Range\n│   ╰ Harga : Rp.${value}`);
+                      } else {
+                        shopee[j].harga = value;
+                        shopee[j].status = "Aktif";
+                        log.push(`│->Produk ${shopee[j].nama} link Aktif\n│   ╰ Harga : Rp.${value}`);
+                      }
+                    } catch (error) {
+                      console.log(error);
+                      log.push(`│Proses scraping terhenti!\n│melanjutkan ulang proses\n│setelah 90 detik...`);
+                      failed.push(`\n│${i}: ${data.konveksi}-${data.kodebarang}`);
+                      interfered = true;
+                      await browser.close();
+                      await setTimeout(90000);
+                    }
+                  }
+                } catch (error) {
                   try {
-                    await page.waitForSelector("[class='_2Shl1j']");
+                    await page.waitForSelector("[class='_2Shl1j']", { timeout: 3000 });
                     let element = await page.$("[class='_2Shl1j']");
                     let value = await page.evaluate((el) => el.textContent, element);
                     value = value.replace(/Rp/g, "").replace(/ /g, "").replace(".", "").replace(".", "");
@@ -191,45 +207,33 @@ async function ProduksLoop() {
                   } catch (error) {
                     console.log(error);
                     log.push(`│Proses scraping terhenti!\n│melanjutkan ulang proses\n│setelah 90 detik...`);
-                    Berhasil = 0;
+                    failed.push(`\n│${i}: ${data.konveksi}-${data.kodebarang}`);
+                    interfered = true;
+                    await browser.close();
+                    await setTimeout(90000);
                   }
-                }
-              } catch (error) {
-                try {
-                  await page.waitForSelector("[class='_2Shl1j']");
-                  let element = await page.$("[class='_2Shl1j']");
-                  let value = await page.evaluate((el) => el.textContent, element);
-                  value = value.replace(/Rp/g, "").replace(/ /g, "").replace(".", "").replace(".", "");
-                  if (value.includes("-") === true) {
-                    shopee[j].harga = value;
-                    shopee[j].status = "Range";
-                    log.push(`│->Produk ${shopee[j].nama} link Range\n│   ╰ Harga : Rp.${value}`);
-                  } else {
-                    shopee[j].harga = value;
-                    shopee[j].status = "Aktif";
-                    log.push(`│->Produk ${shopee[j].nama} link Aktif\n│   ╰ Harga : Rp.${value}`);
-                  }
-                } catch (error) {
-                  console.log(error);
-                  log.push(`│Proses scraping terhenti!\n│melanjutkan ulang proses\n│setelah 90 detik...`);
-                  Berhasil = 0;
-                  failed.push(`${i}: ${data.konveksi}-${data.kodebarang}`);
                 }
               }
+            } catch (error) {
+              shopee[j].status = "Bermasalah";
+              log.push(`│->Produk ${shopee[j].nama} link Bermasalah`);
             }
-          } catch (error) {
-            shopee[j].status = "Bermasalah";
-            log.push(`│->Produk ${shopee[j].nama} link Bermasalah`);
+          } else {
+            shopee[j].link = "Kosong";
+            log.push(`│->Produk ${shopee[j].nama} link Kosong`);
           }
         } else {
-          shopee[j].link = "Kosong";
-          log.push(`│->Produk ${shopee[j].nama} link Kosong`);
+          stop = stop + 1;
         }
-      } else {
-        stop = stop + 1;
       }
+    } else {
+      log.push(`│Produk ${data.konveksi}-${data.kodebarang} Link Kosong`);
     }
-    await browser.close();
+    if (interfered === false) {
+      await browser.close();
+    } else {
+      interfered = false;
+    }
     if (ScrapUpdate === true) {
       const UpdateStatus = await UpdateProduk(data);
       updated = updated + 1;

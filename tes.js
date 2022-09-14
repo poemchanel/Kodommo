@@ -1,9 +1,6 @@
-const arr = [{ nama: "DOMMO" }, { nama: "MORYMONY" }, { nama: "BELIA" }];
-let Pesan = "!Click D0001 MORYMONY Tambah 80gr";
-Pesan = Pesan.split(" ");
-const index = arr.findIndex((e) => e.nama === Pesan[2]);
+let updatedAt = new Date(`2022-09-14T10:17:38.116+00:00`);
+let DateNow = new Date();
+let TimeDifference = Math.abs(DateNow - updatedAt);
+TimeDifference = Math.ceil(TimeDifference / (1000 * 60 * 60));
 
-delete arr[index].click;
-console.log(Pesan);
-console.log(index); // 👉️ 1
-console.log(arr[index]); // 👉️ 1
+console.log(DateNow);

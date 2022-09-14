@@ -45,7 +45,7 @@ ${status.log.join(`\n\r`)}
               status = await HargaKonveksiCek();
               res.push({
                 caption: `╭──「 *Perintah Berhasil* 」
-│Log produk yang gagal diupdate :${status.gagal.join(`\n│\r`)}
+│Log produk yang gagal diupdate :${status.gagal.join(`\r`)}
 ╰───────────────`,
               });
               break;

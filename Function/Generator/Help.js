@@ -10,7 +10,6 @@ async function Help(kontak, res) {
       case "admin":
         res = {
           caption: `╭──「 *Daftar Perintah ${pengguna.pangkat}* 」
-│ *!Help* : Menampilkan list perintah
 │ *!Daftar* <TagKontak>
 │    ╰ Mendaftarkan kontak pengguna
 │ *!Terima* <TagKontak>

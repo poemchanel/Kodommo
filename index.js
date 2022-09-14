@@ -1,4 +1,7 @@
 const { Client, LocalAuth, MessageMedia } = require("whatsapp-web.js"); // import Module WhatsappBot
+const { setTimeout } = require("timers/promises");
+
+// DB
 const HubungkanDatabase = require("./Function/Routes/HubungkanDatabase"); // import Fungsi untuk Koneksi ke DataBase
 
 // Reply Generator
@@ -17,13 +20,21 @@ const Auto = require("./Function/Generator/Auto");
 const Click = require("./Function/Generator/Click");
 
 // Notifikasi
-const { AutoSelesai } = require("./Function/Update/HargaProduks");
+const { AutoSelesai, AutoMulai } = require("./Function/Update/HargaProduks");
 const { KonveksiSelesai } = require("./Function/Update/HargaKonveksi");
 
 PreLaunch();
 async function PreLaunch() {
+  console.log("Menghubungkan DB");
   HubungkanDatabase();
+  await setTimeout(3000);
+
+  console.log("Menyalakan Bot");
   Kodommo();
+  await setTimeout(5000);
+
+  console.log("Memulai Auto");
+  AutoMulai();
 } // Mempersiapkan Database Sebelum Menyalakan Bot
 
 async function Kodommo() {
@@ -167,10 +178,10 @@ async function Kodommo() {
   WaBot.on("disconnected", (reason) => {
     console.log("Client was logged out", reason);
   }); // Eksekusi Jika Bot LogOut
-  setInterval(CekAutoSelesai, 30000);
+  setInterval(CekAutoSelesai, 35000);
   async function CekAutoSelesai() {
     let selesai = await AutoSelesai();
-    console.log(`Auto Selesai : ${selesai.selesai}`);
+    // console.log(`Auto Selesai : ${selesai.selesai}`);
     if (selesai.selesai === true) {
       WaBot.sendMessage(
         selesai.nomor,
@@ -180,11 +191,9 @@ async function Kodommo() {
 ╰───────────────`
       );
     }
-  }
-  setInterval(CekKonveksiSelesai, 30000);
-  async function CekKonveksiSelesai() {
-    let selesai = await KonveksiSelesai();
-    console.log(`Konveksi Selesai : ${selesai.selesai}`);
+    setTimeout(5000);
+    selesai = await KonveksiSelesai();
+    // console.log(`Konveksi Selesai : ${selesai.selesai}`);
     if (selesai.selesai === true) {
       WaBot.sendMessage(
         selesai.nomor,
@@ -192,7 +201,7 @@ async function Kodommo() {
 │${selesai.status}
 │Total Produk ${selesai.totalproduk}
 │Berhasil Mengupdate ${selesai.diupdate} produk
-│Gagal Mengupdate ${selesai.failed.length} produk
+│Gagal Mengupdate ${selesai.gagal.length} produk
 ╰───────────────`
       );
     }

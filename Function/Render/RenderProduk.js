@@ -38,10 +38,12 @@ function RenderProduk(req, res) {
       }
     })}`;
   }
-
+  let DateNow = new Date();
+  let TimeDifference = Math.abs(DateNow - produk[j].updatedAt);
+  TimeDifference = Math.ceil(TimeDifference / (1000 * 60 * 60));
   let footer = `
 │───────────────
-*│UpdatedAt* : ${produk.updatedAt.getHours()}:${produk.updatedAt.getMinutes()} - ${produk.updatedAt.getDate()}/${produk.updatedAt.getMonth()}/${produk.updatedAt.getFullYear()}
+*│Diupdate* : ${TimeDifference} Jam lalu
 ╰───────────────`;
   res = `${header}${body}${shopee}${footer}`;
   return res;

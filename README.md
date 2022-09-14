@@ -3,6 +3,12 @@ adalah whatsapp bot
 
 ##ChangeLog
 
+###0.2.2 - 15/9
+
+- Fix
+  - !Update konveksi looping berhenti
+  - !Auto Update
+
 ###0.2.1 - 14/9
 
 - Add
