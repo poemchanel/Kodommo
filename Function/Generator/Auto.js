@@ -50,8 +50,15 @@ ${statusscrapupdate.status}
             statusscrapupdate = await AutoCek();
             res = {
               caption: `╭──「 *Perintah Berhasil* 」
-│Log Auto Update Produk :
-${statusscrapupdate.log.join(`\n\r`)}
+│Log Auto Update Produk :${statusscrapupdate.log.join(`\n│\r`)}
+╰───────────────`,
+            };
+            break;
+          case "gagal":
+            statusscrapupdate = await AutoCek();
+            res = {
+              caption: `╭──「 *Perintah Berhasil* 」
+│Log produk yang gagal diupdate :${statusscrapupdate.gagal.join(`\n│\r`)}
 ╰───────────────`,
             };
             break;

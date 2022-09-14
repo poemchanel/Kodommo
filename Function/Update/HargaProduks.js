@@ -20,6 +20,7 @@ let stop = 0;
 let i = 0;
 let Berhasil = 0;
 let Produks;
+let failed = [];
 
 // const HubungkanDatabase = require("../Routes/HubungkanDatabase");
 // HubungkanDatabase();
@@ -34,6 +35,7 @@ function AutoCek(res) {
       totalproduk: produklength,
       antrian: queue,
       state: ScrapUpdate,
+      gagal: failed,
     };
   } else {
     res = {
@@ -43,6 +45,7 @@ function AutoCek(res) {
       totalproduk: produklength,
       antrian: queue,
       state: ScrapUpdate,
+      gagal: failed,
     };
   }
   return res;
@@ -110,8 +113,8 @@ function Restart() {
   }
 }
 function Ulang() {
-  i++;
   if (Berhasil === 1) {
+    i++;
     if (i < produklength) {
       if (ScrapUpdate === true) {
         ProduksLoop();
@@ -120,6 +123,7 @@ function Ulang() {
       Restart();
     }
   } else {
+    i++;
     setTimeout(() => {
       if (i < produklength) {
         if (ScrapUpdate === true) {
@@ -220,6 +224,7 @@ async function ProduksLoop() {
                   console.log(error);
                   log.push(`│Proses scraping terhenti!\n│melanjutkan ulang proses\n│setelah 90 detik...`);
                   Berhasil = 0;
+                  failed.push(`${i}: ${data.konveksi}-${data.kodebarang}`);
                 }
               }
             }
@@ -243,6 +248,8 @@ async function ProduksLoop() {
     } else {
       stop = stop + 1;
     }
+  } else {
+    stop = stop + 1;
   }
   if (stop > 0) {
     i = i - 1;

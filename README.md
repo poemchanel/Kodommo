@@ -3,9 +3,25 @@ adalah whatsapp bot
 
 ##ChangeLog
 
+###0.2.1 - 14/9
+
+- Add
+  - !List Menampilkan daftar konveksi
+  - !Click Menambahkan Click label untuk pupeteer
+    - !click Tambah
+    - !click Hapus
+  - !Link Menampilkan Link Produk
+  - !Pangkat Mengubah pangkat pengguna
+    - !pangkat promote/admin ubah pangkat ke admin
+    - !pangkat demote/me mber ubah pangkat ke member
+    - !pangkat hapus/ban/kick hapus pengguna
+- Fix
+  - !Undercut untuk support schema db baru
+  - !Update produk kode lebih dari 1
+
 ###0.2.0 - 13/9
 
-- Rebuild Bot & DB agar support kode barang yang sama
+- Refactor Bot & DB agar support kode barang yang sama
 - DB Schema baru agar suport puppetter button click
 - !Auto telah support klik varian/akuran/warna etc..
 - Fix
@@ -54,7 +70,7 @@ adalah whatsapp bot
 
 ###0.0.8 - 7/9
 
-- Rebuild Web Scraping Memudahkan Mengembangkan Fungsi Bot
+- Refactor Web Scraping Memudahkan Mengembangkan Fungsi Bot
   - Perintah !Ping Ditambahkan
   - Perintah !Help Ditambahkan
 - Menambahkan Fungsi ImportDocument ke DataBase
@@ -74,7 +90,7 @@ adalah whatsapp bot
 
 ###0.0.5
 
-- Rebuild Bot Agar Memudahkan Mengembangkan Fungsi Bot
+- Refactor Bot Agar Memudahkan Mengembangkan Fungsi Bot
 - Menambahkan Fitur Verifikasi Kontak
 
 ###0.0.4

@@ -6,11 +6,15 @@ const Ping = require("./Function/Generator/Ping");
 const Help = require("./Function/Generator/Help");
 const Daftar = require("./Function/Generator/Daftar");
 const Terima = require("./Function/Generator/Terima");
-const Produk = require("./Function/Generator/Produk");
+const Pangkat = require("./Function/Generator/Pangkat");
+const List = require("./Function/Generator/List");
 const Konveksi = require("./Function/Generator/Konveksi");
+const Produk = require("./Function/Generator/Produk");
+const Link = require("./Function/Generator/Link");
 const Undercut = require("./Function/Generator/Undercut");
 const Update = require("./Function/Generator/Update");
 const Auto = require("./Function/Generator/Auto");
+const Click = require("./Function/Generator/Click");
 
 // Notifikasi
 const { AutoSelesai } = require("./Function/Update/HargaProduks");
@@ -49,8 +53,12 @@ async function Kodommo() {
           generator = await Ping(msg, await msg.getContact());
           msg.reply("Pong");
           break;
-        case msg.body.toLowerCase() === "!help": // Cek Perintah yang Tersedia
+        case msg.body.toLowerCase().startsWith("!help"): // Cek Perintah yang Tersedia
           balas = await Help(await msg.getContact());
+          msg.reply(balas.caption);
+          break;
+        case msg.body.toLowerCase().startsWith("!list"): // Cek Perintah yang Tersedia
+          balas = await List(await msg.getContact());
           msg.reply(balas.caption);
           break;
         case msg.body.toLowerCase().startsWith("!daftar"): // Untuk apakah bot membalas
@@ -78,7 +86,22 @@ async function Kodommo() {
             msg.reply(`╭──「 *Perintah Gagal* 」
 │Harap tag kontak yang 
 │ingin diterima. 
-│cth: !daftar @kontak
+│contoh: !daftar @kontak
+╰───────────────`);
+          }
+        case msg.body.toLowerCase().startsWith("!Pangkat"): // Untuk apakah bot membalas
+          if (msg.mentionedIds.length !== 0) {
+            for (let i = 0; i < msg.mentionedIds.length; i++) {
+              let mentionid = await WaBot.getNumberId(msg.mentionedIds[i]);
+              let contact = await WaBot.getContactById(mentionid._serialized);
+              balas = await Pangkat(msg, await msg.getContact(), contact.number);
+              msg.reply(balas.caption, undefined, { mentions: [contact] });
+            }
+          } else {
+            msg.reply(`╭──「 *Perintah Gagal* 」
+│Harap tag kontak yang 
+│ingin Diubah Pangkat. 
+│contoh: !daftar @kontak
 ╰───────────────`);
           }
           break;
@@ -87,6 +110,16 @@ async function Kodommo() {
           for (let i = 0; i < balas.length; i++) {
             msg.reply(balas[i].caption);
           }
+          break;
+        case msg.body.toLowerCase().startsWith("!link"): // Cek Produk
+          balas = await Link(msg, await msg.getContact());
+          for (let i = 0; i < balas.length; i++) {
+            msg.reply(balas[i].caption);
+          }
+          break;
+        case msg.body.toLowerCase().startsWith("!click"): // Cek Produk
+          balas = await Click(msg, await msg.getContact());
+          msg.reply(balas.caption);
           break;
         case msg.body.toLowerCase().startsWith("!konveksi"): // Cek Produk
           balas = await Konveksi(msg, await msg.getContact());
@@ -99,17 +132,17 @@ async function Kodommo() {
             }
           }
           break;
-        case msg.body.toLowerCase().startsWith("!undercut"):
-          balas = await Undercut(msg, await msg.getContact());
-          for (let i = 0; i < balas.length; i++) {
-            if (balas[i].status !== "gagal") {
-              let undercut = MessageMedia.fromFilePath(`${balas[i].status}`);
-              msg.reply(undercut, undefined, { caption: balas[i].caption });
-            } else {
-              msg.reply(balas[i].caption);
-            }
-          }
-          break;
+        // case msg.body.toLowerCase().startsWith("!undercut"):
+        //   balas = await Undercut(msg, await msg.getContact());
+        //   for (let i = 0; i < balas.length; i++) {
+        //     if (balas[i].status !== "gagal") {
+        //       let undercut = MessageMedia.fromFilePath(`${balas[i].status}`);
+        //       msg.reply(undercut, undefined, { caption: balas[i].caption });
+        //     } else {
+        //       msg.reply(balas[i].caption);
+        //     }
+        //   }
+        //   break;
         case msg.body.toLowerCase().startsWith("!update"):
         case msg.body.toLowerCase().startsWith("!scrap"):
           balas = await Update(msg, await msg.getContact());
