@@ -109,7 +109,7 @@ async function AutoMulai(res) {
   return res;
 }
 
-function Ulang() {
+async function Ulang() {
   i++;
   if (i < produklength) {
     if (ScrapUpdate === true) {
@@ -118,7 +118,8 @@ function Ulang() {
   } else {
     finish = true;
     i = 0;
-    setTimeout(AutoMulai, 1800000);
+    await setTimeout(1800000);
+    AutoMulai();
   }
 }
 

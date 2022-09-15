@@ -3,6 +3,11 @@ adalah whatsapp bot
 
 ##ChangeLog
 
+###0.2.3 - 16/9 Stable Release
+
+- Fix
+  - !Undercut Render
+
 ###0.2.2 - 15/9
 
 - Fix

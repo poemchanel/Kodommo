@@ -143,17 +143,17 @@ async function Kodommo() {
             }
           }
           break;
-        // case msg.body.toLowerCase().startsWith("!undercut"):
-        //   balas = await Undercut(msg, await msg.getContact());
-        //   for (let i = 0; i < balas.length; i++) {
-        //     if (balas[i].status !== "gagal") {
-        //       let undercut = MessageMedia.fromFilePath(`${balas[i].status}`);
-        //       msg.reply(undercut, undefined, { caption: balas[i].caption });
-        //     } else {
-        //       msg.reply(balas[i].caption);
-        //     }
-        //   }
-        //   break;
+        case msg.body.toLowerCase().startsWith("!undercut"):
+          balas = await Undercut(msg, await msg.getContact());
+          for (let i = 0; i < balas.length; i++) {
+            if (balas[i].status !== "gagal") {
+              let undercut = MessageMedia.fromFilePath(`${balas[i].status}`);
+              msg.reply(undercut, undefined, { caption: balas[i].caption });
+            } else {
+              msg.reply(balas[i].caption);
+            }
+          }
+          break;
         case msg.body.toLowerCase().startsWith("!update"):
         case msg.body.toLowerCase().startsWith("!scrap"):
           balas = await Update(msg, await msg.getContact());

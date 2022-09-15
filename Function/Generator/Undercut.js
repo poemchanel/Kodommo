@@ -1,7 +1,7 @@
 const VerifikasiKontak = require("../VerifikasiKontak");
 const CekStatusDB = require("../Routes/CekStatusDB");
-const TarikProduksKonveksi = require("../Routes/TarikProduksKonveksi");
-const RenderUndercutKonveksiPDF = require("../Render/RenderUndercutKonveksiPDF");
+const TarikProduks = require("../Routes/TarikProduks");
+const RenderUndercutPDF = require("../Render/RenderUndercutPDF");
 
 async function Undercut(pesan, kontak, res) {
   res = [];
@@ -12,43 +12,22 @@ async function Undercut(pesan, kontak, res) {
       case "superadmin":
       case "admin":
       case "member": // Kontak Berpangkat member
-        let tmp = pesan.body.split(" ").filter((e) => e !== "");
-        if (tmp.length !== 1) {
-          for (let i = 0; i < tmp.length; i++) {
-            if (tmp[i].toLowerCase() !== "!undercut") {
-              if (tmp[i].toLowerCase() !== "semua") {
-                let produks = await TarikProduksKonveksi(tmp[i].toUpperCase());
-                if (produks.length !== 0) {
-                  const render = await RenderUndercutKonveksiPDF(produks, tmp[i]);
-                  res.push({
-                    status: render,
-                    caption: `╭──「 *Perintah Berhasil* 」
-│Undercut Konveksi ${tmp[i].toUpperCase()}
+        let produks = await TarikProduks();
+        if (produks.length !== 0) {
+          const render = await RenderUndercutPDF(produks);
+          res.push({
+            status: render,
+            caption: `╭──「 *Perintah Berhasil* 」
+│Undercut Produks
 │Berhasil di Render
 ╰───────────────`,
-                  });
-                } else {
-                  res.push({
-                    status: "gagal",
-                    caption: `╭──「 *Perintah Gagal* 」
-│Tidak dapat menemukan
-│konvkesi dengan kode ${tmp[i]}
-╰───────────────`,
-                  });
-                }
-              } else {
-                res.push({ status: "gagal", caption: `Fitur Ini Belum tersedia` });
-              }
-            }
-          }
+          });
         } else {
           res.push({
             status: "gagal",
             caption: `╭──「 *Perintah Gagal* 」
-│Harap masukan kode konveksi
-│setelah perintah !Undercut
-│Contoh: 
-│!Undercut SONY APEN ...
+│Tidak dapat menemukan
+│produks
 ╰───────────────`,
           });
         }

@@ -12,6 +12,7 @@ const List = require("./Function/Generator/Link");
 const Auto = require("./Function/Generator/Auto");
 const Update = require("./Function/Generator/Update");
 const Konveksi = require("./Function/Generator/Konveksi");
+const Undercut = require("./Function/Generator/Undercut");
 const Click = require("./Function/Generator/Click");
 
 const { AutoSelesai } = require("./Function/Update/HargaProduks");
@@ -220,6 +221,15 @@ async function Kodommo(msg) {
         break;
       case msg.body.toLowerCase().startsWith("!konveksi"): // Cek Produk
         balas = await Konveksi(msg, await msg.getContact());
+        for (let i = 0; i < balas.length; i++) {
+          if (balas[i].status !== "gagal") {
+            msg.reply(balas[i].caption);
+          } else {
+            msg.reply(balas[i].caption);
+          }
+        }
+      case msg.body.toLowerCase().startsWith("!undercut"): // Cek Produk
+        balas = await Undercut(msg, await msg.getContact());
         for (let i = 0; i < balas.length; i++) {
           if (balas[i].status !== "gagal") {
             msg.reply(balas[i].caption);
