@@ -1,7 +1,7 @@
-const VerifikasiKontak = require("../VerifikasiKontak");
+const VerifikasiKontak = require("../../../VerifikasiKontak");
 const CekStatusDB = require("../Routes/CekStatusDB");
-const TarikProduk = require("../Routes/TarikProduk");
-const UpdateProduk = require("../Routes/UpdateProduk");
+const TarikProduk = require("../../../Routes/TarikProduk");
+const UpdateProduk = require("../../../Routes/UpdateProduk");
 
 async function Click(pesan, kontak, res = {}) {
   const StatusDB = await CekStatusDB();

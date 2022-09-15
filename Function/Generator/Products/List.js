@@ -1,4 +1,4 @@
-const VerifikasiKontak = require("../VerifikasiKontak");
+const VerifikasiKontak = require("../../VerifikasiKontak");
 const CekStatusDB = require("../Routes/CekStatusDB");
 
 async function List(kontak, res) {

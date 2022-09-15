@@ -1,6 +1,6 @@
 const mongoose = require("mongoose"); // Export Module Manipulasi Database MongoDB
 
-const penggunaSchema = new mongoose.Schema({
+const ContactSchema = new mongoose.Schema({
   namapengguna: String,
   nama: String,
   notelepon: String,
@@ -12,6 +12,6 @@ const penggunaSchema = new mongoose.Schema({
   },
 }); // Format Dokumen Pengguna
 
-const Penggunas = mongoose.model("Penggunas", penggunaSchema);
+const Contacts = mongoose.model("Contacts", ContactSchema);
 
-module.exports = Penggunas;
+module.exports = Contacts;

@@ -1,6 +1,6 @@
 const mongoose = require("mongoose"); // Export Module Manipulasi Database MongoDB
 
-const produkSchema = new mongoose.Schema(
+const ProductSchema = new mongoose.Schema(
   {
     konveksi: String,
     kodebarang: String,
@@ -25,6 +25,6 @@ const produkSchema = new mongoose.Schema(
   { timestamps: { createdAt: false, updatedAt: true } }
 ); // Format Dokumen Produk
 
-const Produk = mongoose.model("Produk", produkSchema);
+const Products = mongoose.model("Products", ProductSchema);
 
-module.exports = Produk;
+module.exports = Products;

@@ -1,7 +1,7 @@
-const VerifikasiKontak = require("../VerifikasiKontak");
+const VerifikasiKontak = require("../../VerifikasiKontak");
 const CekStatusDB = require("../Routes/CekStatusDB");
-const TarikProduk = require("../Routes/TarikProduk");
-const RenderProduk = require("../Render/RenderProduk");
+const TarikProduk = require("../../Routes/TarikProduk");
+const RenderProduk = require("../../Render/RenderProduk");
 
 async function Produk(pesan, kontak, res) {
   res = [];

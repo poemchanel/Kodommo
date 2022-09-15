@@ -1,7 +1,7 @@
-const VerifikasiKontak = require("../VerifikasiKontak");
+const VerifikasiKontak = require("../../VerifikasiKontak");
 const CekStatusDB = require("../Routes/CekStatusDB");
-const TarikProduksKonveksi = require("../Routes/TarikProduksKonveksi");
-const RenderProduksKonveksiPDF = require("../Render/RenderProduksKonveksiPDF");
+const TarikProduksKonveksi = require("../../Routes/TarikProduksKonveksi");
+const RenderProduksKonveksiPDF = require("../../Render/RenderProduksKonveksiPDF");
 
 async function Konveksi(pesan, kontak, res = []) {
   const StatusDB = await CekStatusDB();

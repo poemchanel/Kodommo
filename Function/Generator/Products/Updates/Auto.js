@@ -1,8 +1,8 @@
 const { setTimeout } = require("timers/promises");
 const CekStatusDB = require("../Routes/CekStatusDB");
-const VerifikasiKontak = require("../VerifikasiKontak");
-const { AutoOn, AutoOff, AutoCek } = require("../Update/HargaProduks");
-const { HargaKonveksiOff } = require("../Update/HargaKonveksi");
+const VerifikasiKontak = require("../../../VerifikasiKontak");
+const { AutoOn, AutoOff, AutoCek } = require("../../../Update/HargaProduks");
+const { HargaKonveksiOff } = require("../../../Update/HargaKonveksi");
 
 async function Auto(pesan, kontak, res) {
   const StatusDB = await CekStatusDB();

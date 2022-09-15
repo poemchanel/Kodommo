@@ -1,13 +1,13 @@
-const CekStatusDB = require("../Routes/CekStatusDB");
-const VerifikasiKontak = require("../VerifikasiKontak");
-const TarikPengguna = require("../Routes/TarikPengguna");
-const UpdatePengguna = require("../Routes/UpdatePengguna");
-const HapusPengguna = require("../Routes/HapusPengguna");
+const DBState = require("../Routes/DBState");
+const ContactVerification = require("../../ContactVerification");
+const TarikPengguna = require("../../Routes/Contacts/Get");
+const UpdatePengguna = require("../../Routes/Contacts/Patch");
+const HapusPengguna = require("../../Routes/Contacts/Delete");
 
 async function Pangkat(pesan, kontak, nomor, res) {
   res = [];
   let updatepangkat;
-  const StatusDB = await CekStatusDB();
+  const StatusDB = await DBState();
   if (StatusDB.state === 1) {
     const pengguna = await VerifikasiKontak(kontak);
     switch (pengguna.pangkat) {

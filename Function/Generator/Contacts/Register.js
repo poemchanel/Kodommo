@@ -1,6 +1,6 @@
 const CekStatusDB = require("../Routes/CekStatusDB");
-const VerifikasiKontak = require("../VerifikasiKontak");
-const TambahPengguna = require("../Routes/TambahPengguna");
+const VerifikasiKontak = require("../../VerifikasiKontak");
+const TambahPengguna = require("../../Routes/TambahPengguna");
 
 async function Daftar(kontak, res) {
   const StatusDB = await CekStatusDB();

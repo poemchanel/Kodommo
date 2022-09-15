@@ -1,7 +1,7 @@
-const VerifikasiKontak = require("../VerifikasiKontak");
+const VerifikasiKontak = require("../../VerifikasiKontak");
 const CekStatusDB = require("../Routes/CekStatusDB");
-const TarikProduks = require("../Routes/TarikProduks");
-const RenderUndercutPDF = require("../Render/RenderUndercutPDF");
+const TarikProduks = require("../../Routes/TarikProduks");
+const RenderUndercutPDF = require("../../Render/RenderUndercutPDF");
 
 async function Undercut(pesan, kontak, res) {
   res = [];

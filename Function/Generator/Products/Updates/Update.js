@@ -1,11 +1,16 @@
 const { setTimeout } = require("timers/promises");
 const CekStatusDB = require("../Routes/CekStatusDB");
-const VerifikasiKontak = require("../VerifikasiKontak");
-const TarikProduk = require("../Routes/TarikProduk");
-const TarikProduksKonveksi = require("../Routes/TarikProduksKonveksi");
-const HargaProduk = require("../Update/HargaProduk");
-const { HargaKonveksiMulai, HargaKonveksiOff, HargaKonveksiOn, HargaKonveksiCek } = require("../Update/HargaKonveksi");
-const { AutoOff, AutoOn, AutoCek } = require("../Update/HargaProduks");
+const VerifikasiKontak = require("../../../VerifikasiKontak");
+const TarikProduk = require("../../../Routes/Products/Get");
+const TarikProduksKonveksi = require("../../../Routes/Products/GetKonveksi");
+const HargaProduk = require("../../../Update/PriceProduct");
+const {
+  HargaKonveksiMulai,
+  HargaKonveksiOff,
+  HargaKonveksiOn,
+  HargaKonveksiCek,
+} = require("../../../Update/PriceKonveksi");
+const { AutoOff, AutoOn, AutoCek } = require("../../../Update/PriceProducts");
 
 async function Update(pesan, kontak, res = []) {
   const StatusDB = await CekStatusDB();

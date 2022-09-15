@@ -1,7 +1,7 @@
 const CekStatusDB = require("../Routes/CekStatusDB");
-const VerifikasiKontak = require("../VerifikasiKontak");
-const TarikPengguna = require("../Routes/TarikPengguna");
-const UpdatePengguna = require("../Routes/UpdatePengguna");
+const VerifikasiKontak = require("../../VerifikasiKontak");
+const TarikPengguna = require("../../Routes/TarikPengguna");
+const UpdatePengguna = require("../../Routes/UpdatePengguna");
 
 async function Terima(pesan, kontak, nomor, res) {
   res = [];

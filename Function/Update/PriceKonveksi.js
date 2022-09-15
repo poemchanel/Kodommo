@@ -7,7 +7,7 @@ puppeteer.use(AdblockerPlugin({ blockTrackers: true }));
 
 const { setTimeout } = require("timers/promises");
 
-const UpdateProduk = require("../Routes/UpdateProduk");
+const UpdateProduk = require("../Routes/Products/Patch");
 
 let ScrapUpdate = false;
 let log = [];

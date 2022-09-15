@@ -1,4 +1,4 @@
-const TarikPengguna = require("./Routes/TarikPengguna");
+const TarikPengguna = require("./Routes/Contacts/Get");
 
 async function VerifikasiKontak(req, res) {
   const kontak = await TarikPengguna(req.number);

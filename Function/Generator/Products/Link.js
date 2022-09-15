@@ -1,6 +1,6 @@
-const VerifikasiKontak = require("../VerifikasiKontak");
+const VerifikasiKontak = require("../../VerifikasiKontak");
 const CekStatusDB = require("../Routes/CekStatusDB");
-const TarikProduk = require("../Routes/TarikProduk");
+const TarikProduk = require("../../Routes/TarikProduk");
 
 async function Link(pesan, kontak, res) {
   res = [];
