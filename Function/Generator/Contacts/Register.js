@@ -1,66 +1,64 @@
-const CekStatusDB = require("../Routes/CekStatusDB");
-const VerifikasiKontak = require("../../VerifikasiKontak");
-const TambahPengguna = require("../../Routes/TambahPengguna");
+const DBState = require("../../Routes/DBState");
+const Verify = require("./Verify");
+const NewContact = require("../../Routes/Contacts/New");
 
-async function Daftar(kontak, res) {
-  const StatusDB = await CekStatusDB();
-  if (StatusDB.state === 1) {
-    const pengguna = await VerifikasiKontak(kontak);
-    switch (pengguna.pangkat) {
-      case "superadmin":
-      case "admin":
-      case "member": // Kontak Berpangkat member
-        res = {
-          caption: `╭──「 *Perintah Gagal* 」
-│Kontak @${kontak.number} 
-│Telah terdaftar dengan 
-│Pangkat : ${pengguna.pangkat}
-╰───────────────`,
-        };
+async function Register(Mentioned, Res) {
+  const State = await DBState();
+  if (State === 1) {
+    const Rank = await Verify(Mentioned.number);
+    switch (Rank) {
+      case "Kosong":
+        Res = RankKosong(Mentioned);
         break;
       case "baru":
-        res = {
-          caption: `╭──「 *Perintah Gagal* 」
-│Kontak @${kontak.number} 
-│Telah terdaftar, Harap hubungi 
-│admin untuk proses penerimaan
-╰───────────────`,
-        };
-        break;
-      case "Kosong":
-        const daftar = await TambahPengguna(kontak);
-        res = {
-          caption: `╭──「 *Perintah Berhasil* 」 
-│Berhasil Mendaftarkan @${kontak.number}
-│• *Nama* : ${kontak.pushname}
-│• *Nomor* : ${kontak.number}
-│───────────────
-│Silahkan hubungi Admin untuk
-│proses penerimaan
-╰───────────────`,
-        };
+        Res = RankBaru(Mentioned.number);
         break;
       default: //Kontak Tidak Memiliki Pangkat
-        res = {
-          caption: `╭──「 *Perintah Gagal* 」
-│Terjadi kesalahan terhadap 
-│kontak @${kontak.number}, Segera 
-│hubungi Admin
-╰───────────────`,
-        };
+        Res = RankDefault(Mentioned.number, Rank);
         break;
     } // Cek Pangkat Pengirim Pesan
   } else {
-    res = {
-      caption: `╭──「 *Maintenence* 」
-│Mohon Maaf ${kontak.number}, :)
-│Saat ini Bot sedang dalam
-│Maintenence...
-╰───────────────`,
-    };
+    Res = DBDisconected();
   }
-
-  return res;
+  return Res;
 }
 
-module.exports = Daftar;
+async function RankKosong(Mentioned, Res) {
+  const Form = await NewContact(Mentioned);
+  Res = `╭──「 *Perintah Berhasil* 」 
+│Berhasil Mendaftarkan @${Mentioned.number}
+│• *Nama* : ${Mentioned.pushname}
+│• *Nomor* : ${Mentioned.number}
+│───────────────
+│Silahkan hubungi Admin untuk
+│proses penerimaan
+╰───────────────`;
+  return Res;
+}
+
+function RankBaru(Number, Res) {
+  Res = `╭──「 *Perintah Gagal* 」
+│Kontak @${Number} 
+│Telah terdaftar, Harap hubungi 
+│admin untuk proses penerimaan
+╰───────────────`;
+  return Res;
+}
+function RankDefault(Number, Rank, Res) {
+  Res = `╭──「 *Perintah Gagal* 」
+│Kontak @${Number} 
+│Telah terdaftar dengan 
+│Pangkat : ${Rank}
+╰───────────────`;
+  return Res;
+}
+function DBDisconected(Res) {
+  Res = `╭──「 *Maintenence* 」
+│Mohon Maaf :)
+│Saat ini Bot sedang dalam
+│Maintenence...
+╰───────────────`;
+  return Res;
+}
+
+module.exports = Register;

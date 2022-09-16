@@ -1,9 +1,8 @@
-async function Ping(pesan, kontak, res) {
-  res = { caption: "Pong" };
-  console.log(pesan);
-  console.log("-----------------");
-  console.log(kontak);
-  return res;
-} //Release //Membalas Pesan Ping
+async function Ping(Message, From, Res) {
+  Res = "Pong";
+  console.log(Message);
+  console.log(From);
+  return Res;
+} //Release //Membalas Message Ping
 
 module.exports = Ping;

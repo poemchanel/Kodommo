@@ -1,4 +1,4 @@
-const Products = require("./Models/Products");
+const ProductModels = require("./Models/Products");
 const fs = require("fs");
 const csv = require("csv-parser");
 
@@ -200,7 +200,7 @@ function Refactor() {
 async function UploadKonveksi() {
   let i = 0;
   konveksi.forEach((e) => {
-    let produk = new Products(e);
+    let produk = new ProductModels(e);
     produk.save();
     i++;
     console.log(`${i} ${e.kodebarang} Saved`);

@@ -2,14 +2,14 @@ const { Client, LocalAuth, MessageMedia } = require("whatsapp-web.js"); // impor
 const { setTimeout } = require("timers/promises");
 
 // DB
-const HubungkanDatabase = require("./Function/Routes/HubungkanDatabase"); // import Fungsi untuk Koneksi ke DataBase
+const DBConnect = require("./Function/Routes/DBConnect"); // import Fungsi untuk Koneksi ke DataBase
 
 // Reply Generator
 const Ping = require("./Function/Generator/Ping");
+const Register = require("./Function/Generator/Contacts/Register");
+const Accept = require("./Function/Generator/Contacts/Accept");
+const Rank = require("./Function/Generator/Contacts/Rank");
 const Help = require("./Function/Generator/Help");
-const Daftar = require("./Function/Generator/Daftar");
-const Terima = require("./Function/Generator/Terima");
-const Pangkat = require("./Function/Generator/Pangkat");
 const List = require("./Function/Generator/List");
 const Konveksi = require("./Function/Generator/Konveksi");
 const Produk = require("./Function/Generator/Produk");
@@ -22,11 +22,12 @@ const Click = require("./Function/Generator/Click");
 // Notifikasi
 const { AutoSelesai, AutoMulai } = require("./Function/Update/HargaProduks");
 const { KonveksiSelesai } = require("./Function/Update/HargaKonveksi");
+const { generate } = require("qrcode-terminal");
 
 PreLaunch();
 async function PreLaunch() {
   console.log("Menghubungkan DB");
-  HubungkanDatabase();
+  DBConnect();
   await setTimeout(3000);
 
   console.log("Menyalakan Bot");
@@ -56,33 +57,26 @@ async function Kodommo() {
     console.log("Bot Aktif");
   }); // Eksekusi Jika Bot Siap Digunakan
 
+  let Generate;
   WaBot.on("message", async (msg) => {
     console.log(`-> ${msg.from} : ${msg.body}`);
     if (msg.body.startsWith("!")) {
       switch (true) {
         case msg.body.toLowerCase().startsWith("!ping"):
-          generator = await Ping(msg, await msg.getContact());
+          Generate = await Ping(msg, await msg.getContact());
           msg.reply("Pong");
-          break;
-        case msg.body.toLowerCase().startsWith("!help"): // Cek Perintah yang Tersedia
-          balas = await Help(await msg.getContact());
-          msg.reply(balas.caption);
-          break;
-        case msg.body.toLowerCase().startsWith("!list"): // Cek Perintah yang Tersedia
-          balas = await List(await msg.getContact());
-          msg.reply(balas.caption);
           break;
         case msg.body.toLowerCase().startsWith("!daftar"): // Untuk apakah bot membalas
           if (msg.mentionedIds.length !== 0) {
             for (let i = 0; i < msg.mentionedIds.length; i++) {
               let mentionid = await WaBot.getNumberId(msg.mentionedIds[i]);
               let contact = await WaBot.getContactById(mentionid._serialized);
-              balas = await Daftar(contact);
-              msg.reply(balas.caption, undefined, { mentions: [contact] });
+              Generate = await Register(contact);
+              msg.reply(Generate, undefined, { mentions: [contact] });
             }
           } else {
-            balas = await Daftar(await msg.getContact());
-            msg.reply(balas.caption, undefined, { mentions: [await msg.getContact()] }); // Membalas Pesan
+            Generate = await Register(await msg.getContact());
+            msg.reply(Generate, undefined, { mentions: [await msg.getContact()] }); // Membalas Pesan
           }
           break;
         case msg.body.toLowerCase().startsWith("!terima"): // Untuk apakah bot membalas
@@ -90,31 +84,36 @@ async function Kodommo() {
             for (let i = 0; i < msg.mentionedIds.length; i++) {
               let mentionid = await WaBot.getNumberId(msg.mentionedIds[i]);
               let contact = await WaBot.getContactById(mentionid._serialized);
-              balas = await Terima(msg, await msg.getContact(), contact.number);
-              msg.reply(balas.caption, undefined, { mentions: [contact] });
+              Generate = await Accept((await msg.getContact()).number, contact.number);
+              msg.reply(Generate, undefined, { mentions: [contact] });
             }
           } else {
-            msg.reply(`╭──「 *Perintah Gagal* 」
-│Harap tag kontak yang 
-│ingin diterima. 
-│contoh: !daftar @kontak
-╰───────────────`);
+            msg.reply(
+              `╭──「 *Perintah Gagal* 」\n│Harap tag kontak yang\n│ingin diterima.\n│contoh: !daftar @kontak\n╰───────────────`
+            );
           }
+          break;
         case msg.body.toLowerCase().startsWith("!Pangkat"): // Untuk apakah bot membalas
           if (msg.mentionedIds.length !== 0) {
             for (let i = 0; i < msg.mentionedIds.length; i++) {
               let mentionid = await WaBot.getNumberId(msg.mentionedIds[i]);
               let contact = await WaBot.getContactById(mentionid._serialized);
-              balas = await Pangkat(msg, await msg.getContact(), contact.number);
-              msg.reply(balas.caption, undefined, { mentions: [contact] });
+              Generate = await Rank(msg.body, (await msg.getContact()).number, contact.number);
+              msg.reply(Generate, undefined, { mentions: [contact] });
             }
           } else {
-            msg.reply(`╭──「 *Perintah Gagal* 」
-│Harap tag kontak yang 
-│ingin Diubah Pangkat. 
-│contoh: !daftar @kontak
-╰───────────────`);
+            msg.reply(
+              `╭──「 *Perintah Gagal* 」\n│Harap tag kontak yang\n│ingin Diubah Pangkat.\n│contoh: !Pangkat @kontak\n╰───────────────`
+            );
           }
+          break;
+        case msg.body.toLowerCase().startsWith("!help"): // Cek Perintah yang Tersedia
+          Generate = await Help((await msg.getContact()).number);
+          msg.reply(Generate);
+          break;
+        case msg.body.toLowerCase().startsWith("!list"): // Cek Perintah yang Tersedia
+          balas = await List(await msg.getContact());
+          msg.reply(balas.caption);
           break;
         case msg.body.toLowerCase().startsWith("!produk"): // Cek Produk
           balas = await Produk(msg, await msg.getContact());

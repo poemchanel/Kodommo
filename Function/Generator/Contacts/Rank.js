@@ -1,113 +1,125 @@
-const DBState = require("../Routes/DBState");
-const ContactVerification = require("../../ContactVerification");
-const TarikPengguna = require("../../Routes/Contacts/Get");
-const UpdatePengguna = require("../../Routes/Contacts/Patch");
-const HapusPengguna = require("../../Routes/Contacts/Delete");
+const DBState = require("../../Routes/DBState");
+const Verify = require("./Verify");
+const FindContact = require("../../Routes/Contacts/Find");
+const UpdateContact = require("../../Routes/Contacts/Update");
+const DeleteContact = require("../../Routes/Contacts/Delete");
 
-async function Pangkat(pesan, kontak, nomor, res) {
-  res = [];
+async function Pangkat(Action, From, Mentioned, Res) {
   let updatepangkat;
-  const StatusDB = await DBState();
-  if (StatusDB.state === 1) {
-    const pengguna = await VerifikasiKontak(kontak);
-    switch (pengguna.pangkat) {
+  const State = await DBState();
+  if (State === 1) {
+    const Rank = await Verify(From);
+    switch (Rank) {
       case "superadmin":
-        const form = await TarikPengguna(nomor);
-        if (form.length === 0) {
-          res = {
-            caption: `╭──「 *Perintah Gagal* 」
-│Kontak @${nomor} 
-│Belum Terdaftar                   
-╰───────────────`,
-          };
-        } else {
-          switch (true) {
-            case pesan.body.toLowerCase().includes("promote"):
-            case pesan.body.toLowerCase().includes("admin"):
-              updatepangkat = await UpdatePengguna({
-                notelepon: nomor,
-                pangkat: "admin",
-              });
-              res = {
-                caption: `╭──「 *Perintah Berhasil* 」
+        Res = RankSuperAdmin(Action.toLowerCase(), Mentioned);
+        break;
+      case "Kosong":
+        Res = RankKosong();
+        break;
+      default: //Kontak Tidak Memiliki Pangkat
+        Res = RankDefault(Rank);
+        break;
+    } // Cek Pangkat Pengirim Pesan
+  } else {
+    Res = DBDisconected();
+  }
+  return Res;
+}
+
+async function RankSuperAdmin(Action, Mentioned, Res) {
+  const Form = await FindContact(Mentioned);
+  if (Form.length === 0) {
+    Res = NotRegistered(Mentioned);
+  } else {
+    switch (true) {
+      case Action.includes("promote"):
+      case Action.includes("admin"):
+        Res = await ActionPromote(Form[0]);
+        break;
+      case Action.includes("demote"):
+      case Action.includes("member"):
+        Res = await ActionDemote(Form[0]);
+        break;
+      case Action.includes("kick"):
+      case Action.includes("hapus"):
+      case Action.includes("ban"):
+        Res = await ActionDelete(Form[0]);
+        break;
+      default:
+        Res = ActionDefault();
+        break;
+    }
+  }
+  return Res;
+}
+function NotRegistered(Mentioned, Res) {
+  Res = `╭──「 *Perintah Gagal* 」
+│Kontak @${Mentioned} 
+│Belum melakukan pendaftaran 
+╰───────────────`;
+  return Res;
+}
+async function ActionPromote(Form, Res) {
+  Form.pangkat = "admin";
+  const Patch = await UpdateContact(Form);
+  Res = `╭──「 *Perintah Berhasil* 」
 │Berhasil Promote
-│Kontak @${nomor} 
-│ke pangkat : admin
-╰───────────────`,
-              };
-              break;
-            case pesan.body.toLowerCase().includes("demote"):
-            case pesan.body.toLowerCase().includes("member"):
-              updatepangkat = await UpdatePengguna({
-                notelepon: nomor,
-                pangkat: "member",
-              });
-              res = {
-                caption: `╭──「 *Perintah Berhasil* 」
+│Kontak @${Form.notelepon} 
+│ke pangkat : Admin
+╰───────────────`;
+  return Res;
+}
+async function ActionDemote(Form, Res) {
+  Form.pangkat = "member";
+  const Patch = await UpdateContact(Form);
+  Res = `╭──「 *Perintah Berhasil* 」
 │Berhasil Demote
-│Kontak @${nomor} 
+│Kontak @${Form.notelepon} 
 │ke pangkat : member
-╰───────────────`,
-              };
-              break;
-            case pesan.body.toLowerCase().includes("kick"):
-            case pesan.body.toLowerCase().includes("hapus"):
-            case pesan.body.toLowerCase().includes("ban"):
-              updatepangkat = await HapusPengguna(form[0]);
-              res = {
-                caption: `╭──「 *Perintah Berhasil* 」
+╰───────────────`;
+  return Res;
+}
+async function ActionDelete(Form, Res) {
+  const Delete = await DeleteContact(Form);
+  Res = `╭──「 *Perintah Berhasil* 」
 │Berhasil menghapus
-│Kontak @${nomor} 
-╰───────────────`,
-              };
-              break;
-            default:
-              res = {
-                caption: `╭──「 *Perintah Gagal* 」
+│Kontak @${Form.notelepon} 
+╰───────────────`;
+  return Res;
+}
+function ActionDefault(Res) {
+  Res = `╭──「 *Perintah Gagal* 」
 │Masukan Perintah setelah !Pangkat
 │lalu tag kontak
 │contoh :
 │!Pangkat promote @kontak 
-╰───────────────`,
-              };
-              break;
-          }
-        }
-        break;
-      case "admin":
-      case "member": // Kontak Berpangkat member
-      case "baru":
-      case "Kosong":
-        res = {
-          caption: `╭──「 *Perintah Ditolak* 」
+╰───────────────`;
+  return Res;
+}
+function RankKosong(Res) {
+  Res = `╭──「 *Perintah Ditolak* 」
+│Anda belum Terdaftar, Silahkan
+│mendaftar dengan !daftar
+╰───────────────`;
+  return Res;
+}
+function RankDefault(Rank, Res) {
+  Res = `╭──「 *Perintah Ditolak* 」
 │Perintah ini hanya dapat 
 │diakses oleh :
 │• *SuperAdmin*
 │───────────────
-│Status anda saat ini : ${pengguna.pangkat}
-╰───────────────`,
-        };
-        break;
-      default: //Kontak Tidak Memiliki Pangkat
-        res = {
-          caption: `╭──「 *Perintah Gagal* 」
-│Terjadi kesalahan terhadap 
-│kontak @${kontak.number}, Segera 
-│hubungi Admin
-╰───────────────`,
-        };
-        break;
-    } // Cek Pangkat Pengirim Pesan
-  } else {
-    res = {
-      caption: `╭──「 *Maintenence* 」
-│Mohon Maaf @${kontak.number}, :)
+│Status anda saat ini : ${Rank}
+╰───────────────`;
+  return Res;
+}
+function DBDisconected(Res) {
+  Res = `╭──「 *Maintenence* 」
+│Mohon Maaf :)
 │Saat ini Bot sedang dalam
 │Maintenence...
-╰───────────────`,
-    };
-  }
-  return res;
+╰───────────────`;
+  return Res;
 }
 
 module.exports = Pangkat;

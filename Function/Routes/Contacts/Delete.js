@@ -1,8 +1,8 @@
-const Penggunas = require("../Database/Models/Penggunas");
+const ContactsModels = require("../../Database/Models/Contacts");
 
-async function HapusPengguna(req, res) {
-  res = await Penggunas.deleteOne({ _id: req._id });
-  return res;
+async function DeleteContact(Contact, Res) {
+  Res = await ContactsModels.deleteOne({ _id: Contact._id });
+  return Res;
 } // Mengambil data Pengguna
 
-module.exports = HapusPengguna;
+module.exports = DeleteContact;

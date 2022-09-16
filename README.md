@@ -3,10 +3,20 @@ adalah whatsapp bot
 
 ##ChangeLog
 
-###0.3.0 - 17/98 Refactor
+###0.3.1 - 18/9 Refactor
 
 - Refactor Folder and file directory
--
+  - Index ✓
+  - Function / Database ✓
+  - Function / Routes ✓
+  - Function / Generator /
+    - Contact ✓
+    - Help ✓
+    - Ping ✓
+
+###0.3.0 - 17/9 Refactor
+
+- Refactor Folder and file directory
 
 ###0.2.3 - 16/9 Stable Release
 
