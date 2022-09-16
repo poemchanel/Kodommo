@@ -1,16 +1,31 @@
-const VerifikasiKontak = require("../../VerifikasiKontak");
-const CekStatusDB = require("../Routes/CekStatusDB");
+const DBState = require("../../Routes/DBState");
+const Verify = require("../Contacts/Verify");
 
-async function List(kontak, res) {
-  const StatusDB = await CekStatusDB();
-  if (StatusDB.state === 1) {
-    const pengguna = await VerifikasiKontak(kontak);
-    switch (pengguna.pangkat) {
+async function List(From, Res) {
+  const State = await DBState();
+  if (State === 1) {
+    const Rank = await Verify(From);
+    switch (Rank) {
       case "superadmin":
       case "admin":
       case "member": // Kontak Berpangkat member
-        res = {
-          caption: `╭──「 *List Konveksi* 」
+        Res = RankMember();
+        break;
+      case "Kosong":
+        Res = RankKosong();
+        break;
+      default: //Kontak Tidak Memiliki Pangkat
+        Res = RankDefault(Rank);
+        break;
+    } // Cek Pangkat Pengirim Pesan
+  } else {
+    Res = DBDisconected();
+  }
+  return Res;
+}
+function RankMember(Res) {
+  Res = `╭──「 *List Konveksi* 」
+*│ Kode   : Konveksi*
 *│•BOGOR* : Konveksi BOGOR
 *│•DONI* : Konveksi DONI
 *│•SONY* : Konveksi SONY
@@ -44,40 +59,35 @@ async function List(kontak, res) {
 *│•VIVA* : ~Konveksi VIVA~
 *│•WARDAH* : ~Konveksi WARDAH~
 *│•WHITELAB* : ~Konveksi WHITELAB~
-╰───────────────`,
-        };
-        break;
-      case "Kosong":
-        res = {
-          caption: `╭──「 *Perintah Ditolak* 」
-│Anda belum Terdaftar, Silahkan
-│mendaftar dengan !daftar
-╰───────────────`,
-        };
-        break;
-      default: //Kontak Tidak Memiliki Pangkat
-        res = {
-          caption: `╭──「 *Perintah Ditolak* 」
-│Perintah ini hanya dapat 
-│diakses oleh :
+╰───────────────`;
+  return Res;
+}
+function RankKosong(Res) {
+  Res = `╭──「 *Perintah Ditolak* 」
+│Anda belum Terdaftar
+│──「 *i* 」────────
+│Silahkan mendaftar
+│dengan !daftar
+╰───────────────`;
+  return Res;
+}
+function RankDefault(Rank, Res) {
+  Res = `╭──「 *Perintah Ditolak* 」
+│Perintah ini hanya 
+│dapat diakses oleh :
 │• *Admin*
 │• *Member*
-│───────────────
-│Status anda saat ini : ${pengguna.pangkat}
-╰───────────────`,
-        };
-        break;
-    } // Cek Pangkat Pengirim Pesan
-  } else {
-    res = {
-      caption: `╭──「 *Maintenence* 」
-│Mohon Maaf @${kontak.number}, :)
-│Saat ini Bot sedang dalam
-│Maintenence...
-╰───────────────`,
-    };
-  }
-  return res;
+│──「 *i* 」────────
+│Status anda saat ini : ${Rank}
+╰───────────────`;
+  return Res;
 }
-
+function DBDisconected(Res) {
+  Res = `╭──「 *Maintenence* 」
+│Mohon Maaf :)
+│Saat ini Bot sedang
+│dalam Maintenence...
+╰───────────────`;
+  return Res;
+}
 module.exports = List;

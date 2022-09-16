@@ -1,72 +1,95 @@
-const VerifikasiKontak = require("../../VerifikasiKontak");
-const CekStatusDB = require("../Routes/CekStatusDB");
-const TarikProduks = require("../../Routes/TarikProduks");
-const RenderUndercutPDF = require("../../Render/RenderUndercutPDF");
+const DBState = require("../../Routes/DBState");
+const Verify = require("../Contacts/Verify");
+const FindProducts = require("../../Routes/Products/FindAll");
+const RenderUndercutPDF = require("../../Render/UndercutPDF");
 
-async function Undercut(pesan, kontak, res) {
-  res = [];
-  const StatusDB = await CekStatusDB();
-  if (StatusDB.state === 1) {
-    const pengguna = await VerifikasiKontak(kontak);
-    switch (pengguna.pangkat) {
+async function Undercut(From, Res) {
+  const State = await DBState();
+  if (State === 1) {
+    const Rank = await Verify(From);
+    switch (Rank) {
       case "superadmin":
       case "admin":
       case "member": // Kontak Berpangkat member
-        let produks = await TarikProduks();
-        if (produks.length !== 0) {
-          const render = await RenderUndercutPDF(produks);
-          res.push({
-            status: render,
-            caption: `╭──「 *Perintah Berhasil* 」
-│Undercut Produks
-│Berhasil di Render
-╰───────────────`,
-          });
-        } else {
-          res.push({
-            status: "gagal",
-            caption: `╭──「 *Perintah Gagal* 」
-│Tidak dapat menemukan
-│produks
-╰───────────────`,
-          });
-        }
+        Res = await RankMember();
         break;
       case "Kosong":
-        res.push({
-          status: "gagal",
-          caption: `╭──「 *Perintah Ditolak* 」
-│Anda belum Terdaftar, Silahkan
-│mendaftar dengan !daftar
-╰───────────────`,
-        });
+        Res = RankKosong();
         break;
-      case "baru":
       default: //Kontak Tidak Memiliki Pangkat
-        res.push({
-          status: "gagal",
-          caption: `╭──「 *Perintah Ditolak* 」
-│Perintah ini hanya dapat 
-│diakses oleh :
-│• *Admin*
-│• *Member*
-│───────────────
-│Status anda saat ini : ${pengguna.pangkat}
-╰───────────────`,
-        });
+        Res = RankDefault(Rank);
         break;
     } // Cek Pangkat Pengirim Pesan
   } else {
-    res.push({
-      status: "gagal",
-      caption: `╭──「 *Maintenence* 」
-│Mohon Maaf @${kontak.number}, :)
-│Saat ini Bot sedang dalam
-│Maintenence...
-╰───────────────`,
-    });
+    Res = DBDisconected();
   }
-  return res;
+  return Res;
 }
-
+async function RankMember(Res) {
+  const Products = await FindProducts();
+  if (Products.length !== 0) {
+    Res = await RenderUndercut(Products);
+  } else {
+    Res = ProductKosong();
+  }
+  return Res;
+}
+async function RenderUndercut(Products, Res) {
+  const Render = await RenderUndercutPDF(Products);
+  Res = {
+    status: Render,
+    caption: `╭──「 *Perintah Berhasil* 」
+│Undercut Produks
+│Berhasil di Render
+╰───────────────`,
+  };
+  return Res;
+}
+function ProductKosong(Res) {
+  Res = {
+    status: "gagal",
+    caption: `╭──「 *Perintah Gagal* 」
+│Tidak dapat 
+│menemukan produks
+╰───────────────`,
+  };
+  return Res;
+}
+function RankKosong(Res) {
+  Res = {
+    status: "gagal",
+    caption: `╭──「 *Perintah Ditolak* 」
+│Anda belum Terdaftar
+│──「 *i* 」────────
+│Silahkan mendaftar
+│dengan !daftar
+╰───────────────`,
+  };
+  return Res;
+}
+function RankDefault(Rank, Res) {
+  Res = {
+    status: "gagal",
+    caption: `╭──「 *Perintah Ditolak* 」
+│Perintah ini hanya 
+│dapat diakses oleh :
+│• *Admin*
+│• *Member*
+│──「 *i* 」────────
+│Status anda saat ini : ${Rank}
+╰───────────────`,
+  };
+  return Res;
+}
+function DBDisconected(Res) {
+  Res = {
+    status: "gagal",
+    caption: `╭──「 *Maintenence* 」
+│Mohon Maaf :)
+│Saat ini Bot sedang
+│dalam Maintenence...
+╰───────────────`,
+  };
+  return Res;
+}
 module.exports = Undercut;

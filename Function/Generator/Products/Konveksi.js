@@ -1,82 +1,110 @@
-const VerifikasiKontak = require("../../VerifikasiKontak");
-const CekStatusDB = require("../Routes/CekStatusDB");
-const TarikProduksKonveksi = require("../../Routes/TarikProduksKonveksi");
-const RenderProduksKonveksiPDF = require("../../Render/RenderProduksKonveksiPDF");
+const DBState = require("../../Routes/DBState");
+const Verify = require("../Contacts/Verify");
+const FindKonveksi = require("../../Routes/Products/FindKonveksi");
+const RenderKonveksiPDF = require("../../Render/KonveksiPDF");
 
-async function Konveksi(pesan, kontak, res = []) {
-  const StatusDB = await CekStatusDB();
-  if (StatusDB.state === 1) {
-    const pengguna = await VerifikasiKontak(kontak);
-    switch (pengguna.pangkat) {
+async function Konveksi(Pesan, From, Res) {
+  const State = await DBState();
+  if (State === 1) {
+    const Rank = await Verify(From);
+    switch (Rank) {
       case "superadmin":
       case "admin":
       case "member": // Kontak Berpangkat member
-        let tmp = pesan.body.split(" ").filter((e) => e !== "");
-        if (tmp.length !== 1) {
-          for (let i = 0; i < tmp.length; i++) {
-            if (tmp[i].toLowerCase() !== "!konveksi") {
-              let produks = await TarikProduksKonveksi(tmp[i].toUpperCase());
-              if (produks.length !== 0) {
-                const render = await RenderProduksKonveksiPDF(produks, tmp[i]);
-                res.push({ status: render, caption: `Konveksi` });
-              } else {
-                res.push({
-                  status: "gagal",
-                  caption: `╭──「 *Perintah Gagal* 」
-│Tidak dapat menemukan konveksi
-│dengan kode : ${tmp[i]}
-╰───────────────`,
-                });
-              }
-            }
-          }
-        } else {
-          res.push({
-            status: "gagal",
-            caption: `╭──「 *Perintah Gagal* 」
-│Harap masukan kode konveksi
-│setelah perintah !konveksi
-│Contoh: 
-│!konveksi SONY APEN ...
-╰───────────────`,
-          });
-        }
+        Res = RankMember(Pesan.replace(/!konveksi/i, "").replace(" ", ""));
         break;
       case "Kosong":
-        res.push({
-          status: "gagal",
-          caption: `╭──「 *Perintah Ditolak* 」
-│Anda belum Terdaftar, Silahkan
-│mendaftar dengan !daftar
-╰───────────────`,
-        });
+        Res = RankKosong();
         break;
-      case "baru":
       default:
-        res.push({
-          status: "gagal",
-          caption: `╭──「 *Perintah Ditolak* 」
-│Perintah ini hanya dapat 
-│diakses oleh :
-│• *Admin*
-│• *Member*
-│───────────────
-│Status anda saat ini : ${pengguna.pangkat}
-╰───────────────`,
-        });
+        Res = RankDefault(Rank);
         break;
     } // Cek Pangkat Pengirim Pesan
   } else {
-    res.push({
-      status: "gagal",
-      caption: `╭──「 *Maintenence* 」
-│Mohon Maaf ${kontak.number}, :)
-│Saat ini Bot sedang dalam
-│Maintenence...
-╰───────────────`,
-    });
+    Res = DBDisconected();
   }
-  return res;
+  return Res;
 }
 
+async function RankMember(Konveksi, Res) {
+  if (Konveksi !== "") {
+    let Produks = await FindKonveksi(Konveksi);
+    if (Produks.length !== 0) {
+      const Render = await RenderKonveksiPDF(Produks, Konveksi);
+      Res = { status: Render, caption: `Konveksi ${Konveksi}` };
+    } else {
+      Res = KonveksiKosong(Konveksi);
+    }
+  } else {
+    Res = PesanKosong();
+  }
+  return Res;
+}
+function KonveksiKosong(Konveksi, Res) {
+  Res = {
+    status: "gagal",
+    caption: `╭──「 *Perintah Gagal* 」
+│Tidak dapat menemukan 
+│konveksi dengan 
+│kode : ${Konveksi}
+│──「 *i* 」────────
+│Gunakan perintah !list
+│untuk melihat list
+│kode konveksi
+╰───────────────`,
+  };
+  return Res;
+}
+function PesanKosong(Res) {
+  Res = {
+    status: "gagal",
+    caption: `╭──「 *Perintah Gagal* 」
+│Kode konveksi kosong
+│──「 *i* 」────────
+│Harap masukan kode 
+│konveksi setelah 
+│perintah !konveksi
+│──「 *Contoh* 」──────── 
+│!Konveksi SONY
+╰───────────────`,
+  };
+  return Res;
+}
+function RankKosong(Res) {
+  Res = {
+    status: "gagal",
+    caption: `╭──「 *Perintah Ditolak* 」
+│Anda belum Terdaftar
+│──「 *i* 」────────
+│Silahkan mendaftar
+│dengan !daftar
+╰───────────────`,
+  };
+  return Res;
+}
+function RankDefault(Rank, Res) {
+  Res = {
+    status: "gagal",
+    caption: `╭──「 *Perintah Ditolak* 」
+│Perintah ini hanya 
+│dapat diakses oleh :
+│• *Admin*
+│• *Member*
+│──「 *i* 」────────
+│Status anda saat ini : ${Rank}
+╰───────────────`,
+  };
+  return Res;
+}
+function DBDisconected(Res) {
+  Res = {
+    status: "gagal",
+    caption: `╭──「 *Maintenence* 」
+│Mohon Maaf :)
+│Saat ini Bot sedang
+│dalam Maintenence...
+╰───────────────`,
+  };
+  return Res;
+}
 module.exports = Konveksi;

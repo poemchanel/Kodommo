@@ -8,7 +8,7 @@ async function Register(Mentioned, Res) {
     const Rank = await Verify(Mentioned.number);
     switch (Rank) {
       case "Kosong":
-        Res = RankKosong(Mentioned);
+        Res = await RankKosong(Mentioned);
         break;
       case "baru":
         Res = RankBaru(Mentioned.number);
@@ -22,25 +22,23 @@ async function Register(Mentioned, Res) {
   }
   return Res;
 }
-
 async function RankKosong(Mentioned, Res) {
   const Form = await NewContact(Mentioned);
   Res = `╭──「 *Perintah Berhasil* 」 
-│Berhasil Mendaftarkan @${Mentioned.number}
-│• *Nama* : ${Mentioned.pushname}
-│• *Nomor* : ${Mentioned.number}
+│Berhasil Mendaftarkan
+*│•Nama* : ${Mentioned.pushname}
+*│•Nomor* : ${Mentioned.number}
 │───────────────
-│Silahkan hubungi Admin untuk
-│proses penerimaan
+│Silahkan hubungi Admin
+│untuk proses penerimaan
 ╰───────────────`;
   return Res;
 }
-
 function RankBaru(Number, Res) {
   Res = `╭──「 *Perintah Gagal* 」
 │Kontak @${Number} 
-│Telah terdaftar, Harap hubungi 
-│admin untuk proses penerimaan
+│Silahkan hubungi Admin
+│untuk proses penerimaan
 ╰───────────────`;
   return Res;
 }
@@ -55,8 +53,8 @@ function RankDefault(Number, Rank, Res) {
 function DBDisconected(Res) {
   Res = `╭──「 *Maintenence* 」
 │Mohon Maaf :)
-│Saat ini Bot sedang dalam
-│Maintenence...
+│Saat ini Bot sedang
+│dalam Maintenence...
 ╰───────────────`;
   return Res;
 }

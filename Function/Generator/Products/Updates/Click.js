@@ -1,36 +1,48 @@
-const VerifikasiKontak = require("../../../VerifikasiKontak");
-const CekStatusDB = require("../Routes/CekStatusDB");
-const TarikProduk = require("../../../Routes/TarikProduk");
-const UpdateProduk = require("../../../Routes/UpdateProduk");
+const DBState = require("../../../Routes/DBState");
+const Verify = require("../../Contacts/Verify");
+const FindProduct = require("../../../Routes/Products/FindKodeBarang");
+const UpdateProduct = require("../../../Routes/Products/Update");
 
-async function Click(pesan, kontak, res = {}) {
-  const StatusDB = await CekStatusDB();
-  if (StatusDB.state === 1) {
-    const pengguna = await VerifikasiKontak(kontak);
-    switch (pengguna.pangkat) {
+async function Click(Pesan, From, Res) {
+  const State = await DBState();
+  if (State === 1) {
+    const Rank = await Verify(From);
+    switch (Rank) {
       case "superadmin":
       case "admin":
-        let tmp = pesan.body.split(" ").filter((e) => e !== "");
-        if (tmp.length === 5) {
-          res.caption = await CekProduk(tmp);
-        } else {
-          res.caption = FormatPerintahSalah();
-        }
+        Res = RankMember(
+          Pesan.replace(/!cick/i, "")
+            .split(" ")
+            .filter((e) => e !== "")
+        );
         break;
       case "Kosong":
-        res.caption = PangkatKosong();
+        Res = RankKosong();
         break;
       default: //Kontak Tidak Memiliki Pangkat
-        res.caption = PangkatDefault(pengguna);
+        Res = RankDefault(Rank);
         break;
     } // Cek Pangkat Pengirim Pesan
   } else {
-    res.caption = Maintenence(kontak);
+    Res = DBDisconected();
   }
-  return res;
+  return Res;
 }
-// Respon
-async function CekProduk(Pesan, Res) {
+
+async function RankMember(Pesan, Res) {
+  if (Pesan.length === 4) {
+    if (Pesan[0].includes("_") === true) {
+      Res = await ProductNumber(Pesan[0]).toUpperCase().split("_");
+    } else {
+      Res = await ProductNotNumber(Pesan[0].toUpperCase());
+    }
+  } else {
+    Res = FormatWrong();
+  }
+  return Res;
+}
+
+async function Product(Pesan, Res) {
   let Produks;
   if (Pesan[1].includes("_") === true) {
     let tmp = Pesan[1].split("_");
@@ -167,7 +179,7 @@ function ActionTidakTerdaftar(Action, Res) {
 ╰───────────────`;
   return Res;
 }
-function FormatPerintahSalah(Res) {
+function FormatWrong(Res) {
   Res = `╭──「 *Perintah Gagal* 」
 │Format perintah yang anda  
 │masukan salah/tidak lengkap
@@ -184,26 +196,27 @@ function FormatPerintahSalah(Res) {
 ╰───────────────`;
   return Res;
 }
-function PangkatKosong(Res) {
+function RankKosong(Res) {
   Res = `╭──「 *Perintah Ditolak* 」
 │Anda belum Terdaftar, Silahkan
 │mendaftar dengan !daftar
 ╰───────────────`;
   return Res;
 }
-function PangkatDefault(Pengguna, Res) {
+function RankDefault(Rank, Res) {
   Res = `╭──「 *Perintah Ditolak* 」
 │Perintah ini hanya dapat 
 │diakses oleh :
 │• *Admin*
+│• *Member*
 │───────────────
-│Status anda saat ini : ${Pengguna.pangkat}
+│Status anda saat ini : ${Rank}
 ╰───────────────`;
   return Res;
 }
-function Maintenence(Kontak, Res) {
+function DBDisconected(Res) {
   Res = `╭──「 *Maintenence* 」
-│Mohon Maaf @${Kontak.number}, :)
+│Mohon Maaf :)
 │Saat ini Bot sedang dalam
 │Maintenence...
 ╰───────────────`;

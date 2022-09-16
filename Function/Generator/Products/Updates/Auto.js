@@ -1,125 +1,138 @@
+const DBState = require("../../../Routes/DBState");
+const Verify = require("../Contacts/Verify");
+const { AutoOn, AutoOff, AutoCek } = require("../../../Update/PriceProducts");
+const { HargaKonveksiOff } = require("../../../Update/PriceKonveksi");
 const { setTimeout } = require("timers/promises");
-const CekStatusDB = require("../Routes/CekStatusDB");
-const VerifikasiKontak = require("../../../VerifikasiKontak");
-const { AutoOn, AutoOff, AutoCek } = require("../../../Update/HargaProduks");
-const { HargaKonveksiOff } = require("../../../Update/HargaKonveksi");
 
-async function Auto(pesan, kontak, res) {
-  const StatusDB = await CekStatusDB();
-  if (StatusDB.state === 1) {
-    const pengguna = await VerifikasiKontak(kontak);
-    switch (pengguna.pangkat) {
+async function Auto(Pesan, From, Res) {
+  const State = await DBState();
+  if (State === 1) {
+    const Rank = await Verify(From);
+    switch (Rank) {
       case "superadmin":
       case "admin":
-        let statusscrapupdate = "";
-        let tmp = pesan.body.replace(/!Auto/i, "").replace(/ /g, "");
-        switch (tmp.toLowerCase()) {
-          case "on":
-            statusscrapupdate = await HargaKonveksiOff();
-            await setTimeout(5000);
-            statusscrapupdate = await AutoOn();
-            res = {
-              caption: `╭──「 *Perintah Berhasil* 」
-${statusscrapupdate.status}
-╰───────────────`,
-            };
-            break;
-          case "off":
-            statusscrapupdate = await AutoOff();
-            res = {
-              caption: `╭──「 *Perintah Berhasil* 」
-${statusscrapupdate.status}
-│Total Produk ${statusscrapupdate.totalproduk}
-│Berhasil Mengupdate ${statusscrapupdate.diupdate}
-│Terhenti di Antrian ke ${statusscrapupdate.antrian + 1}
-╰───────────────`,
-            };
-            break;
-          case "cek":
-            statusscrapupdate = await AutoCek();
-            res = {
-              caption: `╭──「 *Perintah Berhasil* 」
-${statusscrapupdate.status}
-│Total Produk ${statusscrapupdate.totalproduk}
-│Berhasil Mengupdate ${statusscrapupdate.diupdate}
-│Sedang dalam Antrian ke ${statusscrapupdate.antrian + 1}
-╰───────────────`,
-            };
-            break;
-          case "log":
-            statusscrapupdate = await AutoCek();
-            res = {
-              caption: `╭──「 *Perintah Berhasil* 」
-│Log Auto Update Produk :
-${statusscrapupdate.log.join(`\n\r`)}
-╰───────────────`,
-            };
-            break;
-          case "gagal":
-            statusscrapupdate = await AutoCek();
-            res = {
-              caption: `╭──「 *Perintah Berhasil* 」
-│Log produk yang gagal diupdate :
-${statusscrapupdate.gagal.join(`\n\r`)}
-╰───────────────`,
-            };
-            break;
-          case "":
-            res = {
-              caption: `╭──「 *Perintah Gagal* 」
-│Harap masukan perintah 
-│setelah !Auto
-│Contoh:
-│!Auto cek
-╰───────────────`,
-            };
-            break;
-          default:
-            res = {
-              caption: `╭──「 *Perintah Gagal* 」
-│Perintah tidak ditemukan
-│list perintah !Auto : 
+        Res = await RankAdmin(Pesan.replace(/!Auto/i, "").replace(/ /g, "").toUpperCase());
+        break;
+      case "Kosong":
+        Res = RankKosong();
+        break;
+      default:
+        Res = RankDefault(Rank);
+        break;
+    } // Cek Pangkat Pengirim Pesan
+  } else {
+    Res = DBDisconected();
+  }
+  return Res;
+}
+async function RankAdmin(Pesan, Res) {
+  switch (Pesan) {
+    case "ON":
+      Res = await ActionOn();
+      break;
+    case "OFF":
+      Res = await ActionOff();
+      break;
+    case "CEK":
+      Res = await ActionCek();
+      break;
+    case "LOG":
+      Res = await ActionLog();
+      break;
+    case "GAGAL":
+      Res = await ActionFailed();
+      break;
+    default:
+      Res = ActionDefault();
+      break;
+  }
+  return Res;
+}
+async function ActionOn(Action, Res) {
+  Action = await HargaKonveksiOff();
+  await setTimeout(5000);
+  Action = await AutoOn();
+  Res = `╭──「 *Perintah Berhasil* 」
+${Action.status}
+╰───────────────`;
+  return Res;
+}
+async function ActionOff(Action, Res) {
+  Action = await AutoOff();
+  Res = `╭──「 *Perintah Berhasil* 」
+${Action.status}
+│Total Produk ${Action.totalproduk}
+│Berhasil Mengupdate ${Action.diupdate}
+│Terhenti di Antrian ke ${Action.antrian + 1}
+╰───────────────`;
+  return Res;
+}
+async function ActionCek(Action, Res) {
+  Action = await AutoCek();
+  Res = `╭──「 *Perintah Berhasil* 」
+${Action.status}
+│Total Produk ${Action.totalproduk}
+│Berhasil Mengupdate ${Action.diupdate}
+│Sedang dalam Antrian ke ${Action.antrian + 1}
+╰───────────────`;
+  return Res;
+}
+async function ActionLog(Action, Res) {
+  Action = await AutoCek();
+  Res = `╭──「 *Perintah Berhasil* 」
+│Auto Update
+│──「 *Log* 」────────
+${Action.log.join(`\n\r`)}
+╰───────────────`;
+  return Res;
+}
+async function ActionFailed(Action, Res) {
+  Action = await AutoCek();
+  Res = `╭──「 *Perintah Berhasil* 」
+│Produk yang 
+│gagal diupdate :
+│──「 *List* 」────────
+${Action.gagal.join(`\n\r`)}
+╰───────────────`;
+  return Res;
+}
+function ActionDefault(Res) {
+  Res = `╭──「 *Perintah Gagal* 」
+│Action tidak terdaftar
+│──「 *i* 」────────
+│list action !Auto : 
 │•!Auto on
 │•!Auto off
 │•!Auto cek
 │•!Auto log
-╰───────────────`,
-            };
-            break;
-        }
-        break;
-      case "Kosong":
-        res = {
-          caption: `╭──「 *Perintah Ditolak* 」
-│Anda belum Terdaftar, Silahkan
-│mendaftar dengan !daftar
-╰───────────────`,
-        };
-        break;
-      case "member": // Kontak Berpangkat member
-      case "baru":
-      default:
-        res = {
-          caption: `╭──「 *Perintah Ditolak* 」
-│Perintah ini hanya dapat 
-│diakses oleh :
-│• *Admin*
-│───────────────
-│Status anda saat ini : ${pengguna.pangkat}
-╰───────────────`,
-        };
-        break;
-    } // Cek Pangkat Pengirim Pesan
-  } else {
-    res = {
-      caption: `╭──「 *Maintenence* 」
-│Mohon Maaf @${kontak.number}, :)
-│Saat ini Bot sedang dalam
-│Maintenence...
-╰───────────────`,
-    };
-  }
-  return res;
+╰───────────────`;
+  return Res;
 }
-
+function RankKosong(Res) {
+  Res = `╭──「 *Perintah Ditolak* 」
+│Anda belum Terdaftar
+│──「 *i* 」────────
+│Silahkan mendaftar
+│dengan !daftar
+╰───────────────`;
+  return Res;
+}
+function RankDefault(Rank, Res) {
+  Res = `╭──「 *Perintah Ditolak* 」
+│Perintah ini hanya 
+│dapat diakses oleh :
+│• *Admin*
+│──「 *i* 」────────
+│Status anda saat ini : ${Rank}
+╰───────────────`;
+  return Res;
+}
+function DBDisconected(Res) {
+  Res = `╭──「 *Maintenence* 」
+│Mohon Maaf :)
+│Saat ini Bot sedang
+│dalam Maintenence...
+╰───────────────`;
+  return Res;
+}
 module.exports = Auto;

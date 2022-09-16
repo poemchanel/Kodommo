@@ -1,17 +1,18 @@
 const DBState = require("../../Routes/DBState");
 const Verify = require("../Contacts/Verify");
 const FindProduct = require("../../Routes/Products/FindKodeBarang");
+const RenderProduct = require("../../Render/Product");
 
-async function Link(Pesan, From, Res = []) {
+async function Product(Pesan, From, Res = []) {
   const State = await DBState();
   if (State === 1) {
     const Rank = await Verify(From);
     switch (Rank) {
       case "superadmin":
       case "admin":
-      case "member": // Kontak Berpangkat member
+      case "member":
         Res = await RankMember(
-          Pesan.replace(/!link/i, "")
+          Pesan.replace(/!produk/i, "")
             .split(" ")
             .filter((e) => e !== "")
         );
@@ -19,55 +20,64 @@ async function Link(Pesan, From, Res = []) {
       case "Kosong":
         Res.push(RankKosong());
         break;
-      default: //Kontak Tidak Memiliki Pangkat
+      default:
         Res.push(RankDefault(Rank));
         break;
-    } // Cek Pangkat Pengirim Pesan
+    }
   } else {
     Res.push(DBDisconected());
   }
   return Res;
 }
+
 async function RankMember(KodeProduk, Res = []) {
   if (KodeProduk.length !== 0) {
-    KodeProduk.forEach(async (e) => {
-      if (e.includes("_") === true) {
-        Res.push(await ProductNumber(e).toUpperCase().split("_"));
+    for (let i = 0; i < KodeProduk.length; i++) {
+      if (KodeProduk[i].includes("_") === true) {
+        Res.push(await ProductNumber(KodeProduk[i]).toUpperCase().split("_"));
       } else {
-        Res.push(await Product(e.toUpperCase()));
+        Res.push(await ProductNotNumber(KodeProduk[i].toUpperCase()));
       }
-    });
+    }
   } else {
     Res.push(PesanKosong());
   }
   return Res;
 }
-async function Product(KodeProduk, Res) {
+async function ProductNotNumber(KodeProduk, Res) {
   const Product = await FindProduct(KodeProduk);
   if (Product.length !== 0) {
     if (Product.length > 1) {
       Res = Products(Product, KodeProduk);
     } else {
-      if (Product[0].shopee !== undefined) {
-        Res = Shopee(KodeProduk, "", Product[0].shopee);
-      } else {
-        Res = ShopeeKosong(KodeProduk);
-      }
+      Res = await RenderProduct(Product[0]);
     }
   } else {
     Res = ProductKosong(KodeProduk);
   }
   return Res;
 }
+function Products(Product, KodeProduk, Res) {
+  let j = 1;
+  Res = `╭──「 *Perintah Berhasil* 」
+│Ditemukan lebih dari 1 produk
+│dengan kode ${KodeProduk}
+│──「 *i* 」────────
+│Gunakan perintah 
+│!Produk ${KodeProduk}_<Noproduk>
+│──「 *Contoh* 」────────
+│!Produk ${KodeProduk}_2
+│──「 *List Nomor Produk ${tmp[i].toUpperCase()}* 」─${Product.map(
+    (e) => `\n│ ${j++}: ${e.konveksi}-${e.namabarang.substring(0, 12)}...`
+  )}
+╰───────────────`;
+  return Res;
+}
 async function ProductNumber(KodeProduk, Res) {
   const Product = await FindProduct(KodeProduk[0]);
   if (Product.length !== 0) {
     if (Product[KodeProduk[1] - 1] !== undefined) {
-      if (Product[tmp1[1] - 1] !== undefined) {
-        Res = Shopee(KodeProduk[0], `_${KodeProduk[1]}`, Product[tmp1[1] - 1].shopee);
-      } else {
-        Res = ShopeeKosong(KodeProduk);
-      }
+      Res = await RenderProduct(Product[tmp1[1] - 1]);
     } else {
       Res = ProductNumberKosong(KodeProduk[0], KodeProduk[1]);
     }
@@ -76,46 +86,30 @@ async function ProductNumber(KodeProduk, Res) {
   }
   return Res;
 }
-function Products(Product, KodeProduk, Res) {
-  let j = 1;
-  Res = `╭──「 *Perintah Berhasil* 」
-│Ditemukan lebih dari 1
-│produk dengan kode ${KodeProduk}
-│──「 *i* 」────────
-│Gunakan perintah 
-│!produk ${KodeProduk}_<Noproduk>
-│──「 *Contoh* 」────────
-│!produk ${KodeProduk}_2
-│──「 *List Nomor Produk ${tmp[i].toUpperCase()}* 」─${Product.map(
-    (e) => `\n│ ${j++}: ${e.konveksi}-${e.namabarang.substring(0, 12)}..`
-  )}
-╰───────────────`;
-  return Res;
-}
-function ProductNumberKosong(KodeProduk, Nomor, Res) {
+function ProductNumberKosong(KodeProduk, Number, Res) {
   Res = `╭──「 *Perintah Gagal* 」
-│Tidak dapat menemukan 
-│produk ${KodeProduk} nomor ${Nomor} 
+│Tidak dapat menemukan
+│produk dengan
+│kode ${KodeProduk} nomor ${Number}
+│──「 *i* 」────────
+│Gunakan Perintah
+│!Produk ${KodeProduk}
+│untuk melihat 
+│list produk
+│di kode ${KodeProduk}
 ╰───────────────`;
   return Res;
 }
 function ProductKosong(KodeProduk, Res) {
   Res = `╭──「 *Perintah Gagal* 」
 │Tidak dapat menemukan 
-│produk dengan kode : ${KodeProduk}
-╰───────────────`;
-  return Res;
-}
-function Shopee(KodeProduk, Number, Shopee, Res) {
-  Res = `╭──「 *Link Produk* 」
-│Produk ${KodeProduk}${Number}${Shopee.forEach((e) => `\n|${e.nama}\n${e.link}`)}
-╰───────────────`;
-  return Res;
-}
-function ShopeeKosong(KodeProduk, Res) {
-  Res = `╭──「 *Link Produk* 」
-│Produk ${KodeProduk}
-│Tidak Memiliki Link
+│produk dengan 
+│kode : ${KodeProduk}
+│──「 *i* 」────────
+│Gunakan perintah
+│!konveksi untuk 
+│melihat list
+│kode produk
 ╰───────────────`;
   return Res;
 }
@@ -123,10 +117,11 @@ function PesanKosong(Res) {
   Res = `╭──「 *Perintah Gagal* 」
 │Kode Produk Kosong
 │──「 *i* 」────────
-│Masukan Kode Produk
-│setelah perintah !Link
+│Harap masukan kode 
+│Produk setelah
+│perintah !Produk
 │──「 *Contoh* 」──────── 
-│!Link D1008, D1008 ...
+│!Produk D1008, D1008 ...
 ╰───────────────`;
   return Res;
 }
@@ -158,4 +153,4 @@ function DBDisconected(Res) {
 ╰───────────────`;
   return Res;
 }
-module.exports = Link;
+module.exports = Product;

@@ -27,22 +27,29 @@ async function Help(From, Res) {
   }
   return Res;
 }
-//Caption
 function RankSuperAdmin(Res) {
   Res = `╭──「 *Daftar Perintah Dev* 」
-│ *!Daftar* <TagKontak>
-│    ╰ Mendaftarkan kontak pengguna
-│ *!Terima* <TagKontak>
-│    ╰ Menerima kontak pengguna
-│ *!Produk* <Produk>
-│    ╰ Detail informasi produk
-│ *!Konveksi* <Konveksi>
-│    ╰ List harga produk
-│ *!Undercut* <Konveksi> :
-│    ╰ List harga produk Undercuted
-│ *!Update* <Produk/Konveksi/Perintah>
+*│•!Daftar* <TagKontak>
+│    ╰ Mendaftarkan kontak
+*│•!Terima* <TagKontak>
+│    ╰ Menerima kontak
+*│•!Pangkat* <Action> <TagKontak>
+│    ╰ Mengubah pangkat kontak
+*│•!List*
+│    ╰ List konveksi
+*│•!Konveksi* <Konveksi>
+│    ╰ List produk dikonveksi
+*│•!Produk* <KodeProduk>
+│    ╰ Detail produk
+*│•!link* <KodeProduk>
+│    ╰ Link produk
+*│•!Click* <KP> <S> <A> <AL>
+│    ╰ Click kategory
+*│•!Undercut*
+│    ╰ List produk undercuted
+*│•!Update* <Produk/Konveksi/Action>
 │    ╰ Scraping dan Update harga
-│ *!Auto* <Perintah>
+*│•!Auto* <Action>
 │    ╰ Auto Scraping dan Update
 │       Semua Produk
 ╰───────────────`;
@@ -50,19 +57,23 @@ function RankSuperAdmin(Res) {
 }
 function RankAdmin(Res) {
   Res = `╭──「 *Daftar Perintah Admin* 」
-│ *!Daftar* <TagKontak>
-│    ╰ Mendaftarkan kontak pengguna
-│ *!Terima* <TagKontak>
-│    ╰ Menerima kontak pengguna
-│ *!Produk* <Produk>
-│    ╰ Detail informasi produk
-│ *!Konveksi* <Konveksi>
-│    ╰ List harga produk
-│ *!Undercut* <Konveksi> :
-│    ╰ List harga produk Undercuted
-│ *!Update* <Produk/Konveksi/Perintah>
+*│•!Daftar* <TagKontak>
+│    ╰ Mendaftarkan kontak
+*│•!Terima* <TagKontak>
+│    ╰ Menerima kontak
+*│•!List*
+│    ╰ List konveksi
+*│•!Konveksi* <Konveksi>
+│    ╰ List produk dikonveksi
+*│•!Produk* <KodeProduk>
+│    ╰ Detail produk
+*│•!link* <KodeProduk>
+│    ╰ Link produk
+*│•!Undercut*
+│    ╰ List produk undercuted
+*│•!Update* <Produk/Konveksi/Action>
 │    ╰ Scraping dan Update harga
-│ *!Auto* <Perintah>
+*│•!Auto* <Action>
 │    ╰ Auto Scraping dan Update
 │       Semua Produk
 ╰───────────────`;
@@ -70,31 +81,37 @@ function RankAdmin(Res) {
 }
 function RankMember(Res) {
   Res = `╭──「 *Daftar Perintah Member* 」
-│ *!Daftar* <TagKontak>
-│    ╰ Mendaftarkan kontak pengguna
-│ *!Produk* <Produk>
-│    ╰ Detail informasi produk
-│ *!Konveksi* <Konveksi>
-│    ╰ List harga produk
-│ *!Undercut* <Konveksi> :
-│    ╰ List harga produk Undercuted
+*│•!Daftar* <TagKontak>
+│    ╰ Mendaftarkan kontak
+*│•!List*
+│    ╰ List konveksi
+*│•!Konveksi* <Konveksi>
+│    ╰ List produk dikonveksi
+*│•!Produk* <KodeProduk>
+│    ╰ Detail produk
+*│•!link* <KodeProduk>
+│    ╰ Link produk
+*│•!Undercut*
+│    ╰ List produk undercuted
 ╰───────────────`;
   return Res;
 }
 function RankKosong(Res) {
   Res = `╭──「 *Perintah Ditolak* 」
-│Anda belum Terdaftar, Silahkan
-│mendaftar dengan !daftar
+│Anda belum Terdaftar
+│──「 *i* 」────────
+│Silahkan mendaftar
+│dengan !daftar
 ╰───────────────`;
   return Res;
 }
 function RankDefault(Rank, Res) {
   Res = `╭──「 *Perintah Ditolak* 」
-│Perintah ini hanya dapat 
-│diakses oleh :
+│Perintah ini hanya 
+│dapat diakses oleh :
 │• *Admin*
 │• *Member*
-│───────────────
+│──「 *i* 」────────
 │Status anda saat ini : ${Rank}
 ╰───────────────`;
   return Res;
@@ -102,8 +119,8 @@ function RankDefault(Rank, Res) {
 function DBDisconected(Res) {
   Res = `╭──「 *Maintenence* 」
 │Mohon Maaf :)
-│Saat ini Bot sedang dalam
-│Maintenence...
+│Saat ini Bot sedang
+│dalam Maintenence...
 ╰───────────────`;
   return Res;
 }

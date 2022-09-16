@@ -5,13 +5,12 @@ const UpdateContact = require("../../Routes/Contacts/Update");
 const DeleteContact = require("../../Routes/Contacts/Delete");
 
 async function Pangkat(Action, From, Mentioned, Res) {
-  let updatepangkat;
   const State = await DBState();
   if (State === 1) {
     const Rank = await Verify(From);
     switch (Rank) {
       case "superadmin":
-        Res = RankSuperAdmin(Action.toLowerCase(), Mentioned);
+        Res = await RankSuperAdmin(Action.toLowerCase(), Mentioned);
         break;
       case "Kosong":
         Res = RankKosong();
@@ -25,7 +24,6 @@ async function Pangkat(Action, From, Mentioned, Res) {
   }
   return Res;
 }
-
 async function RankSuperAdmin(Action, Mentioned, Res) {
   const Form = await FindContact(Mentioned);
   if (Form.length === 0) {
@@ -54,8 +52,11 @@ async function RankSuperAdmin(Action, Mentioned, Res) {
 }
 function NotRegistered(Mentioned, Res) {
   Res = `╭──「 *Perintah Gagal* 」
-│Kontak @${Mentioned} 
-│Belum melakukan pendaftaran 
+│Kontak @${Mentioned}
+│Belum melakukan pendaftaran
+│──「 *i* 」────────
+│Daftarkan kontak dengan
+│!Daftar @${Mentioned}
 ╰───────────────`;
   return Res;
 }
@@ -89,17 +90,22 @@ async function ActionDelete(Form, Res) {
 }
 function ActionDefault(Res) {
   Res = `╭──「 *Perintah Gagal* 」
-│Masukan Perintah setelah !Pangkat
-│lalu tag kontak
-│contoh :
-│!Pangkat promote @kontak 
+│Action yang dimasukan
+│tidak terdaftar
+│──「 *Action List* 」────────
+Masukan Action setelah 
+│•Promote / admin
+│•Demote / member 
+│•Ban / Kick / Hapus
 ╰───────────────`;
   return Res;
 }
 function RankKosong(Res) {
   Res = `╭──「 *Perintah Ditolak* 」
-│Anda belum Terdaftar, Silahkan
-│mendaftar dengan !daftar
+│Anda belum Terdaftar
+│──「 *i* 」────────
+│Silahkan mendaftar
+│dengan !daftar
 ╰───────────────`;
   return Res;
 }
@@ -108,7 +114,7 @@ function RankDefault(Rank, Res) {
 │Perintah ini hanya dapat 
 │diakses oleh :
 │• *SuperAdmin*
-│───────────────
+│──「 *i* 」────────
 │Status anda saat ini : ${Rank}
 ╰───────────────`;
   return Res;
@@ -116,8 +122,8 @@ function RankDefault(Rank, Res) {
 function DBDisconected(Res) {
   Res = `╭──「 *Maintenence* 」
 │Mohon Maaf :)
-│Saat ini Bot sedang dalam
-│Maintenence...
+│Saat ini Bot sedang
+│dalam Maintenence...
 ╰───────────────`;
   return Res;
 }

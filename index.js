@@ -10,14 +10,14 @@ const Register = require("./Function/Generator/Contacts/Register");
 const Accept = require("./Function/Generator/Contacts/Accept");
 const Rank = require("./Function/Generator/Contacts/Rank");
 const Help = require("./Function/Generator/Help");
-const List = require("./Function/Generator/List");
-const Konveksi = require("./Function/Generator/Konveksi");
-const Produk = require("./Function/Generator/Produk");
-const Link = require("./Function/Generator/Link");
-const Undercut = require("./Function/Generator/Undercut");
-const Update = require("./Function/Generator/Update");
-const Auto = require("./Function/Generator/Auto");
-const Click = require("./Function/Generator/Click");
+const List = require("./Function/Generator/Products/List");
+const Konveksi = require("./Function/Generator/Products/Konveksi");
+const Product = require("./Function/Generator/Products/Product");
+const Link = require("./Function/Generator/Products/Link");
+const Undercut = require("./Function/Generator/Products/Undercut");
+const Update = require("./Function/Generator/Products/Updates/Update");
+const Auto = require("./Function/Generator/Products/Updates/Auto");
+const Click = require("./Function/Generator/Products/Updates/Click");
 
 // Notifikasi
 const { AutoSelesai, AutoMulai } = require("./Function/Update/HargaProduks");
@@ -63,8 +63,8 @@ async function Kodommo() {
     if (msg.body.startsWith("!")) {
       switch (true) {
         case msg.body.toLowerCase().startsWith("!ping"):
-          Generate = await Ping(msg, await msg.getContact());
           msg.reply("Pong");
+          Generate = await Ping(msg, await msg.getContact());
           break;
         case msg.body.toLowerCase().startsWith("!daftar"): // Untuk apakah bot membalas
           if (msg.mentionedIds.length !== 0) {
@@ -112,57 +112,51 @@ async function Kodommo() {
           msg.reply(Generate);
           break;
         case msg.body.toLowerCase().startsWith("!list"): // Cek Perintah yang Tersedia
-          balas = await List(await msg.getContact());
-          msg.reply(balas.caption);
+          Generate = await List((await msg.getContact()).number);
+          msg.reply(Generate);
+          break;
+        case msg.body.toLowerCase().startsWith("!konveksi"): // Cek Produk
+          Generate = await Konveksi(msg.body, (await msg.getContact()).number);
+          if (Generate.status !== "gagal") {
+            let konveksipdf = MessageMedia.fromFilePath(`${Generate.status}`);
+            msg.reply(konveksipdf, undefined, { caption: `${Generate.caption}` });
+          } else {
+            msg.reply(Generate.caption);
+          }
+
           break;
         case msg.body.toLowerCase().startsWith("!produk"): // Cek Produk
-          balas = await Produk(msg, await msg.getContact());
-          for (let i = 0; i < balas.length; i++) {
-            msg.reply(balas[i].caption);
+          Generate = await Product(msg.body, (await msg.getContact()).number);
+          for (let i = 0; i < Generate.length; i++) {
+            msg.reply(Generate[i]);
           }
           break;
         case msg.body.toLowerCase().startsWith("!link"): // Cek Produk
-          balas = await Link(msg, await msg.getContact());
-          for (let i = 0; i < balas.length; i++) {
-            msg.reply(balas[i].caption);
+          Generate = await Link(msg.body, (await msg.getContact()).number);
+          for (let i = 0; i < Generate.length; i++) {
+            msg.reply(Generate[i]);
           }
           break;
         case msg.body.toLowerCase().startsWith("!click"): // Cek Produk
-          balas = await Click(msg, await msg.getContact());
-          msg.reply(balas.caption);
-          break;
-        case msg.body.toLowerCase().startsWith("!konveksi"): // Cek Produk
-          balas = await Konveksi(msg, await msg.getContact());
-          for (let i = 0; i < balas.length; i++) {
-            if (balas[i].status !== "gagal") {
-              let konveksipdf = MessageMedia.fromFilePath(`${balas[i].status}`);
-              msg.reply(konveksipdf, undefined, { caption: `${balas[i].caption}` });
-            } else {
-              msg.reply(balas[i].caption);
-            }
-          }
+          Generate = await Click(msg.body, (await msg.getContact()).number);
+          msg.reply(Generate);
           break;
         case msg.body.toLowerCase().startsWith("!undercut"):
-          balas = await Undercut(msg, await msg.getContact());
-          for (let i = 0; i < balas.length; i++) {
-            if (balas[i].status !== "gagal") {
-              let undercut = MessageMedia.fromFilePath(`${balas[i].status}`);
-              msg.reply(undercut, undefined, { caption: balas[i].caption });
-            } else {
-              msg.reply(balas[i].caption);
-            }
+          Generate = await Undercut((await msg.getContact()).number);
+          if (Generate.status !== "gagal") {
+            let Directory = MessageMedia.fromFilePath(`${Generate.status}`);
+            msg.reply(Directory, undefined, { caption: Generate.caption });
+          } else {
+            msg.reply(Generate.caption);
           }
           break;
         case msg.body.toLowerCase().startsWith("!update"):
-        case msg.body.toLowerCase().startsWith("!scrap"):
-          balas = await Update(msg, await msg.getContact());
-          for (let i = 0; i < balas.length; i++) {
-            msg.reply(balas[i].caption);
-          }
+          Generate = await Update(msg.body, (await msg.getContact()).number);
+          msg.reply(Generate);
           break;
         case msg.body.toLowerCase().startsWith("!auto"):
-          balas = await Auto(msg, await msg.getContact());
-          msg.reply(balas.caption);
+          Generate = await Auto(msg.body, (await msg.getContact()).number);
+          msg.reply(Generate);
           break;
         default: // Jika Perintah tidak Terdaftar
           msg.reply("Perintah tidak Terdaftar");

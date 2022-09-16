@@ -24,7 +24,6 @@ async function Accept(From, Mentioned, Res) {
   }
   return Res;
 }
-
 async function RankAdmin(Mentioned, Res) {
   const Form = await FindContact(Mentioned);
   if (Form.length === 0) {
@@ -40,8 +39,11 @@ async function RankAdmin(Mentioned, Res) {
 }
 function NotRegistered(Mentioned, Res) {
   Res = `╭──「 *Perintah Gagal* 」
-│Kontak @${Mentioned} 
-│Belum melakukan pendaftaran 
+│Kontak @${Mentioned}
+│Belum melakukan pendaftaran
+│──「 *i* 」────────
+│Daftarkan kontak dengan
+│!Daftar @${Mentioned}
 ╰───────────────`;
   return Res;
 }
@@ -65,17 +67,19 @@ function AlreadyAccepted(Form, Res) {
 }
 function RankKosong(Res) {
   Res = `╭──「 *Perintah Ditolak* 」
-│Anda belum Terdaftar, Silahkan
-│mendaftar dengan !daftar
+│Anda belum Terdaftar
+│──「 *i* 」────────
+│Silahkan mendaftar
+│dengan !daftar
 ╰───────────────`;
   return Res;
 }
 function RankDefault(Rank, Res) {
   Res = `╭──「 *Perintah Ditolak* 」
-│Perintah ini hanya dapat 
-│diakses oleh :
+│Perintah ini hanya  
+│dapat diakses oleh :
 │• *Admin*
-│───────────────
+│──「 *i* 」────────
 │Status anda saat ini : ${Rank}
 ╰───────────────`;
   return Res;
@@ -83,8 +87,8 @@ function RankDefault(Rank, Res) {
 function DBDisconected(Res) {
   Res = `╭──「 *Maintenence* 」
 │Mohon Maaf :)
-│Saat ini Bot sedang dalam
-│Maintenence...
+│Saat ini Bot sedang
+│dalam Maintenence...
 ╰───────────────`;
   return Res;
 }

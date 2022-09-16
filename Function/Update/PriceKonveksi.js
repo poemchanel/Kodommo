@@ -91,7 +91,7 @@ function KonveksiSelesai(res) {
   return res;
 }
 
-async function HargaKonveksiMulai(req, res) {
+function HargaKonveksiMulai(req, res) {
   ScrapUpdate = true;
   log = [];
   failed = [];
