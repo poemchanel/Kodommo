@@ -3,6 +3,8 @@ adalah whatsapp bot
 
 ##ChangeLog
 
+###1.0.0 Release Pog :)
+
 ###0.3.4 - 20/9 Testing
 
 - Testing
