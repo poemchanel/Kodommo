@@ -17,6 +17,15 @@ const ProductSchema = new mongoose.Schema(
           status: { type: String, default: "Baru" },
           harga: { type: Number, default: 0 },
           click: { type: [String], default: undefined },
+          api: {
+            default: undefined,
+            type: {
+              apiurl: String,
+              apiname: { type: String, default: undefined },
+              stockcombine: { type: Boolean, default: true },
+              stock: { type: Number, default: undefined },
+            },
+          },
         },
       ],
     },

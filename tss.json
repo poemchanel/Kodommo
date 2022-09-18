@@ -1,0 +1,388 @@
+{
+  "error": null,
+  "error_msg": null,
+  "data": {
+    "itemid": 1919899204,
+    "shopid": 20287667,
+    "userid": 0,
+    "price_max_before_discount": 20000000000,
+    "has_lowest_price_guarantee": true,
+    "price_before_discount": 20000000000,
+    "price_min_before_discount": 20000000000,
+    "exclusive_price_info": null,
+    "hidden_price_display": null,
+    "price_min": 1150000000,
+    "price_max": 1150000000,
+    "price": 1150000000,
+    "stock": 1230,
+    "discount": "94%",
+    "historical_sold": 112391,
+    "sold": 23,
+    "show_discount": 94,
+    "raw_discount": 94,
+    "min_purchase_limit": 1,
+    "overall_purchase_limit": {
+      "order_max_purchase_limit": 0,
+      "overall_purchase_limit": null,
+      "item_overall_quota": null,
+      "start_date": null,
+      "end_date": null
+    },
+    "pack_size": null,
+    "is_live_streaming_price": null,
+    "name": "MORMON HOME FEMME - Tas Ransel Backpack Fashion",
+    "ctime": 1550461110,
+    "item_status": "normal",
+    "status": 1,
+    "condition": 1,
+    "catid": 100016,
+    "description": "*1Kg masuk  6 pcs tas\n*Bahan : kanvas tebal\n*Ukuran :35 x 30\n*Berat :211 gram\n*Boneka (Rp 2.500) dan Pompom (Rp.600 )dapat dibeli terpisah,cari di kategory boneka\n*Gratis ongkir via JNT (cek promo shopee)\n*Pembayaran hanya melalui transfer ke rek PT.Shopee (bisa juga bayar di indomaret)\n*Pembayaran sebelum jam 18.00 masuk kiriman hari itu juga,( minggu off.senin-sabtu pengiriman)\n*Pengiriman memakai JNT(estimasi 1-3 hari)\n*Produk dan alamat order yg sudah pembayaran,tidak dapat diganti/dirubah (karena setiap orderan yg masuk,lgsung dipaking dan dikirim hari itu juga)\ntas ini dibuat oleh konveksi lokal punya mormon,maka dari itu tidak ada yg lebih murah dari kami kemiripan 90% insya allah sesuai harga.mohon beri penilaian bintang 5 sayang supaya rejeki kita sama2 lancar amminn,bintang dibawah 4,pembatalan dan pengembalian kami lgsung blokir mohon maaf.RESSELER WELCOME DROPSHIPER AMAN..",
+    "is_mart": false,
+    "rich_text_description": null,
+    "show_shopee_verified_label": true,
+    "size_chart": "",
+    "reference_item_id": "",
+    "brand": null,
+    "item_rating": { "rating_star": 4.698215979681141, "rating_count": [32775, 352, 345, 1473, 4491, 26114] },
+    "label_ids": [
+      36, 47, 57, 1000211, 1000206, 1000255, 1000544, 1000550, 1000246, 1000559, 1000560, 1000653, 1001343, 1001326,
+      1001350, 1001657, 1001620, 1001626, 1001637, 1002532, 1002677, 1002503, 1002688, 1002735, 1002958, 1002971,
+      1003122, 1003314, 1001175, 1003454, 1003880, 1003455, 1004234, 1004243, 1004658, 1004657, 1005889, 1005906,
+      1006735, 1006756, 1007916, 1007925, 1008694, 1008696, 1008709, 1009084, 1009617, 1009619, 1009634, 1010408,
+      1010300, 1010665, 1010471, 1010477, 1010946, 1010950, 1011165, 1011171, 1011707, 1011732, 1011735, 1011740,
+      1011997, 1012296, 1011739, 1011998, 1012000, 1012312, 1012616, 1012617, 1012618, 1012619, 1012470, 1012476,
+      1012676, 1013031, 1012865, 1012902, 1012867, 1013214, 1013216, 1013236, 1013298, 1013398, 1013853, 1013479,
+      1013625, 1014370, 1014368, 1014375, 1013602, 1013474, 1000007, 1000009, 1000087, 1000092, 1000124, 1000260,
+      1000287, 1000375, 1000376, 1000515, 1000525, 1000530, 1000535, 1000545, 1000591, 1000592, 1000593, 1000725,
+      1000994, 1001019, 1001031, 33, 35, 44, 46, 74, 1001377, 1001372, 1001654, 1001797, 1001901, 1002675, 1002521,
+      1002699, 1002474, 1002959, 1002980, 1003001, 1003039, 1003218, 1004656, 1004684, 1004682, 1005887, 1006712,
+      1007337, 1007149, 1007523, 1007917, 1008683, 1008870, 1008732, 1009126, 1009212, 1009491, 1009756, 1008727,
+      1010235, 1010409, 1009657, 1010237, 1010475, 1009295, 1010179, 1010462, 1010632, 1010938, 1010939, 1010928,
+      1009652, 1011310, 1011744, 1011745, 1011746, 1011747, 1011748, 1011749, 1011750, 1011751, 1011752, 1011712,
+      1011715, 1011720, 1011725, 1011589, 1011588, 1012006, 1012005, 1003211, 1012452, 1012446, 1012218, 1012856,
+      1013032, 1013143, 1013144, 1013269, 1012938, 1012886, 1012891, 1012782, 1013045, 1013725, 1013192, 1013208,
+      1013247, 1012783, 1013854, 1013333, 1013338, 1013927, 1014456, 1014457, 1014361, 1014974, 1015330, 1015604,
+      1073841, 1000031, 1000006, 1000247, 1012956, 1012958
+    ],
+    "attributes": [
+      { "name": "Bahan", "value": "Kanvas", "id": 100134, "is_timestamp": false, "brand_option": null, "val_id": null },
+      {
+        "name": "Ukuran Tas",
+        "value": "Lainnya",
+        "id": 100218,
+        "is_timestamp": false,
+        "brand_option": null,
+        "val_id": null
+      }
+    ],
+    "liked": false,
+    "liked_count": 23722,
+    "cmt_count": 32760,
+    "flag": 196610,
+    "shopee_verified": true,
+    "is_adult": false,
+    "is_preferred_plus_seller": false,
+    "tier_variations": [
+      {
+        "name": "Warna",
+        "options": ["HITAM", "ABU", "PINK", "BIRU", "MERAH", "KUNING", "TOSKA"],
+        "images": [
+          "a9ee72ba912fb9274a3e544f21581565",
+          "dd9c3d0c15feb975d088b85592e04210",
+          "4c35d47ef56614306e9033d29395fab2",
+          "bd7fd1ee010da4aef493a7f44e62022e",
+          "d1ac1d3a1d113d8e6a739c7f8c045dc3",
+          "de43ba05b678dfe59e6138104b2fa9e3",
+          "76988c62b3d7b385e299137b098b17c9"
+        ],
+        "properties": null,
+        "type": 0,
+        "summed_stocks": [735, 495, 0, 0, 0, 0, 0]
+      }
+    ],
+    "bundle_deal_id": 0,
+    "can_use_bundle_deal": false,
+    "size_chart_info": null,
+    "add_on_deal_info": null,
+    "bundle_deal_info": null,
+    "can_use_wholesale": false,
+    "wholesale_tier_list": [],
+    "is_group_buy_item": null,
+    "group_buy_info": null,
+    "welcome_package_type": 0,
+    "welcome_package_info": null,
+    "tax_code": null,
+    "invoice_option": null,
+    "complaint_policy": null,
+    "wp_eligibility": null,
+    "images": [
+      "271af9f2acb9bf88f720e9c19cf4a39c",
+      "04a7a946b9d84266f49c269276f27b62",
+      "1ca9306f90ab03cd5f3dbb014e6bbf09",
+      "27a345766d6e2ea9154d16899f5ca8b4",
+      "39ad131edbf51af22352ecbdda2240d3",
+      "ffc8124edebe24c64ae5ade55b05481e",
+      "2e3ec4c41a16f56ed4b0ab11c514a33a"
+    ],
+    "image": "271af9f2acb9bf88f720e9c19cf4a39c",
+    "video_info_list": null,
+    "item_type": 0,
+    "is_official_shop": false,
+    "show_official_shop_label_in_title": false,
+    "shop_location": "KOTA BANDUNG",
+    "coin_earn_label": null,
+    "cb_option": 0,
+    "is_pre_order": false,
+    "estimated_days": 2,
+    "badge_icon_type": 0,
+    "show_free_shipping": true,
+    "shipping_icon_type": 0,
+    "cod_flag": 1,
+    "is_service_by_shopee": false,
+    "show_original_guarantee": false,
+    "categories": [
+      { "catid": 100016, "display_name": "Tas Wanita", "no_sub": false, "is_default_subcat": false },
+      { "catid": 100089, "display_name": "Ransel Wanita", "no_sub": true, "is_default_subcat": false }
+    ],
+    "other_stock": 0,
+    "item_has_post": true,
+    "discount_stock": 1230,
+    "current_promotion_has_reserve_stock": false,
+    "current_promotion_reserved_stock": 0,
+    "normal_stock": 1230,
+    "brand_id": 0,
+    "is_alcohol_product": false,
+    "show_recycling_info": false,
+    "coin_info": { "spend_cash_unit": 100000, "coin_earn_items": [] },
+    "models": [
+      {
+        "itemid": 1919899204,
+        "status": 1,
+        "current_promotion_reserved_stock": 0,
+        "name": "KUNING",
+        "promotionid": 674574809319067,
+        "price": 1150000000,
+        "price_stocks": [
+          { "allocated_stock": null, "stock_breakdown_by_location": null },
+          {
+            "allocated_stock": 0,
+            "stock_breakdown_by_location": [
+              { "location_id": "IDZ", "available_stock": 0, "fulfilment_type": 2, "address_id": null }
+            ]
+          }
+        ],
+        "current_promotion_has_reserve_stock": false,
+        "normal_stock": 0,
+        "extinfo": { "tier_index": [5], "group_buy_info": null, "is_pre_order": false, "estimated_days": 2 },
+        "price_before_discount": 20000000000,
+        "modelid": 3281410549,
+        "stock": 0,
+        "has_gimmick_tag": false,
+        "key_measurement": null
+      },
+      {
+        "itemid": 1919899204,
+        "status": 1,
+        "current_promotion_reserved_stock": 0,
+        "name": "TOSKA",
+        "promotionid": 674574809319067,
+        "price": 1150000000,
+        "price_stocks": [
+          { "allocated_stock": null, "stock_breakdown_by_location": null },
+          {
+            "allocated_stock": 0,
+            "stock_breakdown_by_location": [
+              { "location_id": "IDZ", "available_stock": 0, "fulfilment_type": 2, "address_id": null }
+            ]
+          }
+        ],
+        "current_promotion_has_reserve_stock": false,
+        "normal_stock": 0,
+        "extinfo": { "tier_index": [6], "group_buy_info": null, "is_pre_order": false, "estimated_days": 2 },
+        "price_before_discount": 20000000000,
+        "modelid": 3295976634,
+        "stock": 0,
+        "has_gimmick_tag": false,
+        "key_measurement": null
+      },
+      {
+        "itemid": 1919899204,
+        "status": 1,
+        "current_promotion_reserved_stock": 0,
+        "name": "HITAM",
+        "promotionid": 674574809319067,
+        "price": 1150000000,
+        "price_stocks": [
+          { "allocated_stock": null, "stock_breakdown_by_location": null },
+          {
+            "allocated_stock": 0,
+            "stock_breakdown_by_location": [
+              { "location_id": "IDZ", "available_stock": 735, "fulfilment_type": 2, "address_id": null }
+            ]
+          }
+        ],
+        "current_promotion_has_reserve_stock": false,
+        "normal_stock": 735,
+        "extinfo": { "tier_index": [0], "group_buy_info": null, "is_pre_order": false, "estimated_days": 2 },
+        "price_before_discount": 20000000000,
+        "modelid": 3281410544,
+        "stock": 735,
+        "has_gimmick_tag": false,
+        "key_measurement": null
+      },
+      {
+        "itemid": 1919899204,
+        "status": 1,
+        "current_promotion_reserved_stock": 0,
+        "name": "ABU",
+        "promotionid": 674574809319067,
+        "price": 1150000000,
+        "price_stocks": [
+          { "allocated_stock": null, "stock_breakdown_by_location": null },
+          {
+            "allocated_stock": 0,
+            "stock_breakdown_by_location": [
+              { "location_id": "IDZ", "available_stock": 495, "fulfilment_type": 2, "address_id": null }
+            ]
+          }
+        ],
+        "current_promotion_has_reserve_stock": false,
+        "normal_stock": 495,
+        "extinfo": { "tier_index": [1], "group_buy_info": null, "is_pre_order": false, "estimated_days": 2 },
+        "price_before_discount": 20000000000,
+        "modelid": 3281410545,
+        "stock": 495,
+        "has_gimmick_tag": false,
+        "key_measurement": null
+      },
+      {
+        "itemid": 1919899204,
+        "status": 1,
+        "current_promotion_reserved_stock": 0,
+        "name": "PINK",
+        "promotionid": 674574809319067,
+        "price": 1150000000,
+        "price_stocks": [
+          { "allocated_stock": null, "stock_breakdown_by_location": null },
+          {
+            "allocated_stock": 0,
+            "stock_breakdown_by_location": [
+              { "location_id": "IDZ", "available_stock": 0, "fulfilment_type": 2, "address_id": null }
+            ]
+          }
+        ],
+        "current_promotion_has_reserve_stock": false,
+        "normal_stock": 0,
+        "extinfo": { "tier_index": [2], "group_buy_info": null, "is_pre_order": false, "estimated_days": 2 },
+        "price_before_discount": 20000000000,
+        "modelid": 3281410546,
+        "stock": 0,
+        "has_gimmick_tag": false,
+        "key_measurement": null
+      },
+      {
+        "itemid": 1919899204,
+        "status": 1,
+        "current_promotion_reserved_stock": 0,
+        "name": "BIRU",
+        "promotionid": 674574809319067,
+        "price": 1150000000,
+        "price_stocks": [
+          { "allocated_stock": null, "stock_breakdown_by_location": null },
+          {
+            "allocated_stock": 0,
+            "stock_breakdown_by_location": [
+              { "location_id": "IDZ", "available_stock": 0, "fulfilment_type": 2, "address_id": null }
+            ]
+          }
+        ],
+        "current_promotion_has_reserve_stock": false,
+        "normal_stock": 0,
+        "extinfo": { "tier_index": [3], "group_buy_info": null, "is_pre_order": false, "estimated_days": 2 },
+        "price_before_discount": 20000000000,
+        "modelid": 3281410547,
+        "stock": 0,
+        "has_gimmick_tag": false,
+        "key_measurement": null
+      },
+      {
+        "itemid": 1919899204,
+        "status": 1,
+        "current_promotion_reserved_stock": 0,
+        "name": "MERAH",
+        "promotionid": 674574809319067,
+        "price": 1150000000,
+        "price_stocks": [
+          { "allocated_stock": null, "stock_breakdown_by_location": null },
+          {
+            "allocated_stock": 0,
+            "stock_breakdown_by_location": [
+              { "location_id": "IDZ", "available_stock": 0, "fulfilment_type": 2, "address_id": null }
+            ]
+          }
+        ],
+        "current_promotion_has_reserve_stock": false,
+        "normal_stock": 0,
+        "extinfo": { "tier_index": [4], "group_buy_info": null, "is_pre_order": false, "estimated_days": 2 },
+        "price_before_discount": 20000000000,
+        "modelid": 3281410548,
+        "stock": 0,
+        "has_gimmick_tag": false,
+        "key_measurement": null
+      }
+    ],
+    "spl_info": {
+      "installment_info": {
+        "installment_plans": [],
+        "max_installment_plan": null,
+        "panel_status": 0,
+        "recommended_installment_plan": null,
+        "interest_rate_discounted_type": 0
+      },
+      "user_credit_info": {
+        "user_status": 1,
+        "display_text": "Limit s/d 50JT \u0026 Voucher 250RB",
+        "display_color": "#ee4d2d",
+        "partners_link": "https://uc-h5.shopeekredit.co.id/landing/spl",
+        "tracking_info": "{\"activation_status\":\"activate_now\"}"
+      },
+      "channel_id": 8002601,
+      "show_spl": false,
+      "show_spl_lite": false
+    },
+    "preview_info": null,
+    "fe_categories": [
+      { "catid": 11042642, "display_name": "Tas Wanita", "no_sub": false, "is_default_subcat": false },
+      { "catid": 11042643, "display_name": "Ransel Wanita", "no_sub": true, "is_default_subcat": false }
+    ],
+    "presale_info": null,
+    "show_best_price_guarantee": false,
+    "item_has_video": false,
+    "is_cc_installment_payment_eligible": false,
+    "is_non_cc_installment_payment_eligible": false,
+    "flash_sale": null,
+    "upcoming_flash_sale": null,
+    "deep_discount": null,
+    "has_low_fulfillment_rate": false,
+    "is_partial_fulfilled": false,
+    "makeups": null,
+    "shop_vouchers": [],
+    "credit_insurance_data": {
+      "insurance_products": [
+        {
+          "insurance_product_id": "1569261722131235144",
+          "product_name": "Proteksi Kerusakan Produk",
+          "product_detail_page_url": "https://insurance.shopee.co.id/product-protection/profile?from=pdp\u0026product_id=1569261722131235144",
+          "badge_text": ""
+        }
+      ]
+    },
+    "global_sold": 114514,
+    "is_infant_milk_formula_product": false,
+    "should_show_amp_tag": true,
+    "sorted_variation_image_index_list": [0, 1, 2, 3, 4, 5, 6],
+    "lowest_past_price": null,
+    "is_prescription_item": false
+  },
+  "is_indexable": true
+}

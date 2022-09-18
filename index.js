@@ -30,16 +30,16 @@ async function PreLaunch() {
   DBConnect();
   console.log("Menyalakan Bot");
   Kodommo();
-  // await setTimeout(5000);
+  await setTimeout(5000);
 
   console.log("Memulai Auto");
-  // AutoMulai();
+  AutoMulai();
 } // Mempersiapkan Database Sebelum Menyalakan Bot
 
 async function Kodommo() {
   const WaBot = new Client({
     authStrategy: new LocalAuth(),
-    puppeteer: { headless: true },
+    puppeteer: { headless: false },
   }); //Membuat Bot Baru
   WaBot.initialize(); //Menyalakan Bot
   WaBot.on("loading_screen", (percent, message) => {
@@ -169,7 +169,7 @@ async function Kodommo() {
   WaBot.on("disconnected", (reason) => {
     console.log("Client was logged out", reason);
   }); // Eksekusi Jika Bot LogOut
-  // setInterval(CekAutoSelesai, 35000);
+  setInterval(CekAutoSelesai, 35000);
   async function CekAutoSelesai() {
     let selesai = await AutoSelesai();
     // console.log(`Auto Selesai : ${selesai.selesai}`);
