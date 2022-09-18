@@ -3,6 +3,34 @@ adalah whatsapp bot
 
 ##ChangeLog
 
+###0.3.4 - 20/9 Testing
+
+- Testing
+  - !ping ✓
+  - !Daftar ✓
+  - !Terima✓
+  - !Pangkat ✓
+  - !Help ✓
+  - !List ✓
+  - !Konveksi ✓
+  - !Produk ✓
+  - !Link ✓
+  - !Undercut ✓
+  - !Update
+  - !Auto
+  - !Click
+- Fix
+  - CLI text
+
+###0.3.3 - 20/9 Refactor
+
+- Fix
+  - CLI text
+- Refactor Folder and file directory
+  - Index
+  - Function / Generator / Products / Update
+    - Click
+
 ###0.3.2 - 19/9 Refactor
 
 - Fix
@@ -10,10 +38,10 @@ adalah whatsapp bot
 - Refactor Folder and file directory
   - Index
   - Function / Generator / Products /
-    - Link ✓
-    - Product ✓
-    - List ✓
-    - Undercut ✓
+    - Link
+    - Product
+    - List
+    - Undercut
     - /Update/
       - !Auto
       - !Update
@@ -22,13 +50,13 @@ adalah whatsapp bot
 
 - Refactor Folder and file directory
   - Index
-  - Function / Database ✓
-  - Function / Routes ✓
+  - Function / Database
+  - Function / Routes
   - Function / Generator /
-    - Contact ✓
-    - Help ✓
-    - Ping ✓
-    - Products / Konveksi ✓
+    - Contact
+    - Help
+    - Ping
+    - Products / Konveksi
 
 ###0.3.0 - 17/9 Refactor
 

@@ -1,5 +1,5 @@
 const DBState = require("../../../Routes/DBState");
-const Verify = require("../Contacts/Verify");
+const Verify = require("../../Contacts/Verify");
 const { AutoOn, AutoOff, AutoCek } = require("../../../Update/PriceProducts");
 const { HargaKonveksiOff } = require("../../../Update/PriceKonveksi");
 const { setTimeout } = require("timers/promises");
@@ -43,7 +43,7 @@ async function RankAdmin(Pesan, Res) {
       Res = await ActionFailed();
       break;
     default:
-      Res = ActionDefault();
+      Res = ActionDefault(` ${Pesan}`);
       break;
   }
   return Res;
@@ -53,14 +53,14 @@ async function ActionOn(Action, Res) {
   await setTimeout(5000);
   Action = await AutoOn();
   Res = `╭──「 *Perintah Berhasil* 」
-${Action.status}
+│${Action.status}
 ╰───────────────`;
   return Res;
 }
 async function ActionOff(Action, Res) {
   Action = await AutoOff();
   Res = `╭──「 *Perintah Berhasil* 」
-${Action.status}
+│${Action.status}
 │Total Produk ${Action.totalproduk}
 │Berhasil Mengupdate ${Action.diupdate}
 │Terhenti di Antrian ke ${Action.antrian + 1}
@@ -70,7 +70,7 @@ ${Action.status}
 async function ActionCek(Action, Res) {
   Action = await AutoCek();
   Res = `╭──「 *Perintah Berhasil* 」
-${Action.status}
+│Status Auto Update ${Action.status}
 │Total Produk ${Action.totalproduk}
 │Berhasil Mengupdate ${Action.diupdate}
 │Sedang dalam Antrian ke ${Action.antrian + 1}
@@ -81,7 +81,7 @@ async function ActionLog(Action, Res) {
   Action = await AutoCek();
   Res = `╭──「 *Perintah Berhasil* 」
 │Auto Update
-│──「 *Log* 」────────
+│──「 *i* 」──────────
 ${Action.log.join(`\n\r`)}
 ╰───────────────`;
   return Res;
@@ -89,18 +89,16 @@ ${Action.log.join(`\n\r`)}
 async function ActionFailed(Action, Res) {
   Action = await AutoCek();
   Res = `╭──「 *Perintah Berhasil* 」
-│Produk yang 
-│gagal diupdate :
+│Daftar Produk yang gagal diupdate
 │──「 *List* 」────────
 ${Action.gagal.join(`\n\r`)}
 ╰───────────────`;
   return Res;
 }
-function ActionDefault(Res) {
+function ActionDefault(Pesan, Res) {
   Res = `╭──「 *Perintah Gagal* 」
-│Action tidak terdaftar
-│──「 *i* 」────────
-│list action !Auto : 
+│Action ${Pesan}tidak terdaftar
+│──「 *List Action* 」──────
 │•!Auto on
 │•!Auto off
 │•!Auto cek
@@ -110,19 +108,20 @@ function ActionDefault(Res) {
 }
 function RankKosong(Res) {
   Res = `╭──「 *Perintah Ditolak* 」
-│Anda belum Terdaftar
-│──「 *i* 」────────
-│Silahkan mendaftar
-│dengan !daftar
+│Kontak Anda belum Terdaftar
+│──「 *i* 」──────────
+│Silahkan mendaftar dengan
+│perintah !daftar
 ╰───────────────`;
   return Res;
 }
 function RankDefault(Rank, Res) {
   Res = `╭──「 *Perintah Ditolak* 」
-│Perintah ini hanya 
-│dapat diakses oleh :
+│Perintah ini hanya dapat diakses
+│oleh kontak berpangkat :
 │• *Admin*
-│──「 *i* 」────────
+│• *Member*
+│──「 *i* 」──────────
 │Status anda saat ini : ${Rank}
 ╰───────────────`;
   return Res;

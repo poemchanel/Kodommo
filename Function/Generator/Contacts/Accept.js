@@ -41,9 +41,9 @@ function NotRegistered(Mentioned, Res) {
   Res = `╭──「 *Perintah Gagal* 」
 │Kontak @${Mentioned}
 │Belum melakukan pendaftaran
-│──「 *i* 」────────
+│──「 *i* 」──────────
 │Daftarkan kontak dengan
-│!Daftar @${Mentioned}
+│perintah !Daftar @${Mentioned}
 ╰───────────────`;
   return Res;
 }
@@ -67,19 +67,20 @@ function AlreadyAccepted(Form, Res) {
 }
 function RankKosong(Res) {
   Res = `╭──「 *Perintah Ditolak* 」
-│Anda belum Terdaftar
-│──「 *i* 」────────
-│Silahkan mendaftar
-│dengan !daftar
+│Kontak Anda belum Terdaftar
+│──「 *i* 」──────────
+│Silahkan mendaftar dengan
+│perintah !daftar
 ╰───────────────`;
   return Res;
 }
 function RankDefault(Rank, Res) {
   Res = `╭──「 *Perintah Ditolak* 」
-│Perintah ini hanya  
-│dapat diakses oleh :
+│Perintah ini hanya dapat diakses
+│oleh kontak berpangkat :
 │• *Admin*
-│──「 *i* 」────────
+│• *Member*
+│──「 *i* 」──────────
 │Status anda saat ini : ${Rank}
 ╰───────────────`;
   return Res;

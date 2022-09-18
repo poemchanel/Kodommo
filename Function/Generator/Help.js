@@ -6,9 +6,9 @@ async function Help(From, Res) {
   if (State === 1) {
     const Rank = await Verify(From);
     switch (Rank) {
-      case "dev":
       case "superadmin":
         Res = RankSuperAdmin();
+        break;
       case "admin":
         Res = RankAdmin();
         break;
@@ -28,7 +28,7 @@ async function Help(From, Res) {
   return Res;
 }
 function RankSuperAdmin(Res) {
-  Res = `╭──「 *Daftar Perintah Dev* 」
+  Res = `╭──「 *Daftar Perintah Super* 」
 *│•!Daftar* <TagKontak>
 │    ╰ Mendaftarkan kontak
 *│•!Terima* <TagKontak>
@@ -98,20 +98,20 @@ function RankMember(Res) {
 }
 function RankKosong(Res) {
   Res = `╭──「 *Perintah Ditolak* 」
-│Anda belum Terdaftar
-│──「 *i* 」────────
-│Silahkan mendaftar
-│dengan !daftar
+│Kontak Anda belum Terdaftar
+│──「 *i* 」──────────
+│Silahkan mendaftar dengan
+│perintah !daftar
 ╰───────────────`;
   return Res;
 }
 function RankDefault(Rank, Res) {
   Res = `╭──「 *Perintah Ditolak* 」
-│Perintah ini hanya 
-│dapat diakses oleh :
+│Perintah ini hanya dapat diakses
+│oleh kontak berpangkat :
 │• *Admin*
 │• *Member*
-│──「 *i* 」────────
+│──「 *i* 」──────────
 │Status anda saat ini : ${Rank}
 ╰───────────────`;
   return Res;

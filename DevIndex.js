@@ -2,20 +2,31 @@ const readline = require("readline").createInterface({
   input: process.stdin,
   output: process.stdout,
 });
+const { Client, LocalAuth, MessageMedia } = require("whatsapp-web.js"); // import Module WhatsappBot
+const { setTimeout } = require("timers/promises");
 
-const HubungkanDatabase = require("./Function/Routes/HubungkanDatabase"); // import Fungsi untuk Koneksi ke DataBase
+// DB
+const DBConnect = require("./Function/Routes/DBConnect"); // import Fungsi untuk Koneksi ke DataBase
+
+// Reply Generator
+const Ping = require("./Function/Generator/Ping");
+const Register = require("./Function/Generator/Contacts/Register");
+const Accept = require("./Function/Generator/Contacts/Accept");
+const Rank = require("./Function/Generator/Contacts/Rank");
 const Help = require("./Function/Generator/Help");
-const Daftar = require("./Function/Generator/Daftar");
-const Produk = require("./Function/Generator/Produk");
-const Link = require("./Function/Generator/Link");
-const List = require("./Function/Generator/Link");
-const Auto = require("./Function/Generator/Auto");
-const Update = require("./Function/Generator/Update");
-const Konveksi = require("./Function/Generator/Konveksi");
-const Undercut = require("./Function/Generator/Undercut");
-const Click = require("./Function/Generator/Click");
+const List = require("./Function/Generator/Products/List");
+const Konveksi = require("./Function/Generator/Products/Konveksi");
+const Product = require("./Function/Generator/Products/Product");
+const Link = require("./Function/Generator/Products/Link");
+const Undercut = require("./Function/Generator/Products/Undercut");
+const Update = require("./Function/Generator/Products/Updates/Update");
+const Auto = require("./Function/Generator/Products/Updates/Auto");
+const Click = require("./Function/Generator/Products/Updates/Click");
 
-const { AutoSelesai } = require("./Function/Update/HargaProduks");
+// Notifikasi
+const { AutoSelesai, AutoMulai } = require("./Function/Update/PriceProducts");
+const { KonveksiSelesai } = require("./Function/Update/PriceKonveksi");
+const { generate } = require("qrcode-terminal");
 
 let pesan = {
   body: "!help",
@@ -178,16 +189,18 @@ function AmbilPerintah() {
 
 PreLaunch();
 function PreLaunch() {
-  HubungkanDatabase();
+  DBConnect();
   AmbilPerintah();
 }
 
 async function Kodommo(msg) {
+  let Generate;
   console.log(`-> ${msg.from} : ${msg.body}`);
   if (msg.body.startsWith("!")) {
     switch (true) {
-      case msg.body.toLowerCase() === "!ping": // Untuk apakah bot membalas
-        msg.reply("Pong"); // Membalas Pesan
+      case msg.body.toLowerCase().startsWith("!ping"):
+        msg.reply("Pong");
+        Generate = await Ping(msg, await msg.getContact());
         break;
       case msg.body.toLowerCase() === "!help": // Cek Perintah yang Tersedia
         balas = await Help(msg, await msg.getContact());
@@ -204,7 +217,7 @@ async function Kodommo(msg) {
         }
         break;
       case msg.body.toLowerCase().startsWith("!click"): // Cek Produk
-        balas = await Click(msg, await msg.getContact());
+        balas = await Click(msg.body, msg.getContact().number);
         msg.reply(balas.caption);
         break;
       case msg.body.toLowerCase().startsWith("!link"): // Cek Produk

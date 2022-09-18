@@ -7,7 +7,7 @@ puppeteer.use(AdblockerPlugin({ blockTrackers: true }));
 
 const { setTimeout } = require("timers/promises");
 
-const UpdateProduk = require("../Routes/Products/Patch");
+const UpdateProduk = require("../Routes/Products/Update");
 
 async function HargaProduk(Produks, res) {
   let log = [];

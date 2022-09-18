@@ -4,7 +4,7 @@ const FindContact = require("../../Routes/Contacts/Find");
 const UpdateContact = require("../../Routes/Contacts/Update");
 const DeleteContact = require("../../Routes/Contacts/Delete");
 
-async function Pangkat(Action, From, Mentioned, Res) {
+async function Rank(Action, From, Mentioned, Res) {
   const State = await DBState();
   if (State === 1) {
     const Rank = await Verify(From);
@@ -54,7 +54,7 @@ function NotRegistered(Mentioned, Res) {
   Res = `╭──「 *Perintah Gagal* 」
 │Kontak @${Mentioned}
 │Belum melakukan pendaftaran
-│──「 *i* 」────────
+│──「 *i* 」──────────
 │Daftarkan kontak dengan
 │!Daftar @${Mentioned}
 ╰───────────────`;
@@ -92,8 +92,10 @@ function ActionDefault(Res) {
   Res = `╭──「 *Perintah Gagal* 」
 │Action yang dimasukan
 │tidak terdaftar
-│──「 *Action List* 」────────
-Masukan Action setelah 
+│──「 *i* 」──────────
+│Masukan Action setelah
+│perintah !Pangkat 
+│──「 *Action List* 」──────
 │•Promote / admin
 │•Demote / member 
 │•Ban / Kick / Hapus
@@ -102,19 +104,20 @@ Masukan Action setelah
 }
 function RankKosong(Res) {
   Res = `╭──「 *Perintah Ditolak* 」
-│Anda belum Terdaftar
-│──「 *i* 」────────
-│Silahkan mendaftar
-│dengan !daftar
+│Kontak Anda belum Terdaftar
+│──「 *i* 」──────────
+│Silahkan mendaftar dengan
+│perintah !daftar
 ╰───────────────`;
   return Res;
 }
 function RankDefault(Rank, Res) {
   Res = `╭──「 *Perintah Ditolak* 」
-│Perintah ini hanya dapat 
-│diakses oleh :
-│• *SuperAdmin*
-│──「 *i* 」────────
+│Perintah ini hanya dapat diakses
+│oleh kontak berpangkat :
+│• *Admin*
+│• *Member*
+│──「 *i* 」──────────
 │Status anda saat ini : ${Rank}
 ╰───────────────`;
   return Res;
@@ -128,4 +131,4 @@ function DBDisconected(Res) {
   return Res;
 }
 
-module.exports = Pangkat;
+module.exports = Rank;

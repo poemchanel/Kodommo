@@ -20,22 +20,20 @@ const Auto = require("./Function/Generator/Products/Updates/Auto");
 const Click = require("./Function/Generator/Products/Updates/Click");
 
 // Notifikasi
-const { AutoSelesai, AutoMulai } = require("./Function/Update/HargaProduks");
-const { KonveksiSelesai } = require("./Function/Update/HargaKonveksi");
+const { AutoSelesai, AutoMulai } = require("./Function/Update/PriceProducts");
+const { KonveksiSelesai } = require("./Function/Update/PriceKonveksi");
 const { generate } = require("qrcode-terminal");
 
 PreLaunch();
 async function PreLaunch() {
   console.log("Menghubungkan DB");
   DBConnect();
-  await setTimeout(3000);
-
   console.log("Menyalakan Bot");
   Kodommo();
-  await setTimeout(5000);
+  // await setTimeout(5000);
 
   console.log("Memulai Auto");
-  AutoMulai();
+  // AutoMulai();
 } // Mempersiapkan Database Sebelum Menyalakan Bot
 
 async function Kodommo() {
@@ -89,11 +87,11 @@ async function Kodommo() {
             }
           } else {
             msg.reply(
-              `╭──「 *Perintah Gagal* 」\n│Harap tag kontak yang\n│ingin diterima.\n│contoh: !daftar @kontak\n╰───────────────`
+              `╭──「 *Perintah Gagal* 」\n│Harap tag kontak yang\n│ingin diterima.\n│contoh: !Terima @kontak\n╰───────────────`
             );
           }
           break;
-        case msg.body.toLowerCase().startsWith("!Pangkat"): // Untuk apakah bot membalas
+        case msg.body.toLowerCase().startsWith("!pangkat"): // Untuk apakah bot membalas
           if (msg.mentionedIds.length !== 0) {
             for (let i = 0; i < msg.mentionedIds.length; i++) {
               let mentionid = await WaBot.getNumberId(msg.mentionedIds[i]);
@@ -103,7 +101,7 @@ async function Kodommo() {
             }
           } else {
             msg.reply(
-              `╭──「 *Perintah Gagal* 」\n│Harap tag kontak yang\n│ingin Diubah Pangkat.\n│contoh: !Pangkat @kontak\n╰───────────────`
+              `╭──「 *Perintah Gagal* 」\n│Harap tag kontak yang\n│ingin Diubah Pangkat.\n│contoh: !Pangkat admin @kontak\n╰───────────────`
             );
           }
           break;
@@ -171,7 +169,7 @@ async function Kodommo() {
   WaBot.on("disconnected", (reason) => {
     console.log("Client was logged out", reason);
   }); // Eksekusi Jika Bot LogOut
-  setInterval(CekAutoSelesai, 35000);
+  // setInterval(CekAutoSelesai, 35000);
   async function CekAutoSelesai() {
     let selesai = await AutoSelesai();
     // console.log(`Auto Selesai : ${selesai.selesai}`);

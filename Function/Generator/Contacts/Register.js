@@ -28,7 +28,7 @@ async function RankKosong(Mentioned, Res) {
 │Berhasil Mendaftarkan
 *│•Nama* : ${Mentioned.pushname}
 *│•Nomor* : ${Mentioned.number}
-│───────────────
+│──「 *i* 」──────────
 │Silahkan hubungi Admin
 │untuk proses penerimaan
 ╰───────────────`;
@@ -37,16 +37,21 @@ async function RankKosong(Mentioned, Res) {
 function RankBaru(Number, Res) {
   Res = `╭──「 *Perintah Gagal* 」
 │Kontak @${Number} 
+│Telah terdaftar
+│──「 *i* 」──────────
 │Silahkan hubungi Admin
 │untuk proses penerimaan
 ╰───────────────`;
   return Res;
 }
-function RankDefault(Number, Rank, Res) {
-  Res = `╭──「 *Perintah Gagal* 」
-│Kontak @${Number} 
-│Telah terdaftar dengan 
-│Pangkat : ${Rank}
+function RankDefault(Rank, Res) {
+  Res = `╭──「 *Perintah Ditolak* 」
+│Perintah ini hanya dapat diakses
+│oleh kontak berpangkat :
+│• *Admin*
+│• *Member*
+│──「 *i* 」──────────
+│Status anda saat ini : ${Rank}
 ╰───────────────`;
   return Res;
 }

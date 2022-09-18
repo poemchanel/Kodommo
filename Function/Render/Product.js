@@ -23,23 +23,25 @@ function RenderProduk(req, res) {
       100
   ).toFixed(1);
   let body = `
-│─────      *Jual*   |  *Selisih*  |  *%* 
-*│Daily Price*: Rp.${DpJual} | Rp.${DpSelisih} | ${DpPersen}%
-*│Flash Sale* : Rp.${FsJual} | Rp.${FsSelisih} | ${FsPersen}%
-*│Pday/Event* : Rp.${PeJual} | Rp.${PeSelisih} | ${PePersen}%`;
+│────「    *Jual*  | *Selisih* |  *%* 」
+*│Daily Price*  : ${DpJual} | ${DpSelisih} | ${DpPersen}
+*│Flash Sale*   : ${FsJual} | ${FsSelisih} | ${FsPersen}
+*│Pday/Event* : ${PeJual} | ${PeSelisih} | ${PePersen}`;
 
   let shopee;
   if (produk.shopee !== undefined) {
-    shopee = `\n│──「 *Harga Shopee* 」───${produk.shopee.map((e) => {
+    shopee = `\n│──「 *Harga Shopee* 」─────${produk.shopee.map((e) => {
       if (e.status === "Aktif") {
         return `\n*│•${e.nama}* : Rp.${e.harga}`;
       } else {
         return `\n*│•${e.nama}* : ~Rp.${e.harga}~ _${e.status}_`;
       }
     })}`;
+  } else {
+    shopee = `\n│──「 *Harga Shopee* 」─────\n│Link Kosong`;
   }
   let DateNow = new Date();
-  let TimeDifference = Math.abs(DateNow - produk[j].updatedAt);
+  let TimeDifference = Math.abs(DateNow - produk.updatedAt);
   TimeDifference = Math.ceil(TimeDifference / (1000 * 60 * 60));
   let footer = `
 │───────────────

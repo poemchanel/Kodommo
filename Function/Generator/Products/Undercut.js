@@ -49,8 +49,8 @@ function ProductKosong(Res) {
   Res = {
     status: "gagal",
     caption: `╭──「 *Perintah Gagal* 」
-│Tidak dapat 
-│menemukan produks
+│Tidak dapat menemukan 
+│produks di database
 ╰───────────────`,
   };
   return Res;
@@ -59,10 +59,10 @@ function RankKosong(Res) {
   Res = {
     status: "gagal",
     caption: `╭──「 *Perintah Ditolak* 」
-│Anda belum Terdaftar
-│──「 *i* 」────────
-│Silahkan mendaftar
-│dengan !daftar
+│Kontak Anda belum Terdaftar
+│──「 *i* 」──────────
+│Silahkan mendaftar dengan
+│perintah !daftar
 ╰───────────────`,
   };
   return Res;
@@ -71,11 +71,11 @@ function RankDefault(Rank, Res) {
   Res = {
     status: "gagal",
     caption: `╭──「 *Perintah Ditolak* 」
-│Perintah ini hanya 
-│dapat diakses oleh :
+│Perintah ini hanya dapat diakses
+│oleh kontak berpangkat :
 │• *Admin*
 │• *Member*
-│──「 *i* 」────────
+│──「 *i* 」──────────
 │Status anda saat ini : ${Rank}
 ╰───────────────`,
   };

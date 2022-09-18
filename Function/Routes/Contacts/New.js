@@ -9,7 +9,7 @@ async function NewContact(Contact, Res) {
     pangkat: "baru",
     updatedAt: new Date(),
   });
-  Push.save();
+  New.save();
   Res = "Berhasil";
   return Res;
 } // Mengambil data Pengguna

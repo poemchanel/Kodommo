@@ -34,7 +34,7 @@ async function RankMember(KodeProduk, Res = []) {
   if (KodeProduk.length !== 0) {
     for (let i = 0; i < KodeProduk.length; i++) {
       if (KodeProduk[i].includes("_") === true) {
-        Res.push(await ProductNumber(KodeProduk[i]).toUpperCase().split("_"));
+        Res.push(await ProductNumber(KodeProduk[i].toUpperCase().split("_")));
       } else {
         Res.push(await ProductNotNumber(KodeProduk[i].toUpperCase()));
       }
@@ -62,12 +62,10 @@ function Products(Product, KodeProduk, Res) {
   Res = `╭──「 *Perintah Berhasil* 」
 │Ditemukan lebih dari 1 produk
 │dengan kode ${KodeProduk}
-│──「 *i* 」────────
+│──「 *i* 」──────────
 │Gunakan perintah 
 │!Produk ${KodeProduk}_<Noproduk>
-│──「 *Contoh* 」────────
-│!Produk ${KodeProduk}_2
-│──「 *List Nomor Produk ${tmp[i].toUpperCase()}* 」─${Product.map(
+│──「 *List Nomor Produk ${KodeProduk.toUpperCase()}* 」─${Product.map(
     (e) => `\n│ ${j++}: ${e.konveksi}-${e.namabarang.substring(0, 12)}...`
   )}
 ╰───────────────`;
@@ -77,7 +75,7 @@ async function ProductNumber(KodeProduk, Res) {
   const Product = await FindProduct(KodeProduk[0]);
   if (Product.length !== 0) {
     if (Product[KodeProduk[1] - 1] !== undefined) {
-      Res = await RenderProduct(Product[tmp1[1] - 1]);
+      Res = await RenderProduct(Product[KodeProduk[1] - 1]);
     } else {
       Res = ProductNumberKosong(KodeProduk[0], KodeProduk[1]);
     }
@@ -88,59 +86,52 @@ async function ProductNumber(KodeProduk, Res) {
 }
 function ProductNumberKosong(KodeProduk, Number, Res) {
   Res = `╭──「 *Perintah Gagal* 」
-│Tidak dapat menemukan
-│produk dengan
-│kode ${KodeProduk} nomor ${Number}
-│──「 *i* 」────────
-│Gunakan Perintah
-│!Produk ${KodeProduk}
-│untuk melihat 
-│list produk
-│di kode ${KodeProduk}
+│Tidak dapat menemukan produk 
+│dengan kode ${KodeProduk} nomor ${Number}
+│──「 *i* 」──────────
+│Gunakan Perintah !Produk ${KodeProduk}
+│untuk melihat list produk yang
+│ada di kode ${KodeProduk}
 ╰───────────────`;
   return Res;
 }
 function ProductKosong(KodeProduk, Res) {
   Res = `╭──「 *Perintah Gagal* 」
-│Tidak dapat menemukan 
-│produk dengan 
-│kode : ${KodeProduk}
-│──「 *i* 」────────
-│Gunakan perintah
-│!konveksi untuk 
-│melihat list
-│kode produk
+│Tidak ditemukan produk
+│dengan kode : ${KodeProduk}
+│──「 *i* 」──────────
+│Gunakan perintah !konveksi untuk 
+│melihat list kode produk
 ╰───────────────`;
   return Res;
 }
 function PesanKosong(Res) {
   Res = `╭──「 *Perintah Gagal* 」
 │Kode Produk Kosong
-│──「 *i* 」────────
-│Harap masukan kode 
-│Produk setelah
-│perintah !Produk
-│──「 *Contoh* 」──────── 
+│──「 *i* 」──────────
+│Harap masukan kode Produk
+│setelah perintah !Produk
+│──「 *Contoh* 」─────── 
 │!Produk D1008, D1008 ...
 ╰───────────────`;
   return Res;
 }
 function RankKosong(Res) {
   Res = `╭──「 *Perintah Ditolak* 」
-│Anda belum Terdaftar
-│──「 *i* 」────────
-│Silahkan mendaftar
-│dengan !daftar
+│Kontak Anda belum Terdaftar
+│──「 *i* 」──────────
+│Silahkan mendaftar dengan
+│perintah !daftar
 ╰───────────────`;
   return Res;
 }
 function RankDefault(Rank, Res) {
   Res = `╭──「 *Perintah Ditolak* 」
-│Perintah ini hanya 
-│dapat diakses oleh :
+│Perintah ini hanya dapat diakses
+│oleh kontak berpangkat :
 │• *Admin*
 │• *Member*
-│──「 *i* 」────────
+│──「 *i* 」──────────
 │Status anda saat ini : ${Rank}
 ╰───────────────`;
   return Res;

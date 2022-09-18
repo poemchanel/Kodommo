@@ -37,7 +37,7 @@ const tmp = [];
 let konveksi = [];
 
 function ReadCSV() {
-  fs.createReadStream("./Docs/ACNES.csv")
+  fs.createReadStream("./Docs/CARASUN.csv")
     .pipe(csv({}))
     .on("data", (data) => tmp.push(data))
     .on("end", () => {

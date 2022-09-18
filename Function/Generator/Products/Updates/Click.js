@@ -9,12 +9,14 @@ async function Click(Pesan, From, Res) {
     const Rank = await Verify(From);
     switch (Rank) {
       case "superadmin":
-      case "admin":
-        Res = RankMember(
-          Pesan.replace(/!cick/i, "")
-            .split(" ")
-            .filter((e) => e !== "")
-        );
+        let Split = Pesan.replace(/!click/i, "")
+          .split(" ")
+          .filter((e) => e !== "");
+        if (Split.length === 4) {
+          Res = await CekProduk(Split);
+        } else {
+          Res = FormatWrong();
+        }
         break;
       case "Kosong":
         Res = RankKosong();
@@ -28,49 +30,36 @@ async function Click(Pesan, From, Res) {
   }
   return Res;
 }
-
-async function RankMember(Pesan, Res) {
-  if (Pesan.length === 4) {
-    if (Pesan[0].includes("_") === true) {
-      Res = await ProductNumber(Pesan[0]).toUpperCase().split("_");
-    } else {
-      Res = await ProductNotNumber(Pesan[0].toUpperCase());
-    }
-  } else {
-    Res = FormatWrong();
-  }
-  return Res;
-}
-
-async function Product(Pesan, Res) {
+// Respon
+async function CekProduk(Pesan, Res) {
   let Produks;
-  if (Pesan[1].includes("_") === true) {
-    let tmp = Pesan[1].split("_");
-    Produks = await TarikProduk(tmp[0].toUpperCase());
+  if (Pesan[0].includes("_") === true) {
+    let KodeProduk = Pesan[0].toUpperCase().split("_");
+    Produks = await FindProduct(KodeProduk[0]);
     if (Produks.length === 0) {
-      Res = Produk0(Pesan[1]);
+      Res = ProductKosong(KodeProduk[0], `Nomor ${KodeProduk[0]}`);
     } else {
-      Res = CekShopee(Pesan, Produks[tmp[1] - 1]);
+      Res = CekShopee(Pesan, Produks[KodeProduk[1] - 1]);
     }
   } else {
-    Produks = await TarikProduk(Pesan[1].toUpperCase());
+    Produks = await FindProduct(Pesan[0].toUpperCase());
     if (Produks.length === 0) {
-      Res = Produk0(Pesan[1]);
+      Res = ProductKosong(Pesan[0], "");
     } else if (Produks.length > 1) {
-      Res = ProdukBanyak(Pesan[1], Produks);
+      Res = ProdukBanyak(Pesan[0].toUpperCase(), Produks);
     } else {
       Res = CekShopee(Pesan, Produks[0]);
     }
   }
   return Res;
 }
-function Produk0(KodeProduk, Res) {
+function ProductKosong(KodeProduk, Number, Res) {
   Res = `╭──「 *Perintah Gagal* 」
-│Produk dengan kode ${KodeProduk}  
-│tidak ditemukan
+│Tidak ditemukan produk dengan
+│kode ${KodeProduk} ${Number}
 │──「 *i* 」────────
-│Gunakan !konveksi untuk
-│cek list kode produk
+│Gunakan perintah !konveksi
+│untuk cek list kode produk
 ╰───────────────`;
   return Res;
 }
@@ -78,12 +67,11 @@ function ProdukBanyak(KodeProduk, Produk, Res) {
   let j = 1;
   Res = `╭──「 *Perintah Berhasil* 」
 │Ditemukan lebih dari 1 produk
-│dengan kode ${KodeProduk.toUpperCase()}
+│dengan kode ${KodeProduk}
 │──「 *i* 」────────
-│gunakan perintah 
-│!Click ${KodeProduk.toUpperCase()}_<Noproduk>
-│contoh  : !Click ${KodeProduk.toUpperCase()}_2
-│──「 *List Nomor Produk ${KodeProduk.toUpperCase()}* 」─${Produk.map(
+│Gunakan perintah 
+│!Click ${KodeProduk}_<Noproduk>
+│──「 *List Nomor ${KodeProduk}* 」─${Produk.map(
     (e) => `\n│ ${j++}: ${e.konveksi}-${e.namabarang.substring(0, 12)}...`
   )}
 ╰───────────────`;
@@ -93,17 +81,17 @@ function CekShopee(Pesan, Produk) {
   let Posisi;
   if (Produk.shopee !== undefined) {
     if (Produk.shopee !== 0) {
-      Posisi = Produk.shopee.findIndex((e) => e.nama === Pesan[2].toUpperCase());
+      Posisi = Produk.shopee.findIndex((e) => e.nama === Pesan[1].toUpperCase());
       if (Posisi !== -1) {
         Res = Action(Pesan, Produk, Posisi);
       } else {
-        Res = ShopeeNamaKosong(Pesan[1], Pesan[2]);
+        Res = ShopeeNamaKosong(Pesan[0], Pesan[1]);
       }
     } else {
-      Res = ShopeeKosong(Pesan[1]);
+      Res = ShopeeKosong(Pesan[0]);
     }
   } else {
-    Res = ShopeeKosong(Pesan[1]);
+    Res = ShopeeKosong(Pesan[0]);
   }
   return Res;
 }
@@ -112,104 +100,100 @@ function ShopeeKosong(KodeProduk, Res) {
 │Produk dengan kode ${KodeProduk}  
 │tidak memiliki link Shopee
 │──「 *i* 」────────
-│Gunakan !Produk ${KodeProduk}
-│untuk cek list link shopee
+│Gunakan !Link ${KodeProduk} untuk 
+│cek list link shopee
 ╰───────────────`;
   return Res;
 }
 function ShopeeNamaKosong(KodeProduk, NamaShopee, Res) {
   Res = `╭──「 *Perintah Gagal* 」
 │Produk dengan kode ${KodeProduk}   
-│tidak memiliki Link    
-│shopee dengan nama  ${NamaShopee.toUpperCase()}  
+│tidak memiliki Link shopee
+│dengan nama  ${NamaShopee.toUpperCase()}  
 │──「 *i* 」────────
-│Gunakan !Produk ${KodeProduk}
-│untuk cek list link shopee
+│Gunakan !Link ${KodeProduk} untuk 
+│cek list link shopee
 ╰───────────────`;
   return Res;
 }
 function Action(Pesan, Produk, Posisi, Res) {
-  switch (Pesan[3].toUpperCase()) {
+  switch (Pesan[2].toUpperCase()) {
     case "ADD":
     case "TAMBAH":
-      Res = ActionTambah(Pesan[4], Produk, Posisi);
+      Res = ActionTambah(Pesan[3], Produk, Posisi);
       break;
     case "DELETE":
     case "HAPUS":
       Res = ActionHapus(Produk, Posisi);
       break;
     default:
-      Res = ActionTidakTerdaftar(Pesan[3]);
+      Res = ActionTidakTerdaftar(Pesan[2]);
       break;
   }
   return Res;
 }
 async function ActionTambah(AriaLabel, Produk, Posisi, Res) {
   let ProdukUpdated = Produk;
-  ProdukUpdated.shopee[Posisi].click = [];
-  ProdukUpdated.shopee[Posisi].click.push(AriaLabel);
-  const UpdateStatus = await UpdateProduk(ProdukUpdated);
-  Res = UpdateStatus;
+  if (ProdukUpdated.shopee[Posisi].click === undefined) {
+    ProdukUpdated.shopee[Posisi].click = [];
+    ProdukUpdated.shopee[Posisi].click.push(AriaLabel);
+    const UpdateStatus = await UpdateProduct(ProdukUpdated);
+    Res = UpdateStatus;
+  } else {
+    ProdukUpdated.shopee[Posisi].click.push(AriaLabel);
+    const UpdateStatus = await UpdateProduct(ProdukUpdated);
+    Res = UpdateStatus;
+  }
   return Res;
 }
 async function ActionHapus(Produk, Posisi, Res) {
   let ProdukUpdated = Produk;
-  delete ProdukUpdated[Posisi].click;
-  const UpdateStatus = await UpdateProduk(ProdukUpdated);
+  ProdukUpdated.shopee[Posisi].click = [];
+  console.log(ProdukUpdated.shopee[Posisi]);
+  const UpdateStatus = await UpdateProduct(ProdukUpdated);
   Res = UpdateStatus;
   return Res;
 }
 function ActionTidakTerdaftar(Action, Res) {
   Res = `╭──「 *Perintah Gagal* 」
-│Action ${Action}
-│tidak terdaftar
+│Action ${Action} tidak terdaftar
 │──「 *Action List* 」─────
 │• *Tambah*
 │• *Hapus*
-│──「 *i* 」────────
-│Format perintah !Click
-│!Click <KP> <S> <A> <AL>
-│Contoh: 
-│!Click D0001 DOMMO Tambah 80gr
-│──「 *Index* 」───────
-*│•<KP>* : Kode Produk 
-*│•<S>* : Dommo/NamaPesaing 
-*│•<A>* : Action 
-*│•<AL>* : Aria-Label 
 ╰───────────────`;
   return Res;
 }
 function FormatWrong(Res) {
   Res = `╭──「 *Perintah Gagal* 」
-│Format perintah yang anda  
+│Format perintah yang anda 
 │masukan salah/tidak lengkap
-│──「 *i* 」────────
+│──「 *i* 」──────────
 │Format perintah !Click
 │!Click <KP> <S> <A> <AL>
-│Contoh: 
-│!Click D0001 DOMMO Tambah 80gr
-│──「 *Index* 」───────
 *│•<KP>* : Kode Produk 
 *│•<S>* : Dommo/NamaPesaing 
 *│•<A>* : Action 
 *│•<AL>* : Aria-Label 
+│──「 *Contoh* 」───────
+│!Click D0001 DOMMO Tambah 80gr
 ╰───────────────`;
   return Res;
 }
 function RankKosong(Res) {
   Res = `╭──「 *Perintah Ditolak* 」
-│Anda belum Terdaftar, Silahkan
-│mendaftar dengan !daftar
+│Kontak Anda belum Terdaftar
+│──「 *i* 」──────────
+│Silahkan mendaftar dengan
+│perintah !daftar
 ╰───────────────`;
   return Res;
 }
 function RankDefault(Rank, Res) {
   Res = `╭──「 *Perintah Ditolak* 」
-│Perintah ini hanya dapat 
-│diakses oleh :
-│• *Admin*
-│• *Member*
-│───────────────
+│Perintah ini hanya dapat diakses
+│oleh kontak berpangkat :
+│• *SuperAdmin*
+│──「 *i* 」──────────
 │Status anda saat ini : ${Rank}
 ╰───────────────`;
   return Res;
@@ -217,8 +201,8 @@ function RankDefault(Rank, Res) {
 function DBDisconected(Res) {
   Res = `╭──「 *Maintenence* 」
 │Mohon Maaf :)
-│Saat ini Bot sedang dalam
-│Maintenence...
+│Saat ini Bot sedang
+│dalam Maintenence...
 ╰───────────────`;
   return Res;
 }

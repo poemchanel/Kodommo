@@ -11,7 +11,11 @@ async function Konveksi(Pesan, From, Res) {
       case "superadmin":
       case "admin":
       case "member": // Kontak Berpangkat member
-        Res = RankMember(Pesan.replace(/!konveksi/i, "").replace(" ", ""));
+        Res = RankMember(
+          Pesan.toUpperCase()
+            .replace(/!konveksi/i, "")
+            .replace(/ /g, "")
+        );
         break;
       case "Kosong":
         Res = RankKosong();
@@ -25,7 +29,6 @@ async function Konveksi(Pesan, From, Res) {
   }
   return Res;
 }
-
 async function RankMember(Konveksi, Res) {
   if (Konveksi !== "") {
     let Produks = await FindKonveksi(Konveksi);
@@ -44,13 +47,11 @@ function KonveksiKosong(Konveksi, Res) {
   Res = {
     status: "gagal",
     caption: `╭──「 *Perintah Gagal* 」
-│Tidak dapat menemukan 
-│konveksi dengan 
-│kode : ${Konveksi}
-│──「 *i* 」────────
-│Gunakan perintah !list
-│untuk melihat list
-│kode konveksi
+│Tidak dapat menemukan konveksi
+│dengan kode : ${Konveksi}
+│──「 *i* 」──────────
+│Gunakan perintah !list untuk 
+│melihat list kode konveksi
 ╰───────────────`,
   };
   return Res;
@@ -60,40 +61,33 @@ function PesanKosong(Res) {
     status: "gagal",
     caption: `╭──「 *Perintah Gagal* 」
 │Kode konveksi kosong
-│──「 *i* 」────────
-│Harap masukan kode 
-│konveksi setelah 
-│perintah !konveksi
-│──「 *Contoh* 」──────── 
+│──「 *i* 」──────────
+│Harap masukan kode konveksi
+│setelah perintah !konveksi
+│──「 *Contoh* 」───────
 │!Konveksi SONY
 ╰───────────────`,
   };
   return Res;
 }
 function RankKosong(Res) {
-  Res = {
-    status: "gagal",
-    caption: `╭──「 *Perintah Ditolak* 」
-│Anda belum Terdaftar
-│──「 *i* 」────────
-│Silahkan mendaftar
-│dengan !daftar
-╰───────────────`,
-  };
+  Res = `╭──「 *Perintah Ditolak* 」
+│Kontak Anda belum Terdaftar
+│──「 *i* 」──────────
+│Silahkan mendaftar dengan
+│perintah !daftar
+╰───────────────`;
   return Res;
 }
 function RankDefault(Rank, Res) {
-  Res = {
-    status: "gagal",
-    caption: `╭──「 *Perintah Ditolak* 」
-│Perintah ini hanya 
-│dapat diakses oleh :
+  Res = `╭──「 *Perintah Ditolak* 」
+│Perintah ini hanya dapat diakses
+│oleh kontak berpangkat :
 │• *Admin*
 │• *Member*
-│──「 *i* 」────────
+│──「 *i* 」──────────
 │Status anda saat ini : ${Rank}
-╰───────────────`,
-  };
+╰───────────────`;
   return Res;
 }
 function DBDisconected(Res) {

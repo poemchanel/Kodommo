@@ -30,13 +30,13 @@ async function Link(Pesan, From, Res = []) {
 }
 async function RankMember(KodeProduk, Res = []) {
   if (KodeProduk.length !== 0) {
-    KodeProduk.forEach(async (e) => {
-      if (e.includes("_") === true) {
-        Res.push(await ProductNumber(e).toUpperCase().split("_"));
+    for (let i = 0; i < KodeProduk.length; i++) {
+      if (KodeProduk[i].includes("_") === true) {
+        Res.push(await ProductNumber(KodeProduk[i].toUpperCase().split("_")));
       } else {
-        Res.push(await Product(e.toUpperCase()));
+        Res.push(await Product(KodeProduk[i].toUpperCase()));
       }
-    });
+    }
   } else {
     Res.push(PesanKosong());
   }
@@ -46,12 +46,12 @@ async function Product(KodeProduk, Res) {
   const Product = await FindProduct(KodeProduk);
   if (Product.length !== 0) {
     if (Product.length > 1) {
-      Res = Products(Product, KodeProduk);
+      Res = await Products(Product, KodeProduk);
     } else {
       if (Product[0].shopee !== undefined) {
         Res = Shopee(KodeProduk, "", Product[0].shopee);
       } else {
-        Res = ShopeeKosong(KodeProduk);
+        Res = ShopeeKosong(KodeProduk, "");
       }
     }
   } else {
@@ -63,10 +63,10 @@ async function ProductNumber(KodeProduk, Res) {
   const Product = await FindProduct(KodeProduk[0]);
   if (Product.length !== 0) {
     if (Product[KodeProduk[1] - 1] !== undefined) {
-      if (Product[tmp1[1] - 1] !== undefined) {
-        Res = Shopee(KodeProduk[0], `_${KodeProduk[1]}`, Product[tmp1[1] - 1].shopee);
+      if (Product[KodeProduk[1] - 1].shopee !== undefined) {
+        Res = Shopee(KodeProduk[0], `_${KodeProduk[1]}`, Product[KodeProduk[1] - 1].shopee);
       } else {
-        Res = ShopeeKosong(KodeProduk);
+        Res = ShopeeKosong(KodeProduk[0], ` Nomor ${KodeProduk[1]}`);
       }
     } else {
       Res = ProductNumberKosong(KodeProduk[0], KodeProduk[1]);
@@ -81,12 +81,12 @@ function Products(Product, KodeProduk, Res) {
   Res = `╭──「 *Perintah Berhasil* 」
 │Ditemukan lebih dari 1
 │produk dengan kode ${KodeProduk}
-│──「 *i* 」────────
+│──「 *i* 」──────────
 │Gunakan perintah 
 │!produk ${KodeProduk}_<Noproduk>
-│──「 *Contoh* 」────────
+│──「 *Contoh* 」───────
 │!produk ${KodeProduk}_2
-│──「 *List Nomor Produk ${tmp[i].toUpperCase()}* 」─${Product.map(
+│──「 *List Nomor Produk ${KodeProduk.toUpperCase()}* 」─${Product.map(
     (e) => `\n│ ${j++}: ${e.konveksi}-${e.namabarang.substring(0, 12)}..`
   )}
 ╰───────────────`;
@@ -94,27 +94,27 @@ function Products(Product, KodeProduk, Res) {
 }
 function ProductNumberKosong(KodeProduk, Nomor, Res) {
   Res = `╭──「 *Perintah Gagal* 」
-│Tidak dapat menemukan 
-│produk ${KodeProduk} nomor ${Nomor} 
+│Tidak dapat menemukan produk
+│dengan kode ${KodeProduk} nomor ${Nomor} 
 ╰───────────────`;
   return Res;
 }
 function ProductKosong(KodeProduk, Res) {
   Res = `╭──「 *Perintah Gagal* 」
-│Tidak dapat menemukan 
-│produk dengan kode : ${KodeProduk}
+│Tidak dapat menemukan produk
+│dengan kode : ${KodeProduk}
 ╰───────────────`;
   return Res;
 }
 function Shopee(KodeProduk, Number, Shopee, Res) {
   Res = `╭──「 *Link Produk* 」
-│Produk ${KodeProduk}${Number}${Shopee.forEach((e) => `\n|${e.nama}\n${e.link}`)}
+│Link ${KodeProduk}${Number}${Shopee.map((e) => `\n│──「 *${e.nama}* 」────\n${e.link}`)}
 ╰───────────────`;
   return Res;
 }
-function ShopeeKosong(KodeProduk, Res) {
+function ShopeeKosong(KodeProduk, Number, Res) {
   Res = `╭──「 *Link Produk* 」
-│Produk ${KodeProduk}
+│Produk ${KodeProduk}${Number}
 │Tidak Memiliki Link
 ╰───────────────`;
   return Res;
@@ -122,30 +122,30 @@ function ShopeeKosong(KodeProduk, Res) {
 function PesanKosong(Res) {
   Res = `╭──「 *Perintah Gagal* 」
 │Kode Produk Kosong
-│──「 *i* 」────────
-│Masukan Kode Produk
+│──「 *i* 」──────────
+│Harap Masukan Kode Produk
 │setelah perintah !Link
-│──「 *Contoh* 」──────── 
+│──「 *Contoh* 」─────── 
 │!Link D1008, D1008 ...
 ╰───────────────`;
   return Res;
 }
 function RankKosong(Res) {
   Res = `╭──「 *Perintah Ditolak* 」
-│Anda belum Terdaftar
-│──「 *i* 」────────
-│Silahkan mendaftar
-│dengan !daftar
+│Kontak Anda belum Terdaftar
+│──「 *i* 」──────────
+│Silahkan mendaftar dengan
+│perintah !daftar
 ╰───────────────`;
   return Res;
 }
 function RankDefault(Rank, Res) {
   Res = `╭──「 *Perintah Ditolak* 」
-│Perintah ini hanya 
-│dapat diakses oleh :
+│Perintah ini hanya dapat diakses
+│oleh kontak berpangkat :
 │• *Admin*
 │• *Member*
-│──「 *i* 」────────
+│──「 *i* 」──────────
 │Status anda saat ini : ${Rank}
 ╰───────────────`;
   return Res;
