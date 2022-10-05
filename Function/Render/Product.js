@@ -1,10 +1,13 @@
-function RenderProduk(req, res) {
-  let produk = req;
+function RenderProduk(Product, Res) {
+  let produk = Product;
+
+  // Header
   let header = `╭──「 *Detail Produk ${produk.kodebarang}* 」
 *│Konveksi* : ${produk.konveksi}
 *│Produk* : ${produk.namabarang}
 *│Harga Modal* : Rp.${produk.hargamodal}`;
 
+  // Body
   let DpJual = produk.dailyprice;
   let DpSelisih = produk.dailyprice - produk.hargamodal;
   let DpPersen = Math.abs((DpSelisih / produk.dailyprice) * 100).toFixed(1);
@@ -28,27 +31,23 @@ function RenderProduk(req, res) {
 *│Flash Sale*   : ${FsJual} | ${FsSelisih} | ${FsPersen}
 *│Pday/Event* : ${PeJual} | ${PeSelisih} | ${PePersen}`;
 
+  // Shopee
   let shopee;
   if (produk.shopee !== undefined) {
     shopee = `\n│──「 *Harga Shopee* 」─────${produk.shopee.map((e) => {
-      if (e.status === "Aktif") {
-        return `\n*│•${e.nama}* : Rp.${e.harga}`;
+      let Updated = Math.ceil(Math.abs(new Date() - e.diupdate) / (1000 * 60 * 60));
+      if (e.status === "Active") {
+        return `\n*│•${e.nama}* : Rp.${e.harga} 🆙${Updated}j`;
       } else {
-        return `\n*│•${e.nama}* : ~Rp.${e.harga}~ _${e.status}_`;
+        return `\n*│•${e.nama}* : ${e.status} 🆙${Updated}j`;
       }
     })}`;
   } else {
     shopee = `\n│──「 *Harga Shopee* 」─────\n│Link Kosong`;
   }
-  let DateNow = new Date();
-  let TimeDifference = Math.abs(DateNow - produk.updatedAt);
-  TimeDifference = Math.ceil(TimeDifference / (1000 * 60 * 60));
-  let footer = `
-│───────────────
-*│Diupdate* : ${TimeDifference} Jam lalu
-╰───────────────`;
-  res = `${header}${body}${shopee}${footer}`;
-  return res;
+
+  Res = `${header}${body}${shopee}`;
+  return Res;
 }
 
 module.exports = RenderProduk;

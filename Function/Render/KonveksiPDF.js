@@ -19,29 +19,42 @@ function CanvasSize(Produk, Res) {
   return Res;
 }
 
-async function RenderProduksKonveksiPDF(req, konveksi, res) {
-  const produk = req;
+async function RenderProduksKonveksiPDF(Products, Konveksi, Res) {
+  const C = {
+    Dark: "#221F33",
+    Yellow: "#EDC18D",
+    Red: "#C76662",
+    Brown: "#7D808E",
+  }; // Pallete
+  const CS = {
+    Backgrond: C.Dark,
+    Default: C.Yellow,
+    Undercuted: C.Red,
+    Outdated: C.Brown,
+  }; // Color Theme
 
-  let csize = CanvasSize(req); // Canvas Size
+  const produk = Products;
+  let csize = CanvasSize(Products); // Canvas Size
 
   let Shopee = csize.Shopee;
 
   // Membuat kanvas
   const canvas = createCanvas(csize.w, csize.l, "pdf"); // Ukuran Gambar
   const context = canvas.getContext("2d");
-  context.fillStyle = "#090b10"; // Warna Background
+  context.fillStyle = CS.Backgrond; // Warna Background
   context.fillRect(0, 0, csize.w, csize.l); // Memberi Warna Background
 
   //Title
-  context.fillStyle = "#FFFFFF"; // Warna Text Warna = Putih
-  context.font = "20pt 'Tahoma'"; // Text Ukuran, Font = Tahoma
-  context.textAlign = "center"; // Posisi Text Rata = Tengah
-  context.fillText(`DAFTAR PRODUK`, csize.w / 2, 50); // Letak Tulisan Judul
-  context.fillText(`Di KONVEKSI ${konveksi} :`, csize.w / 2, 85); // Letak Tulisan Judul
+  context.fillStyle = CS.Default; // Warna Text Warna = Putih
+  context.textAlign = "left"; // Posisi Text Rata = Tengah
+  context.font = "bold 28pt 'Tahoma'"; // Text Ukuran, Font = Tahoma
+  context.fillText(`DAFTAR PRODUK`, 30, 60); // Letak Tulisan Judul
+  context.font = "16pt 'Tahoma'"; // Text Ukuran, Font = Tahoma
+  context.fillText(`「 KONVEKSI ${Konveksi} 」`, 50, 110); // Letak Tulisan Judul
 
   //Table Header
   context.textAlign = "center"; // Posisi Text Rata = Tengah
-  context.strokeStyle = "#FFFFFF"; // Warna Kotak
+  context.strokeStyle = CS.Default; // Warna Kotak
   context.font = "12pt 'Tahoma'"; // Text Ukuran = 12pt, Font= Tamoha
   context.strokeRect(50, 120, 65, 30); // Col Kode
   context.fillText("Kode", 82.5, 140);
@@ -63,93 +76,96 @@ async function RenderProduksKonveksiPDF(req, konveksi, res) {
   }
 
   //Isi Tabel
+  let ProductColor = CS.Default;
   let piy = 0;
   for (let j = 0; j < produk.length; j++) {
-    let DefaultColor = "#FFFFFF";
-    let DateNow = new Date();
-    let TimeDifference = Math.abs(DateNow - produk[j].updatedAt);
-    TimeDifference = Math.ceil(TimeDifference / (1000 * 60 * 60));
-    if (TimeDifference > 3) {
-      DefaultColor = "#C4B5FD";
-    }
-    context.fillStyle = DefaultColor;
     piy = piy + 30;
-    context.strokeRect(50, piy + 120, 65, 30); // Col Kode
-    context.fillText(produk[j].kodebarang, 82.5, piy + 140);
-    context.strokeRect(115, piy + 120, 195, 30); // Col Nama Barang
-    context.fillText(produk[j].namabarang.substring(0, 20), 212.5, piy + 140);
-    context.strokeRect(310, piy + 120, 90, 30); // Col Modal
-    context.fillText(produk[j].hargamodal, 355, piy + 140);
-
     let hargafirst = 0;
     if (produk[j].shopee !== undefined) {
       produk[j].shopee.forEach((f) =>
-        f.nama === first && f.status === "Aktif" ? (hargafirst = f.harga) : (tes = f.harga)
+        f.nama === first && f.status === "Active" ? (hargafirst = f.harga) : (tes = f.harga)
       );
     }
-
+    //Shopee
     if (Shopee !== undefined) {
       for (let f = 0; f < Shopee.length; f++) {
         context.strokeRect(ph[f].x, piy + ph[f].y, 90, 30); // Col
         if (produk[j].shopee !== undefined) {
           let Kosong = true;
           produk[j].shopee.forEach((e) => {
+            let TimeDifference = Math.ceil(Math.abs(new Date() - e.diupdate) / (1000 * 60 * 60));
+            context.fillStyle = TimeDifference > 3 ? CS.Outdated : CS.Default;
             if (e.nama === Shopee[f]) {
-              if (e.harga < hargafirst && e.status === "Aktif") {
-                context.fillStyle = "#FACC15";
-              }
-              if (e.status === "Aktif") {
-                context.fillText(e.harga, ph[f].tx, piy + ph[f].ty);
-              } else {
-                if (e.status === "Range" || e.status === "Bermasalah") {
-                  context.fillStyle = "#EF4444";
-                }
-                context.fillText(e.status, ph[f].tx, piy + ph[f].ty);
-              }
-              context.fillStyle = DefaultColor;
+              if (e.harga < hargafirst && e.status === "Active") ProductColor = CS.Undercuted;
+              context.fillText(e.status === "Active" ? e.harga : e.status, ph[f].tx, piy + ph[f].ty);
               Kosong = false;
             }
           });
-          if (Kosong === true) {
-            context.fillText("-", ph[f].tx, piy + ph[f].ty);
-          }
+          context.fillStyle = CS.Default;
+          if (Kosong === true) context.fillText("-", ph[f].tx, piy + ph[f].ty);
         } else {
+          context.fillStyle = CS.Default;
           context.fillText("-", ph[f].tx, piy + ph[f].ty);
         }
       }
     }
+    // Product
+    context.fillStyle = ProductColor;
+    context.strokeRect(50, piy + 120, 65, 30); // Col Kode
+    context.fillText(produk[j].kodebarang, 82.5, piy + 140);
+    context.strokeRect(115, piy + 120, 195, 30); // Col Nama Barang
+    context.fillText(produk[j].namabarang.substring(0, 20), 212.5, piy + 140);
+    context.strokeRect(310, piy + 120, 90, 30); // Col Modal
+    context.fillText(produk[j].hargamodal, 355, piy + 140);
+    ProductColor = CS.Default;
   }
 
-  // //footer
-  context.fillStyle = "#FFFFFF"; // Warna Text Menajdi Putih
-  context.font = "9pt 'Tahoma'"; // Text fornat = Italic , Ukuran = 13pt , Font = Tahoma
-  context.textAlign = "left"; // Posisi Text Rata = Tengah
-  context.fillText(
-    `Baru: Belum diupdate                     - : Link Kosong
-Diarsipkan: Prdouk Diarsipkan          Bermasalah: Link Salah
-Habis: Produk Habis                       Disable: Tombol Gagal
-Range: Harga Range                       Text Ungu : Updated >3jam`,
-    csize.w / 2 - 200,
-    csize.l - 130
-  ); //Letak Text
+  //footer
+  context.textAlign = "left"; // Posisi Text Rata = Kiri
+  // Index
+  context.fillStyle = CS.Default;
+  context.font = "bold 9pt 'Tahoma'"; // Text fornat = Italic , Ukuran = 13pt , Font = Tahoma
+  context.fillText("「 Index 」", 50, csize.l - 140); //Letak Text
+  context.font = "9pt 'Tahoma'";
+  context.fillText(`New`, 60, csize.l - 125);
+  context.fillText(`: Data Baru di Upload`, 120, csize.l - 125);
+  context.fillText(`\nDiarsipkan`, 60, csize.l - 125);
+  context.fillText(`\n: Prdouk Diarsipkan`, 120, csize.l - 125);
+  context.fillText(`\n\nHabis`, 60, csize.l - 125);
+  context.fillText(`\n\n: Produk Habis`, 120, csize.l - 125);
+  context.fillText(`\n\n\nOption`, 60, csize.l - 125);
+  context.fillText(`\n\n\n: Kategori Kosong`, 120, csize.l - 125);
+  context.fillText(`\n\n\n\n-`, 60, csize.l - 125);
+  context.fillText(`\n\n\n\n: Link Kosong`, 120, csize.l - 125);
 
-  //Letak Text
-  context.textAlign = "center"; // Posisi Text Rata = Tengah
-  context.font = "italic 13pt 'Tahoma'"; // Text fornat = Italic , Ukuran = 13pt , Font = Tahoma
-  context.fillText("Gunakan Perintah !Produk_<Kode Produk>", csize.w / 2, csize.l - 50); //Letak Text
-  context.fillText("Untuk detail per produk", csize.w / 2, csize.l - 25); //Letak Text
+  context.fillText(`Error0`, 260, csize.l - 125); //Letak Text
+  context.fillText(`: Link Bermasalah`, 300, csize.l - 125); //Letak Text
+  context.fillText(`\nError1`, 260, csize.l - 125); //Letak Text
+  context.fillText(`\n: Scraping Bermasalah`, 300, csize.l - 125); //Letak Text
+  context.fillStyle = CS.Undercuted;
+  context.fillText(`\n\nText`, 260, csize.l - 125); //Letak Text
+  context.fillText(`\n\n: Produk Undercuted`, 300, csize.l - 125); //Letak Text
+  context.fillStyle = CS.Outdated;
+  context.fillText(`\n\n\nText`, 260, csize.l - 125); //Letak Text
+  context.fillText(`\n\n\n: Diupdate > 3 jam lalu`, 300, csize.l - 125); //Letak Text
+  //Tips
+  context.fillStyle = CS.Default;
+  context.font = "bold 9pt 'Tahoma'"; // Text fornat = Italic , Ukuran = 13pt , Font = Tahoma
+  context.fillText("「 Tips 」", 50, csize.l - 40); //Letak Text
+  context.font = "italic 9pt 'Tahoma'"; // Text fornat = Italic , Ukuran = 13pt , Font = Tahoma
+  context.fillText("Gunakan perintah !Produk <Kode Produk>\nUntuk melihat detail individual produk", 60, csize.l - 25); //Letak Text
 
   // Save PNG
   fs.writeFileSync(
-    `./Function/Render/Docs/ProduksKonveksi${konveksi.toUpperCase()}.pdf`,
+    `./Function/Render/Docs/ProduksKonveksi${Konveksi.toUpperCase()}.pdf`,
     canvas.toBuffer("application/pdf", {
-      title: `Konvkesi ${konveksi}`,
-      keywords: `node.js Konvkesi ${konveksi}`,
+      title: `Konvkesi ${Konveksi}`,
+      keywords: `node.js Konvkesi ${Konveksi}`,
       creationDate: new Date(),
     })
   ); // Simpan Gambar dengan nama Gambar.png
-  res = `./Function/Render/Docs/ProduksKonveksi${konveksi.toUpperCase()}.pdf`;
-  return res;
+  Res = `./Function/Render/Docs/ProduksKonveksi${Konveksi.toUpperCase()}.pdf`;
+  return Res;
 } // Membuat Gambar Konveksi PNG
 
 module.exports = RenderProduksKonveksiPDF;

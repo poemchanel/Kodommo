@@ -3,6 +3,44 @@ adalah whatsapp bot
 
 ##ChangeLog
 
+###2.3.0 - 10/5
+
+- Function / Database / Models / Product
+  - +field diupdate : Date Updated
+  - !field click to kategori : Product Kategori
+- Function / Database / ImportDoc
+  - fix import to follow new Product Models
+- Function / Generator / Updates / Auto
+  - Change imported file name and function name
+- Function / Generator / Updates / Click
+  - Change Filename to Option
+  - Change Updated Field from Click to Kategori
+- Function / Generator / Updates / Update
+  - Change imported file name and function name
+  - Change Function Name
+- Function / Render / KonveksiPDF
+  - Change theme color and text view
+  - Fix render to follow new Product Models
+- Function / Render / Product
+  - Fix render to follow new Product Models
+- Function / Render / UndercutPDF
+  - Change theme color and text view
+  - Fix render to follow new Product Models
+- Function / Update / PriceKonveksi
+  - Change Function Name
+  - Split scraping function
+- Function / Update / PriceProduct
+  - Change Function Name
+  - Split scraping function
+- Function / Update / PriceProducts
+  - Change Function Name
+  - Split scraping function
+- Function / Update / Scraping
+  - Using new scraping method
+- Index.js
+  - Change imported and function name
+  - Add notify when updated product was undercuted
+
 ###1.0.0 Release Pog :)
 
 ###0.3.4 - 20/9 Testing

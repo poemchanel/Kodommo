@@ -211,9 +211,9 @@ async function Kodommo(msg) {
         msg.reply(balas.caption);
         break;
       case msg.body.toLowerCase().startsWith("!produk"): // Cek Produk
-        balas = await Produk(msg, await msg.getContact());
+        balas = await Product(msg.body, (await msg.getContact()).number);
         for (let i = 0; i < balas.length; i++) {
-          msg.reply(balas[i].caption);
+          msg.reply(balas[i]);
         }
         break;
       case msg.body.toLowerCase().startsWith("!click"): // Cek Produk
@@ -233,23 +233,17 @@ async function Kodommo(msg) {
         }
         break;
       case msg.body.toLowerCase().startsWith("!konveksi"): // Cek Produk
-        balas = await Konveksi(msg, await msg.getContact());
-        for (let i = 0; i < balas.length; i++) {
-          if (balas[i].status !== "gagal") {
-            msg.reply(balas[i].caption);
-          } else {
-            msg.reply(balas[i].caption);
-          }
+        Generate = await Konveksi(msg.body, (await msg.getContact()).number);
+        if (Generate.status !== "gagal") {
+          msg.reply("Berhasil");
+        } else {
+          msg.reply("Gagal");
         }
+        break;
       case msg.body.toLowerCase().startsWith("!undercut"): // Cek Produk
-        balas = await Undercut(msg, await msg.getContact());
-        for (let i = 0; i < balas.length; i++) {
-          if (balas[i].status !== "gagal") {
-            msg.reply(balas[i].caption);
-          } else {
-            msg.reply(balas[i].caption);
-          }
-        }
+        balas = await Undercut((await msg.getContact()).number);
+        msg.reply(balas.status);
+        break;
       case msg.body.toLowerCase().startsWith("!update"):
       case msg.body.toLowerCase().startsWith("!scrap"):
         balas = await Update(msg, await msg.getContact());
@@ -269,7 +263,7 @@ async function Kodommo(msg) {
   else {
     console.log("Pesan ini Bukan Perintah");
   }
-  setInterval(CekAutoSelesai, 30000);
+  // setInterval(CekAutoSelesai, 30000);
   async function CekAutoSelesai() {
     let selesai = await AutoSelesai();
     console.log(`Auto Selesai : ${selesai.selesai}`);

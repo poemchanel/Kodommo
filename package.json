@@ -1,12 +1,11 @@
 {
-  "name": "Wa-BotKodommo",
+  "name": "kodommo",
   "version": "0.0.5",
   "description": "Whatsapp Bot KODOMMO",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "upload": "node upload.js",
-    "tes": "node tes.js"
+    "import": "cd Function/Database/ &&  node ImportDocs.js"
   },
   "keywords": [
     "Bot",

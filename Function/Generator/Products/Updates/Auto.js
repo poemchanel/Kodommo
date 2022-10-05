@@ -1,7 +1,7 @@
 const DBState = require("../../../Routes/DBState");
 const Verify = require("../../Contacts/Verify");
-const { AutoOn, AutoOff, AutoCek } = require("../../../Update/PriceProducts");
-const { HargaKonveksiOff } = require("../../../Update/PriceKonveksi");
+const { AutoOn, AutoOff, AutoStatus } = require("../../../Update/PriceProducts");
+const { KonveksiOff } = require("../../../Update/PriceKonveksi");
 const { setTimeout } = require("timers/promises");
 
 async function Auto(Pesan, From, Res) {
@@ -49,7 +49,7 @@ async function RankAdmin(Pesan, Res) {
   return Res;
 }
 async function ActionOn(Action, Res) {
-  Action = await HargaKonveksiOff();
+  Action = await KonveksiOff();
   await setTimeout(5000);
   Action = await AutoOn();
   Res = `╭──「 *Perintah Berhasil* 」
@@ -68,7 +68,7 @@ async function ActionOff(Action, Res) {
   return Res;
 }
 async function ActionCek(Action, Res) {
-  Action = await AutoCek();
+  Action = await AutoStatus();
   Res = `╭──「 *Perintah Berhasil* 」
 │Status Auto Update ${Action.status}
 │Total Produk ${Action.totalproduk}
@@ -78,7 +78,7 @@ async function ActionCek(Action, Res) {
   return Res;
 }
 async function ActionLog(Action, Res) {
-  Action = await AutoCek();
+  Action = await AutoStatus();
   Res = `╭──「 *Perintah Berhasil* 」
 │Auto Update
 │──「 *i* 」──────────
@@ -87,7 +87,7 @@ ${Action.log.join(`\n\r`)}
   return Res;
 }
 async function ActionFailed(Action, Res) {
-  Action = await AutoCek();
+  Action = await AutoStatus();
   Res = `╭──「 *Perintah Berhasil* 」
 │Daftar Produk yang gagal diupdate
 │──「 *List* 」────────

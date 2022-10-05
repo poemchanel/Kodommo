@@ -17,11 +17,11 @@ const Link = require("./Function/Generator/Products/Link");
 const Undercut = require("./Function/Generator/Products/Undercut");
 const Update = require("./Function/Generator/Products/Updates/Update");
 const Auto = require("./Function/Generator/Products/Updates/Auto");
-const Click = require("./Function/Generator/Products/Updates/Click");
+const Option = require("./Function/Generator/Products/Updates/Option");
 
 // Notifikasi
-const { AutoSelesai, AutoMulai } = require("./Function/Update/PriceProducts");
-const { KonveksiSelesai } = require("./Function/Update/PriceKonveksi");
+const { AutoFinish, AutoStart, AutoUndercut } = require("./Function/Update/PriceProducts");
+const { KonveksiFinish } = require("./Function/Update/PriceKonveksi");
 const { generate } = require("qrcode-terminal");
 
 PreLaunch();
@@ -30,10 +30,9 @@ async function PreLaunch() {
   DBConnect();
   console.log("Menyalakan Bot");
   Kodommo();
-  // await setTimeout(5000);
-
+  await setTimeout(5000);
   console.log("Memulai Auto");
-  // AutoMulai();
+  AutoStart();
 } // Mempersiapkan Database Sebelum Menyalakan Bot
 
 async function Kodommo() {
@@ -121,7 +120,6 @@ async function Kodommo() {
           } else {
             msg.reply(Generate.caption);
           }
-
           break;
         case msg.body.toLowerCase().startsWith("!produk"): // Cek Produk
           Generate = await Product(msg.body, (await msg.getContact()).number);
@@ -135,8 +133,8 @@ async function Kodommo() {
             msg.reply(Generate[i]);
           }
           break;
-        case msg.body.toLowerCase().startsWith("!click"): // Cek Produk
-          Generate = await Click(msg.body, (await msg.getContact()).number);
+        case msg.body.toLowerCase().startsWith("!kategori"): // Cek Produk
+          Generate = await Option(msg.body, (await msg.getContact()).number);
           msg.reply(Generate);
           break;
         case msg.body.toLowerCase().startsWith("!undercut"):
@@ -149,6 +147,9 @@ async function Kodommo() {
           }
           break;
         case msg.body.toLowerCase().startsWith("!update"):
+          msg.reply(
+            `╭──「 *Informasi* 」\n│Proses update akan\n│memakan waktu, Harap\n│menunggu informasi selanjutnya\n╰───────────────`
+          );
           Generate = await Update(msg.body, (await msg.getContact()).number);
           msg.reply(Generate);
           break;
@@ -169,32 +170,20 @@ async function Kodommo() {
   WaBot.on("disconnected", (reason) => {
     console.log("Client was logged out", reason);
   }); // Eksekusi Jika Bot LogOut
-  // setInterval(CekAutoSelesai, 35000);
-  async function CekAutoSelesai() {
-    let selesai = await AutoSelesai();
-    // console.log(`Auto Selesai : ${selesai.selesai}`);
-    if (selesai.selesai === true) {
-      WaBot.sendMessage(
-        selesai.nomor,
-        `╭──「 *Informasi Update* 」
-│${selesai.status}
-│Berhasil Mengupdate ${selesai.diupdate}/${selesai.totalproduk} produk
-╰───────────────`
-      );
-    }
-    setTimeout(5000);
-    selesai = await KonveksiSelesai();
-    // console.log(`Konveksi Selesai : ${selesai.selesai}`);
-    if (selesai.selesai === true) {
-      WaBot.sendMessage(
-        selesai.nomor,
-        `╭──「 *Informasi Update* 」
-│${selesai.status}
-│Total Produk ${selesai.totalproduk}
-│Berhasil Mengupdate ${selesai.diupdate} produk
-│Gagal Mengupdate ${selesai.gagal.length} produk
-╰───────────────`
-      );
+
+  // Notifikasi
+  setInterval(Notifkasi, 35000);
+  async function Notifkasi() {
+    let Check;
+    Check = await KonveksiFinish();
+    if (Check.selesai === true) await WaBot.sendMessage(Check.nomor, Check.caption);
+    Check = await AutoFinish();
+    if (Check.selesai === true) await WaBot.sendMessage(Check.nomor, Check.caption);
+    Check = await AutoUndercut();
+    if (Check.selesai === true) {
+      for (let u = 0; u < Check.caption; u++) {
+        await WaBot.sendMessage(Check.nomor, Check.caption[u]);
+      }
     }
   }
 } // Bot KODOMMO
