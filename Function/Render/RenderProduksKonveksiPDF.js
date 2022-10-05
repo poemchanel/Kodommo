@@ -1,7 +1,7 @@
 const { createCanvas } = require("canvas"); // import Module untuk Membuat file image
 const fs = require("fs"); // Import Modul membaca directory
 
-async function BuatGambarKonveksi(req, res) {
+async function RenderProduksKonveksiPDF(req, konveksi, res) {
   const produk = req;
   let csize = {
     w: 720, //Lebar
@@ -10,12 +10,12 @@ async function BuatGambarKonveksi(req, res) {
   produk.forEach((element) => {
     csize.l = csize.l + 30;
   }); //Update Ukuran Gambar Berdasarkan Banyaknya Produk yang ada d Konveksi
-  const canvas = createCanvas(csize.w, csize.l); // Ukuran Gambar
+  const canvas = createCanvas(csize.w, csize.l, "pdf"); // Ukuran Gambar
   const context = canvas.getContext("2d");
   context.fillStyle = "#090b10"; // Warna Background
   context.fillRect(0, 0, csize.w, csize.l); // Memberi Warna Background
   const post = {
-    title: "Daftar Produk di Konveksi : ", // Text Header
+    title: `Daftar Produk di Konveksi ${produk[0].konveksi} : `, // Text Header
     kolom0: "Kode",
     kolom1: "Nama Barang",
     kolom2: "Modal",
@@ -26,10 +26,10 @@ async function BuatGambarKonveksi(req, res) {
   }; // Daftar Header
   //Title
   context.textAlign = "center"; // Posisi Text Rata = Tengah
-  context.fillStyle = "#fff"; // Warna Text Warna = Putih
+  context.fillStyle = "#FFFFFF"; // Warna Text Warna = Putih
   context.font = "20pt 'Tahoma'"; // Text Ukuran, Font = Tahoma
   context.fillText(post.title, 360, 50); // Letak Tulisan Judul
-  context.strokeStyle = "#fff"; // Warna Kotak
+  context.strokeStyle = "#FFFFFF"; // Warna Kotak
   context.font = "12pt 'Tahoma'"; // Text Selanjutnya Ukuran = 12pt, Font= Tamoha
   let pt = { x: 50, y: 75 }; // Letak Awal Tabel
   //Header
@@ -48,16 +48,20 @@ async function BuatGambarKonveksi(req, res) {
   // isi tabel
   produk.forEach((element) => {
     pt.y = pt.y + 30; //Setiap Produk Baru Letak Awal + 30
-    if (element.pesaing[0].hargapesaing != "-") {
-      if (element.pesaing[0].hargapesaing < element.hargaproduk) {
-        context.fillStyle = "#FF0000"; // Warna Tulisan Merah
-      } // Jika Harga Pesaing 1 Lebih Rendah maka Warna Tulisan akan menjadi Merah
-    } // Cek Jika ada data Pesaing 1
-    if (element.pesaing[1].hargapesaing != "-") {
-      if (element.pesaing[1].hargapesaing < element.hargaproduk) {
-        context.fillStyle = "#FF0000"; // Warna tulisan Merah
-      } // Jika Harga Pesaing 2 Lebih Rendah maka Warna Tulisan akan menjadi Merah
-    } // cek Jika ada data Pesaing 2
+    if (element.pesaing[0].linkpesaingstatus === "Aktif") {
+      if (element.pesaing[0].hargapesaing !== 0) {
+        if (element.pesaing[0].hargapesaing < element.hargaproduk) {
+          context.fillStyle = "#FF0000"; // Warna Tulisan Merah
+        } // Jika Harga Pesaing 1 Lebih Rendah maka Warna Tulisan akan menjadi Merah
+      } // Cek Jika ada data Pesaing 1
+    }
+    if (element.pesaing[1].linkpesaingstatus === "Aktif") {
+      if (element.pesaing[1].hargapesaing !== 0) {
+        if (element.pesaing[1].hargapesaing < element.hargaproduk) {
+          context.fillStyle = "#FF0000"; // Warna tulisan Merah
+        } // Jika Harga Pesaing 2 Lebih Rendah maka Warna Tulisan akan menjadi Merah
+      } // cek Jika ada data Pesaing 2
+    }
     context.strokeRect(50, pt.y, 65, 30); // Kotak  Kode
     context.strokeRect(114, pt.y, 195, 30); // Kotak Nama Barang
     context.strokeRect(310, pt.y, 90, 30); // Kotak Modal
@@ -67,20 +71,38 @@ async function BuatGambarKonveksi(req, res) {
     context.fillText(element.kodebarang, 82, pt.y + 20); // Kode Barang
     context.fillText(element.namabarang.substring(0, 20), 215, pt.y + 20); // Nama Barang
     context.fillText(element.hargamodal, 355, pt.y + 20); // Harga Modal
-    context.fillText(element.hargaproduk, 445, pt.y + 20); // Harga Produk
-    context.fillText(element.pesaing[0].hargapesaing, 535, pt.y + 20); // Harga Pesaing 1
-    context.fillText(element.pesaing[1].hargapesaing, 625, pt.y + 20); // Harga Pesaing 2
-    context.fillStyle = "#fff"; // Kembalikan Warna Tulisan ke Putih
+    if (element.linkstatus === "Aktif") {
+      context.fillText(element.hargaproduk, 445, pt.y + 20); // Harga Produk
+    } else {
+      context.fillText(element.linkstatus, 445, pt.y + 20); // Harga Produk
+    }
+    if (element.pesaing[0].linkpesaingstatus === "Aktif") {
+      context.fillText(element.pesaing[0].hargapesaing, 535, pt.y + 20); // Harga Pesaing 1
+    } else {
+      context.fillText(element.pesaing[0].linkpesaingstatus, 535, pt.y + 20); // Harga Pesaing 1
+    }
+    if (element.pesaing[1].linkpesaingstatus === "Aktif") {
+      context.fillText(element.pesaing[1].hargapesaing, 625, pt.y + 20); // Harga Pesaing 2
+    } else {
+      context.fillText(element.pesaing[1].linkpesaingstatus, 625, pt.y + 20); // Harga Pesaing 2
+    }
+    context.fillStyle = "#FFFFFF"; // Kembalikan Warna Tulisan ke Putih
   }); // Ulangi Untuk setiap Produk yang ada
   //footer
-  context.fillStyle = "#fff"; // Warna Text Menajdi Putih
+  context.fillStyle = "#FFFFFF"; // Warna Text Menajdi Putih
   context.font = "italic 13pt 'Tahoma'"; // Text fornat = Italic , Ukuran = 13pt , Font = Tahoma
   context.fillText(post.footer, 360, csize.l - 25); //Letak Text
   // Save PNG
-  fs.writeFileSync("./Gambar.png", canvas.toBuffer("image/png")); // Simpan Gambar dengan nama Gambar.png
-  res = `Berhasil Merender Gambar`;
+  fs.writeFileSync(
+    `./Function/Render/Docs/ProduksKonveksi${konveksi.toUpperCase()}.pdf`,
+    canvas.toBuffer("application/pdf", {
+      title: `Konvkesi ${konveksi}`,
+      keywords: `node.js Konvkesi ${konveksi}`,
+      creationDate: new Date(),
+    })
+  ); // Simpan Gambar dengan nama Gambar.png
+  res = `./Function/Render/Docs/ProduksKonveksi${konveksi.toUpperCase()}.pdf`;
   return res;
 } // Membuat Gambar Konveksi PNG
-module.exports = {
-  BuatGambarKonveksi,
-}; // Export Fungsi
+
+module.exports = RenderProduksKonveksiPDF;

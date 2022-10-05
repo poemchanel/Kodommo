@@ -1,12 +1,24 @@
 const { Client, LocalAuth, MessageMedia } = require("whatsapp-web.js"); // import Module WhatsappBot
-const qrcode = require("qrcode-terminal"); // import Modul Konversi kode otentikasi ke Qr Code
-const { HubungkanDatabase } = require("./db"); // import Fungsi untuk Koneksi ke DataBase
-const { ping, help, CekProduk, CekKonveksi, UpdateHargaProduk, UpdateHargaKonveksi, TidakadaPerintah } = require("./reply"); // import Fungsi untuk membuat pesan yg akan dibalas
+const HubungkanDatabase = require("./Function/Routes/HubungkanDatabase"); // import Fungsi untuk Koneksi ke DataBase
+
+// Reply Generator
+const Ping = require("./Function/Generator/Ping");
+const Help = require("./Function/Generator/Help");
+const Daftar = require("./Function/Generator/Daftar");
+const Terima = require("./Function/Generator/Terima");
+const Produk = require("./Function/Generator/Produk");
+const Konveksi = require("./Function/Generator/Konveksi");
+const Undercut = require("./Function/Generator/Undercut");
+const Update = require("./Function/Generator/Update");
+const Auto = require("./Function/Generator/Auto");
+
+// Notifikasi
+const { AutoSelesai } = require("./Function/Update/HargaProduks");
+const { KonveksiSelesai } = require("./Function/Update/HargaKonveksi");
 
 PreLaunch();
 async function PreLaunch() {
-  const StatusDB = await HubungkanDatabase();
-  console.log(StatusDB);
+  HubungkanDatabase();
   Kodommo();
 } // Mempersiapkan Database Sebelum Menyalakan Bot
 
@@ -19,10 +31,6 @@ async function Kodommo() {
   WaBot.on("loading_screen", (percent, message) => {
     console.log("LOADING SCREEN", percent, message);
   });
-  WaBot.on("qr", (qr) => {
-    console.log("QR RECEIVED", qr);
-    qrcode.generate(qr);
-  }); // Konversi kode authentikasi Ke bentuk VR CODE
   WaBot.on("authenticated", () => {
     console.log("Login Berhasil");
   }); // Eksekusi jika Login Berhasil
@@ -34,41 +42,87 @@ async function Kodommo() {
   }); // Eksekusi Jika Bot Siap Digunakan
 
   WaBot.on("message", async (msg) => {
-    console.log(`Dari ${msg.from} : ${msg.body}`);
+    console.log(`-> ${msg.from} : ${msg.body}`);
     if (msg.body.startsWith("!")) {
       switch (true) {
-        case msg.body.toLowerCase() === "!ping": // Untuk apakah bot membalas
-          balas = await ping(msg);
-          msg.reply(balas.caption); // Membalas Pesan
+        case msg.body.toLowerCase().startsWith("!ping"):
+          generator = await Ping(msg, await msg.getContact());
+          msg.reply("Pong");
           break;
         case msg.body.toLowerCase() === "!help": // Cek Perintah yang Tersedia
-          balas = await help(msg);
+          balas = await Help(await msg.getContact());
           msg.reply(balas.caption);
           break;
-        case msg.body.toLowerCase().startsWith("!p_"): // Cek Produk
-          balas = await CekProduk(msg);
-          msg.reply(balas.caption);
-          break;
-        case msg.body.toLowerCase().startsWith("!k_"): // Cek Konveksi
-          balas = await CekKonveksi(msg);
-          konveksipng = MessageMedia.fromFilePath("./Gambar.PNG"); // Posisi gambar di Directory
-          if (balas.status === "Gagal") {
-            msg.reply(balas.caption);
+        case msg.body.toLowerCase().startsWith("!daftar"): // Untuk apakah bot membalas
+          if (msg.mentionedIds.length !== 0) {
+            for (let i = 0; i < msg.mentionedIds.length; i++) {
+              let mentionid = await WaBot.getNumberId(msg.mentionedIds[i]);
+              let contact = await WaBot.getContactById(mentionid._serialized);
+              balas = await Daftar(contact);
+              msg.reply(balas.caption, undefined, { mentions: [contact] });
+            }
           } else {
-            msg.reply(konveksipng, undefined, { caption: balas.caption }); // Mengirim Gambar
+            balas = await Daftar(await msg.getContact());
+            msg.reply(balas.caption, undefined, { mentions: [await msg.getContact()] }); // Membalas Pesan
           }
           break;
-        case msg.body.toLowerCase().startsWith("!up_"): // Update Produk
-          balas = await UpdateHargaProduk(msg);
-          msg.reply(balas.caption);
+        case msg.body.toLowerCase().startsWith("!terima"): // Untuk apakah bot membalas
+          if (msg.mentionedIds.length !== 0) {
+            for (let i = 0; i < msg.mentionedIds.length; i++) {
+              let mentionid = await WaBot.getNumberId(msg.mentionedIds[i]);
+              let contact = await WaBot.getContactById(mentionid._serialized);
+              balas = await Terima(msg, await msg.getContact(), contact.number);
+              msg.reply(balas.caption, undefined, { mentions: [contact] });
+            }
+          } else {
+            msg.reply(`╭──「 *Perintah Gagal* 」
+│Harap tag kontak yang 
+│ingin diterima. 
+│cth: !daftar @kontak
+╰───────────────`);
+          }
           break;
-        case msg.body.toLowerCase().startsWith("!uk_"): // Update Konveksi
-          balas = await UpdateHargaKonveksi(msg);
+        case msg.body.toLowerCase().startsWith("!produk"): // Cek Produk
+          balas = await Produk(msg, await msg.getContact());
+          for (let i = 0; i < balas.length; i++) {
+            msg.reply(balas[i].caption);
+          }
+          break;
+        case msg.body.toLowerCase().startsWith("!konveksi"): // Cek Produk
+          balas = await Konveksi(msg, await msg.getContact());
+          for (let i = 0; i < balas.length; i++) {
+            if (balas[i].status !== "gagal") {
+              let konveksipdf = MessageMedia.fromFilePath(`${balas[i].status}`);
+              msg.reply(konveksipdf, undefined, { caption: `${balas[i].caption}` });
+            } else {
+              msg.reply(balas[i].caption);
+            }
+          }
+          break;
+        case msg.body.toLowerCase().startsWith("!undercut"):
+          balas = await Undercut(msg, await msg.getContact());
+          for (let i = 0; i < balas.length; i++) {
+            if (balas[i].status !== "gagal") {
+              let undercut = MessageMedia.fromFilePath(`${balas[i].status}`);
+              msg.reply(undercut, undefined, { caption: balas[i].caption });
+            } else {
+              msg.reply(balas[i].caption);
+            }
+          }
+          break;
+        case msg.body.toLowerCase().startsWith("!update"):
+        case msg.body.toLowerCase().startsWith("!scrap"):
+          balas = await Update(msg, await msg.getContact());
+          for (let i = 0; i < balas.length; i++) {
+            msg.reply(balas[i].caption);
+          }
+          break;
+        case msg.body.toLowerCase().startsWith("!auto"):
+          balas = await Auto(msg, await msg.getContact());
           msg.reply(balas.caption);
           break;
         default: // Jika Perintah tidak Terdaftar
-          balas = await TidakadaPerintah(msg);
-          msg.reply(balas);
+          msg.reply("Perintah tidak Terdaftar");
           break;
       } // Verifikasi Perintah yang di Terima
     } // Verifikasi jika Pesan Merupakan Perintah
@@ -80,4 +134,34 @@ async function Kodommo() {
   WaBot.on("disconnected", (reason) => {
     console.log("Client was logged out", reason);
   }); // Eksekusi Jika Bot LogOut
+  setInterval(CekAutoSelesai, 30000);
+  async function CekAutoSelesai() {
+    let selesai = await AutoSelesai();
+    console.log(`Auto Selesai : ${selesai.selesai}`);
+    if (selesai.selesai === true) {
+      WaBot.sendMessage(
+        selesai.nomor,
+        `╭──「 *Informasi Update* 」
+│${selesai.status}
+│Berhasil Mengupdate ${selesai.diupdate}/${selesai.totalproduk} produk
+╰───────────────`
+      );
+    }
+  }
+  setInterval(CekKonveksiSelesai, 30000);
+  async function CekKonveksiSelesai() {
+    let selesai = await KonveksiSelesai();
+    console.log(`Konveksi Selesai : ${selesai.selesai}`);
+    if (selesai.selesai === true) {
+      WaBot.sendMessage(
+        selesai.nomor,
+        `╭──「 *Informasi Update* 」
+│${selesai.status}
+│Total Produk ${selesai.totalproduk}
+│Berhasil Mengupdate ${selesai.diupdate} produk
+│Gagal Mengupdate ${selesai.failed.length} produk
+╰───────────────`
+      );
+    }
+  }
 } // Bot KODOMMO

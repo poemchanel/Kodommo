@@ -1,0 +1,91 @@
+[{
+  "_id": {
+    "$oid": "631a6aca4c5a2432bbfca735"
+  },
+  "namapengguna": "-",
+  "nama": "Rizki Indra Dinata",
+  "notelepon": "6281271015405",
+  "nomor": "6281271015405@c.us",
+  "pangkat": "member",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1662675658286"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "631a6aca4c5a2432bbfca738"
+  },
+  "namapengguna": "-",
+  "nama": "Andino",
+  "notelepon": "62895338397733",
+  "nomor": "62895338397733@c.us",
+  "pangkat": "member",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1662675658576"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "631a6aca4c5a2432bbfca73b"
+  },
+  "namapengguna": "-",
+  "nama": "Akram",
+  "notelepon": "6282178026053",
+  "nomor": "6282178026053@c.us",
+  "pangkat": "admin",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1662675658817"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "631ce6af3dc5b471c65f098e"
+  },
+  "namapengguna": "-",
+  "nama": "Duyy",
+  "notelepon": "6282246378074",
+  "nomor": "6282246378074@c.us",
+  "pangkat": "superadmin",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1662838447942"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "631ce6c13dc5b471c65f0991"
+  },
+  "namapengguna": "-",
+  "nama": "Ahmad S.",
+  "notelepon": "6282282170805",
+  "nomor": "6282282170805@c.us",
+  "pangkat": "member",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1662838465617"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "631ce91335ef8d516902e1f0"
+  },
+  "namapengguna": "-",
+  "nama": "yopi",
+  "notelepon": "6285161024464",
+  "nomor": "6285161024464@c.us",
+  "pangkat": "member",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1662839059561"
+    }
+  },
+  "__v": 0
+}]
