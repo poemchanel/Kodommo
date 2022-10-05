@@ -2,35 +2,17 @@ const readline = require("readline").createInterface({
   input: process.stdin,
   output: process.stdout,
 });
-const { Client, LocalAuth, MessageMedia } = require("whatsapp-web.js"); // import Module WhatsappBot
-const { setTimeout } = require("timers/promises");
 
-// DB
-const DBConnect = require("./Function/Routes/DBConnect"); // import Fungsi untuk Koneksi ke DataBase
-
-// Reply Generator
-const Ping = require("./Function/Generator/Ping");
-const Register = require("./Function/Generator/Contacts/Register");
-const Accept = require("./Function/Generator/Contacts/Accept");
-const Rank = require("./Function/Generator/Contacts/Rank");
+const HubungkanDatabase = require("./Function/Routes/HubungkanDatabase"); // import Fungsi untuk Koneksi ke DataBase
 const Help = require("./Function/Generator/Help");
-const List = require("./Function/Generator/Products/List");
-const Konveksi = require("./Function/Generator/Products/Konveksi");
-const Product = require("./Function/Generator/Products/Product");
-const Link = require("./Function/Generator/Products/Link");
-const Undercut = require("./Function/Generator/Products/Undercut");
-const Update = require("./Function/Generator/Products/Updates/Update");
-const Auto = require("./Function/Generator/Products/Updates/Auto");
-const Click = require("./Function/Generator/Products/Updates/Click");
-
-// Notifikasi
-const { AutoSelesai, AutoMulai } = require("./Function/Update/PriceProducts");
-const { KonveksiSelesai } = require("./Function/Update/PriceKonveksi");
-const { generate } = require("qrcode-terminal");
+const Daftar = require("./Function/Generator/Daftar");
+const Produk = require("./Function/Generator/Produk");
+const Auto = require("./Function/Generator/Auto");
+const Update = require("./Function/Generator/Update");
 
 let pesan = {
   body: "!help",
-  from: "6282246378074@c.us",
+  from: "6282178026053@c.us",
 };
 let PesanDiterima = {
   id: {
@@ -189,25 +171,19 @@ function AmbilPerintah() {
 
 PreLaunch();
 function PreLaunch() {
-  DBConnect();
+  HubungkanDatabase();
   AmbilPerintah();
 }
 
 async function Kodommo(msg) {
-  let Generate;
   console.log(`-> ${msg.from} : ${msg.body}`);
   if (msg.body.startsWith("!")) {
     switch (true) {
-      case msg.body.toLowerCase().startsWith("!ping"):
-        msg.reply("Pong");
-        Generate = await Ping(msg, await msg.getContact());
+      case msg.body.toLowerCase() === "!ping": // Untuk apakah bot membalas
+        msg.reply("Pong"); // Membalas Pesan
         break;
       case msg.body.toLowerCase() === "!help": // Cek Perintah yang Tersedia
         balas = await Help(msg, await msg.getContact());
-        msg.reply(balas.caption);
-        break;
-      case msg.body.toLowerCase().startsWith("!list"): // Cek Perintah yang Tersedia
-        balas = await List(await msg.getContact());
         msg.reply(balas.caption);
         break;
       case msg.body.toLowerCase().startsWith("!produk"): // Cek Produk
@@ -216,46 +192,10 @@ async function Kodommo(msg) {
           msg.reply(balas[i].caption);
         }
         break;
-      case msg.body.toLowerCase().startsWith("!click"): // Cek Produk
-        balas = await Click(msg.body, msg.getContact().number);
-        msg.reply(balas.caption);
-        break;
-      case msg.body.toLowerCase().startsWith("!link"): // Cek Produk
-        balas = await Link(msg, await msg.getContact());
-        for (let i = 0; i < balas.length; i++) {
-          msg.reply(balas[i].caption);
-        }
-        break;
-      case msg.body.toLowerCase().startsWith("!link"): // Cek Produk
-        balas = await Produk(msg, await msg.getContact());
-        for (let i = 0; i < balas.length; i++) {
-          msg.reply(balas[i].caption);
-        }
-        break;
-      case msg.body.toLowerCase().startsWith("!konveksi"): // Cek Produk
-        balas = await Konveksi(msg, await msg.getContact());
-        for (let i = 0; i < balas.length; i++) {
-          if (balas[i].status !== "gagal") {
-            msg.reply(balas[i].caption);
-          } else {
-            msg.reply(balas[i].caption);
-          }
-        }
-      case msg.body.toLowerCase().startsWith("!undercut"): // Cek Produk
-        balas = await Undercut(msg, await msg.getContact());
-        for (let i = 0; i < balas.length; i++) {
-          if (balas[i].status !== "gagal") {
-            msg.reply(balas[i].caption);
-          } else {
-            msg.reply(balas[i].caption);
-          }
-        }
       case msg.body.toLowerCase().startsWith("!update"):
       case msg.body.toLowerCase().startsWith("!scrap"):
         balas = await Update(msg, await msg.getContact());
-        for (let i = 0; i < balas.length; i++) {
-          msg.reply(balas[i].caption);
-        }
+        msg.reply(balas.caption);
         break;
       case msg.body.toLowerCase().startsWith("!auto"):
         balas = await Auto(msg, await msg.getContact());
@@ -268,18 +208,5 @@ async function Kodommo(msg) {
   } // Verifikasi jika Pesan Merupakan Perintah
   else {
     console.log("Pesan ini Bukan Perintah");
-  }
-  setInterval(CekAutoSelesai, 30000);
-  async function CekAutoSelesai() {
-    let selesai = await AutoSelesai();
-    console.log(`Auto Selesai : ${selesai.selesai}`);
-    if (selesai.selesai === true) {
-      msg.reply(
-        `╭──「 *Informasi Update* 」
-│${selesai.status}
-│Berhasil Mengupdate ${selesai.diupdate}/${selesai.totalproduk} produk
-╰───────────────`
-      );
-    }
   }
 }

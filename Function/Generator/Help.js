@@ -1,128 +1,79 @@
-const DBState = require("../Routes/DBState");
-const Verify = require("./Contacts/Verify");
+const VerifikasiKontak = require("../VerifikasiKontak");
+const CekStatusDB = require("../Routes/CekStatusDB");
 
-async function Help(From, Res) {
-  const State = await DBState();
-  if (State === 1) {
-    const Rank = await Verify(From);
-    switch (Rank) {
+async function Help(kontak, res) {
+  const StatusDB = await CekStatusDB();
+  if (StatusDB.state === 1) {
+    const pengguna = await VerifikasiKontak(kontak);
+    switch (pengguna.pangkat) {
       case "superadmin":
-        Res = RankSuperAdmin();
-        break;
       case "admin":
-        Res = RankAdmin();
+        res = {
+          caption: `╭──「 *Daftar Perintah ${pengguna.pangkat}* 」
+│ *!Help* : Menampilkan list perintah
+│ *!Daftar* <TagKontak>
+│    ╰ Mendaftarkan kontak pengguna
+│ *!Terima* <TagKontak>
+│    ╰ Menerima kontak pengguna
+│ *!Produk* <Produk>
+│    ╰ Detail informasi produk
+│ *!Konveksi* <Konveksi>
+│    ╰ List harga produk
+│ *!Undercut* <Konveksi> :
+│    ╰ List harga produk Undercuted
+│ *!Update* <Produk/Konveksi/Perintah>
+│    ╰ Scraping dan Update harga
+│ *!Auto* <Perintah>
+│    ╰ Auto Scraping dan Update
+│       Semua Produk
+╰───────────────`,
+        };
         break;
-      case "member":
-        Res = RankMember();
+      case "member": // Kontak Berpangkat member
+        res = {
+          caption: `╭──「 *Daftar Perintah ${pengguna.pangkat}* 」
+│ *!Daftar* <TagKontak>
+│    ╰ Mendaftarkan kontak pengguna
+│ *!Produk* <Produk>
+│    ╰ Detail informasi produk
+│ *!Konveksi* <Konveksi>
+│    ╰ List harga produk
+│ *!Undercut* <Konveksi> :
+│    ╰ List harga produk Undercuted
+╰───────────────`,
+        };
         break;
       case "Kosong":
-        Res = RankKosong();
+        res = {
+          caption: `╭──「 *Perintah Ditolak* 」
+│Anda belum Terdaftar, Silahkan
+│mendaftar dengan !daftar
+╰───────────────`,
+        };
         break;
-      default:
-        Res = RankDefault(Rank);
+      default: //Kontak Tidak Memiliki Pangkat
+        res = {
+          caption: `╭──「 *Perintah Ditolak* 」
+│Perintah ini hanya dapat 
+│diakses oleh :
+│• *Admin*
+│• *Member*
+│───────────────
+│Status anda saat ini : ${pengguna.pangkat}
+╰───────────────`,
+        };
         break;
     } // Cek Pangkat Pengirim Pesan
   } else {
-    Res = DBDisconected();
+    res = {
+      caption: `╭──「 *Maintenence* 」
+│Mohon Maaf @${kontak.number}, :)
+│Saat ini Bot sedang dalam
+│Maintenence...
+╰───────────────`,
+    };
   }
-  return Res;
-}
-function RankSuperAdmin(Res) {
-  Res = `╭──「 *Daftar Perintah Super* 」
-*│•!Daftar* <TagKontak>
-│    ╰ Mendaftarkan kontak
-*│•!Terima* <TagKontak>
-│    ╰ Menerima kontak
-*│•!Pangkat* <Action> <TagKontak>
-│    ╰ Mengubah pangkat kontak
-*│•!List*
-│    ╰ List konveksi
-*│•!Konveksi* <Konveksi>
-│    ╰ List produk dikonveksi
-*│•!Produk* <KodeProduk>
-│    ╰ Detail produk
-*│•!link* <KodeProduk>
-│    ╰ Link produk
-*│•!Click* <KP> <S> <A> <AL>
-│    ╰ Click kategory
-*│•!Undercut*
-│    ╰ List produk undercuted
-*│•!Update* <Produk/Konveksi/Action>
-│    ╰ Scraping dan Update harga
-*│•!Auto* <Action>
-│    ╰ Auto Scraping dan Update
-│       Semua Produk
-╰───────────────`;
-  return Res;
-}
-function RankAdmin(Res) {
-  Res = `╭──「 *Daftar Perintah Admin* 」
-*│•!Daftar* <TagKontak>
-│    ╰ Mendaftarkan kontak
-*│•!Terima* <TagKontak>
-│    ╰ Menerima kontak
-*│•!List*
-│    ╰ List konveksi
-*│•!Konveksi* <Konveksi>
-│    ╰ List produk dikonveksi
-*│•!Produk* <KodeProduk>
-│    ╰ Detail produk
-*│•!link* <KodeProduk>
-│    ╰ Link produk
-*│•!Undercut*
-│    ╰ List produk undercuted
-*│•!Update* <Produk/Konveksi/Action>
-│    ╰ Scraping dan Update harga
-*│•!Auto* <Action>
-│    ╰ Auto Scraping dan Update
-│       Semua Produk
-╰───────────────`;
-  return Res;
-}
-function RankMember(Res) {
-  Res = `╭──「 *Daftar Perintah Member* 」
-*│•!Daftar* <TagKontak>
-│    ╰ Mendaftarkan kontak
-*│•!List*
-│    ╰ List konveksi
-*│•!Konveksi* <Konveksi>
-│    ╰ List produk dikonveksi
-*│•!Produk* <KodeProduk>
-│    ╰ Detail produk
-*│•!link* <KodeProduk>
-│    ╰ Link produk
-*│•!Undercut*
-│    ╰ List produk undercuted
-╰───────────────`;
-  return Res;
-}
-function RankKosong(Res) {
-  Res = `╭──「 *Perintah Ditolak* 」
-│Kontak Anda belum Terdaftar
-│──「 *i* 」──────────
-│Silahkan mendaftar dengan
-│perintah !daftar
-╰───────────────`;
-  return Res;
-}
-function RankDefault(Rank, Res) {
-  Res = `╭──「 *Perintah Ditolak* 」
-│Perintah ini hanya dapat diakses
-│oleh kontak berpangkat :
-│• *Admin*
-│• *Member*
-│──「 *i* 」──────────
-│Status anda saat ini : ${Rank}
-╰───────────────`;
-  return Res;
-}
-function DBDisconected(Res) {
-  Res = `╭──「 *Maintenence* 」
-│Mohon Maaf :)
-│Saat ini Bot sedang
-│dalam Maintenence...
-╰───────────────`;
-  return Res;
+  return res;
 }
 
 module.exports = Help;

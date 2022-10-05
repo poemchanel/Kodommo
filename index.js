@@ -1,39 +1,25 @@
 const { Client, LocalAuth, MessageMedia } = require("whatsapp-web.js"); // import Module WhatsappBot
-const { setTimeout } = require("timers/promises");
-
-// DB
-const DBConnect = require("./Function/Routes/DBConnect"); // import Fungsi untuk Koneksi ke DataBase
+const HubungkanDatabase = require("./Function/Routes/HubungkanDatabase"); // import Fungsi untuk Koneksi ke DataBase
 
 // Reply Generator
 const Ping = require("./Function/Generator/Ping");
-const Register = require("./Function/Generator/Contacts/Register");
-const Accept = require("./Function/Generator/Contacts/Accept");
-const Rank = require("./Function/Generator/Contacts/Rank");
 const Help = require("./Function/Generator/Help");
-const List = require("./Function/Generator/Products/List");
-const Konveksi = require("./Function/Generator/Products/Konveksi");
-const Product = require("./Function/Generator/Products/Product");
-const Link = require("./Function/Generator/Products/Link");
-const Undercut = require("./Function/Generator/Products/Undercut");
-const Update = require("./Function/Generator/Products/Updates/Update");
-const Auto = require("./Function/Generator/Products/Updates/Auto");
-const Click = require("./Function/Generator/Products/Updates/Click");
+const Daftar = require("./Function/Generator/Daftar");
+const Terima = require("./Function/Generator/Terima");
+const Produk = require("./Function/Generator/Produk");
+const Konveksi = require("./Function/Generator/Konveksi");
+const Undercut = require("./Function/Generator/Undercut");
+const Update = require("./Function/Generator/Update");
+const Auto = require("./Function/Generator/Auto");
 
 // Notifikasi
-const { AutoSelesai, AutoMulai } = require("./Function/Update/PriceProducts");
-const { KonveksiSelesai } = require("./Function/Update/PriceKonveksi");
-const { generate } = require("qrcode-terminal");
+const { AutoSelesai } = require("./Function/Update/HargaProduks");
+const { KonveksiSelesai } = require("./Function/Update/HargaKonveksi");
 
 PreLaunch();
 async function PreLaunch() {
-  console.log("Menghubungkan DB");
-  DBConnect();
-  console.log("Menyalakan Bot");
+  HubungkanDatabase();
   Kodommo();
-  // await setTimeout(5000);
-
-  console.log("Memulai Auto");
-  // AutoMulai();
 } // Mempersiapkan Database Sebelum Menyalakan Bot
 
 async function Kodommo() {
@@ -55,26 +41,29 @@ async function Kodommo() {
     console.log("Bot Aktif");
   }); // Eksekusi Jika Bot Siap Digunakan
 
-  let Generate;
   WaBot.on("message", async (msg) => {
     console.log(`-> ${msg.from} : ${msg.body}`);
     if (msg.body.startsWith("!")) {
       switch (true) {
         case msg.body.toLowerCase().startsWith("!ping"):
+          generator = await Ping(msg, await msg.getContact());
           msg.reply("Pong");
-          Generate = await Ping(msg, await msg.getContact());
+          break;
+        case msg.body.toLowerCase() === "!help": // Cek Perintah yang Tersedia
+          balas = await Help(await msg.getContact());
+          msg.reply(balas.caption);
           break;
         case msg.body.toLowerCase().startsWith("!daftar"): // Untuk apakah bot membalas
           if (msg.mentionedIds.length !== 0) {
             for (let i = 0; i < msg.mentionedIds.length; i++) {
               let mentionid = await WaBot.getNumberId(msg.mentionedIds[i]);
               let contact = await WaBot.getContactById(mentionid._serialized);
-              Generate = await Register(contact);
-              msg.reply(Generate, undefined, { mentions: [contact] });
+              balas = await Daftar(contact);
+              msg.reply(balas.caption, undefined, { mentions: [contact] });
             }
           } else {
-            Generate = await Register(await msg.getContact());
-            msg.reply(Generate, undefined, { mentions: [await msg.getContact()] }); // Membalas Pesan
+            balas = await Daftar(await msg.getContact());
+            msg.reply(balas.caption, undefined, { mentions: [await msg.getContact()] }); // Membalas Pesan
           }
           break;
         case msg.body.toLowerCase().startsWith("!terima"): // Untuk apakah bot membalas
@@ -82,79 +71,55 @@ async function Kodommo() {
             for (let i = 0; i < msg.mentionedIds.length; i++) {
               let mentionid = await WaBot.getNumberId(msg.mentionedIds[i]);
               let contact = await WaBot.getContactById(mentionid._serialized);
-              Generate = await Accept((await msg.getContact()).number, contact.number);
-              msg.reply(Generate, undefined, { mentions: [contact] });
+              balas = await Terima(msg, await msg.getContact(), contact.number);
+              msg.reply(balas.caption, undefined, { mentions: [contact] });
             }
           } else {
-            msg.reply(
-              `╭──「 *Perintah Gagal* 」\n│Harap tag kontak yang\n│ingin diterima.\n│contoh: !Terima @kontak\n╰───────────────`
-            );
+            msg.reply(`╭──「 *Perintah Gagal* 」
+│Harap tag kontak yang 
+│ingin diterima. 
+│cth: !daftar @kontak
+╰───────────────`);
           }
-          break;
-        case msg.body.toLowerCase().startsWith("!pangkat"): // Untuk apakah bot membalas
-          if (msg.mentionedIds.length !== 0) {
-            for (let i = 0; i < msg.mentionedIds.length; i++) {
-              let mentionid = await WaBot.getNumberId(msg.mentionedIds[i]);
-              let contact = await WaBot.getContactById(mentionid._serialized);
-              Generate = await Rank(msg.body, (await msg.getContact()).number, contact.number);
-              msg.reply(Generate, undefined, { mentions: [contact] });
-            }
-          } else {
-            msg.reply(
-              `╭──「 *Perintah Gagal* 」\n│Harap tag kontak yang\n│ingin Diubah Pangkat.\n│contoh: !Pangkat admin @kontak\n╰───────────────`
-            );
-          }
-          break;
-        case msg.body.toLowerCase().startsWith("!help"): // Cek Perintah yang Tersedia
-          Generate = await Help((await msg.getContact()).number);
-          msg.reply(Generate);
-          break;
-        case msg.body.toLowerCase().startsWith("!list"): // Cek Perintah yang Tersedia
-          Generate = await List((await msg.getContact()).number);
-          msg.reply(Generate);
-          break;
-        case msg.body.toLowerCase().startsWith("!konveksi"): // Cek Produk
-          Generate = await Konveksi(msg.body, (await msg.getContact()).number);
-          if (Generate.status !== "gagal") {
-            let konveksipdf = MessageMedia.fromFilePath(`${Generate.status}`);
-            msg.reply(konveksipdf, undefined, { caption: `${Generate.caption}` });
-          } else {
-            msg.reply(Generate.caption);
-          }
-
           break;
         case msg.body.toLowerCase().startsWith("!produk"): // Cek Produk
-          Generate = await Product(msg.body, (await msg.getContact()).number);
-          for (let i = 0; i < Generate.length; i++) {
-            msg.reply(Generate[i]);
+          balas = await Produk(msg, await msg.getContact());
+          for (let i = 0; i < balas.length; i++) {
+            msg.reply(balas[i].caption);
           }
           break;
-        case msg.body.toLowerCase().startsWith("!link"): // Cek Produk
-          Generate = await Link(msg.body, (await msg.getContact()).number);
-          for (let i = 0; i < Generate.length; i++) {
-            msg.reply(Generate[i]);
+        case msg.body.toLowerCase().startsWith("!konveksi"): // Cek Produk
+          balas = await Konveksi(msg, await msg.getContact());
+          for (let i = 0; i < balas.length; i++) {
+            if (balas[i].status !== "gagal") {
+              let konveksipdf = MessageMedia.fromFilePath(`${balas[i].status}`);
+              msg.reply(konveksipdf, undefined, { caption: `${balas[i].caption}` });
+            } else {
+              msg.reply(balas[i].caption);
+            }
           }
-          break;
-        case msg.body.toLowerCase().startsWith("!click"): // Cek Produk
-          Generate = await Click(msg.body, (await msg.getContact()).number);
-          msg.reply(Generate);
           break;
         case msg.body.toLowerCase().startsWith("!undercut"):
-          Generate = await Undercut((await msg.getContact()).number);
-          if (Generate.status !== "gagal") {
-            let Directory = MessageMedia.fromFilePath(`${Generate.status}`);
-            msg.reply(Directory, undefined, { caption: Generate.caption });
-          } else {
-            msg.reply(Generate.caption);
+          balas = await Undercut(msg, await msg.getContact());
+          for (let i = 0; i < balas.length; i++) {
+            if (balas[i].status !== "gagal") {
+              let undercut = MessageMedia.fromFilePath(`${balas[i].status}`);
+              msg.reply(undercut, undefined, { caption: balas[i].caption });
+            } else {
+              msg.reply(balas[i].caption);
+            }
           }
           break;
         case msg.body.toLowerCase().startsWith("!update"):
-          Generate = await Update(msg.body, (await msg.getContact()).number);
-          msg.reply(Generate);
+        case msg.body.toLowerCase().startsWith("!scrap"):
+          balas = await Update(msg, await msg.getContact());
+          for (let i = 0; i < balas.length; i++) {
+            msg.reply(balas[i].caption);
+          }
           break;
         case msg.body.toLowerCase().startsWith("!auto"):
-          Generate = await Auto(msg.body, (await msg.getContact()).number);
-          msg.reply(Generate);
+          balas = await Auto(msg, await msg.getContact());
+          msg.reply(balas.caption);
           break;
         default: // Jika Perintah tidak Terdaftar
           msg.reply("Perintah tidak Terdaftar");
@@ -169,10 +134,10 @@ async function Kodommo() {
   WaBot.on("disconnected", (reason) => {
     console.log("Client was logged out", reason);
   }); // Eksekusi Jika Bot LogOut
-  // setInterval(CekAutoSelesai, 35000);
+  setInterval(CekAutoSelesai, 30000);
   async function CekAutoSelesai() {
     let selesai = await AutoSelesai();
-    // console.log(`Auto Selesai : ${selesai.selesai}`);
+    console.log(`Auto Selesai : ${selesai.selesai}`);
     if (selesai.selesai === true) {
       WaBot.sendMessage(
         selesai.nomor,
@@ -182,9 +147,11 @@ async function Kodommo() {
 ╰───────────────`
       );
     }
-    setTimeout(5000);
-    selesai = await KonveksiSelesai();
-    // console.log(`Konveksi Selesai : ${selesai.selesai}`);
+  }
+  setInterval(CekKonveksiSelesai, 30000);
+  async function CekKonveksiSelesai() {
+    let selesai = await KonveksiSelesai();
+    console.log(`Konveksi Selesai : ${selesai.selesai}`);
     if (selesai.selesai === true) {
       WaBot.sendMessage(
         selesai.nomor,
@@ -192,7 +159,7 @@ async function Kodommo() {
 │${selesai.status}
 │Total Produk ${selesai.totalproduk}
 │Berhasil Mengupdate ${selesai.diupdate} produk
-│Gagal Mengupdate ${selesai.gagal.length} produk
+│Gagal Mengupdate ${selesai.failed.length} produk
 ╰───────────────`
       );
     }

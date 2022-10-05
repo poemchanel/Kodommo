@@ -3,103 +3,6 @@ adalah whatsapp bot
 
 ##ChangeLog
 
-###1.0.0 Release Pog :)
-
-###0.3.4 - 20/9 Testing
-
-- Testing
-  - !ping ✓
-  - !Daftar ✓
-  - !Terima✓
-  - !Pangkat ✓
-  - !Help ✓
-  - !List ✓
-  - !Konveksi ✓
-  - !Produk ✓
-  - !Link ✓
-  - !Undercut ✓
-  - !Update
-  - !Auto
-  - !Click
-- Fix
-  - CLI text
-
-###0.3.3 - 20/9 Refactor
-
-- Fix
-  - CLI text
-- Refactor Folder and file directory
-  - Index
-  - Function / Generator / Products / Update
-    - Click
-
-###0.3.2 - 19/9 Refactor
-
-- Fix
-  - CLI text
-- Refactor Folder and file directory
-  - Index
-  - Function / Generator / Products /
-    - Link
-    - Product
-    - List
-    - Undercut
-    - /Update/
-      - !Auto
-      - !Update
-
-###0.3.1 - 18/9 Refactor
-
-- Refactor Folder and file directory
-  - Index
-  - Function / Database
-  - Function / Routes
-  - Function / Generator /
-    - Contact
-    - Help
-    - Ping
-    - Products / Konveksi
-
-###0.3.0 - 17/9 Refactor
-
-- Refactor Folder and file directory
-
-###0.2.3 - 16/9 Stable Release
-
-- Fix
-  - !Undercut Render
-
-###0.2.2 - 15/9
-
-- Fix
-  - !Update konveksi looping berhenti
-  - !Auto Update
-
-###0.2.1 - 14/9
-
-- Add
-  - !List Menampilkan daftar konveksi
-  - !Click Menambahkan Click label untuk pupeteer
-    - !click Tambah
-    - !click Hapus
-  - !Link Menampilkan Link Produk
-  - !Pangkat Mengubah pangkat pengguna
-    - !pangkat promote/admin ubah pangkat ke admin
-    - !pangkat demote/me mber ubah pangkat ke member
-    - !pangkat hapus/ban/kick hapus pengguna
-- Fix
-  - !Undercut untuk support schema db baru
-  - !Update produk kode lebih dari 1
-
-###0.2.0 - 13/9
-
-- Refactor Bot & DB agar support kode barang yang sama
-- DB Schema baru agar suport puppetter button click
-- !Auto telah support klik varian/akuran/warna etc..
-- Fix
-  - !Produk untuk support schema db baru
-  - !Konveksi untuk support schema db baru
-
 ###0.1.3 - 12/9
 
 - Last Commit before Rescaling 0.2.x
@@ -142,7 +45,7 @@ adalah whatsapp bot
 
 ###0.0.8 - 7/9
 
-- Refactor Web Scraping Memudahkan Mengembangkan Fungsi Bot
+- Rebuild Web Scraping Memudahkan Mengembangkan Fungsi Bot
   - Perintah !Ping Ditambahkan
   - Perintah !Help Ditambahkan
 - Menambahkan Fungsi ImportDocument ke DataBase
@@ -162,7 +65,7 @@ adalah whatsapp bot
 
 ###0.0.5
 
-- Refactor Bot Agar Memudahkan Mengembangkan Fungsi Bot
+- Rebuild Bot Agar Memudahkan Mengembangkan Fungsi Bot
 - Menambahkan Fitur Verifikasi Kontak
 
 ###0.0.4
