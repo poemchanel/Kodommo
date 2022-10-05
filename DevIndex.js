@@ -7,12 +7,19 @@ const HubungkanDatabase = require("./Function/Routes/HubungkanDatabase"); // imp
 const Help = require("./Function/Generator/Help");
 const Daftar = require("./Function/Generator/Daftar");
 const Produk = require("./Function/Generator/Produk");
+const Link = require("./Function/Generator/Link");
+const List = require("./Function/Generator/Link");
 const Auto = require("./Function/Generator/Auto");
 const Update = require("./Function/Generator/Update");
+const Konveksi = require("./Function/Generator/Konveksi");
+const Undercut = require("./Function/Generator/Undercut");
+const Click = require("./Function/Generator/Click");
+
+const { AutoSelesai } = require("./Function/Update/HargaProduks");
 
 let pesan = {
   body: "!help",
-  from: "6282178026053@c.us",
+  from: "6282246378074@c.us",
 };
 let PesanDiterima = {
   id: {
@@ -186,16 +193,56 @@ async function Kodommo(msg) {
         balas = await Help(msg, await msg.getContact());
         msg.reply(balas.caption);
         break;
+      case msg.body.toLowerCase().startsWith("!list"): // Cek Perintah yang Tersedia
+        balas = await List(await msg.getContact());
+        msg.reply(balas.caption);
+        break;
       case msg.body.toLowerCase().startsWith("!produk"): // Cek Produk
         balas = await Produk(msg, await msg.getContact());
         for (let i = 0; i < balas.length; i++) {
           msg.reply(balas[i].caption);
         }
         break;
+      case msg.body.toLowerCase().startsWith("!click"): // Cek Produk
+        balas = await Click(msg, await msg.getContact());
+        msg.reply(balas.caption);
+        break;
+      case msg.body.toLowerCase().startsWith("!link"): // Cek Produk
+        balas = await Link(msg, await msg.getContact());
+        for (let i = 0; i < balas.length; i++) {
+          msg.reply(balas[i].caption);
+        }
+        break;
+      case msg.body.toLowerCase().startsWith("!link"): // Cek Produk
+        balas = await Produk(msg, await msg.getContact());
+        for (let i = 0; i < balas.length; i++) {
+          msg.reply(balas[i].caption);
+        }
+        break;
+      case msg.body.toLowerCase().startsWith("!konveksi"): // Cek Produk
+        balas = await Konveksi(msg, await msg.getContact());
+        for (let i = 0; i < balas.length; i++) {
+          if (balas[i].status !== "gagal") {
+            msg.reply(balas[i].caption);
+          } else {
+            msg.reply(balas[i].caption);
+          }
+        }
+      case msg.body.toLowerCase().startsWith("!undercut"): // Cek Produk
+        balas = await Undercut(msg, await msg.getContact());
+        for (let i = 0; i < balas.length; i++) {
+          if (balas[i].status !== "gagal") {
+            msg.reply(balas[i].caption);
+          } else {
+            msg.reply(balas[i].caption);
+          }
+        }
       case msg.body.toLowerCase().startsWith("!update"):
       case msg.body.toLowerCase().startsWith("!scrap"):
         balas = await Update(msg, await msg.getContact());
-        msg.reply(balas.caption);
+        for (let i = 0; i < balas.length; i++) {
+          msg.reply(balas[i].caption);
+        }
         break;
       case msg.body.toLowerCase().startsWith("!auto"):
         balas = await Auto(msg, await msg.getContact());
@@ -208,5 +255,18 @@ async function Kodommo(msg) {
   } // Verifikasi jika Pesan Merupakan Perintah
   else {
     console.log("Pesan ini Bukan Perintah");
+  }
+  setInterval(CekAutoSelesai, 30000);
+  async function CekAutoSelesai() {
+    let selesai = await AutoSelesai();
+    console.log(`Auto Selesai : ${selesai.selesai}`);
+    if (selesai.selesai === true) {
+      msg.reply(
+        `╭──「 *Informasi Update* 」
+│${selesai.status}
+│Berhasil Mengupdate ${selesai.diupdate}/${selesai.totalproduk} produk
+╰───────────────`
+      );
+    }
   }
 }

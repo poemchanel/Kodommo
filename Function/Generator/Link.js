@@ -1,9 +1,8 @@
 const VerifikasiKontak = require("../VerifikasiKontak");
 const CekStatusDB = require("../Routes/CekStatusDB");
 const TarikProduk = require("../Routes/TarikProduk");
-const RenderProduk = require("../Render/RenderProduk");
 
-async function Produk(pesan, kontak, res) {
+async function Link(pesan, kontak, res) {
   res = [];
   const StatusDB = await CekStatusDB();
   if (StatusDB.state === 1) {
@@ -16,22 +15,37 @@ async function Produk(pesan, kontak, res) {
         if (tmp.length !== 1) {
           for (let i = 0; i < tmp.length; i++) {
             let produk;
-            let render;
-            if (tmp[i].toLowerCase() !== "!produk") {
+            if (tmp[i].toLowerCase() !== "!link") {
               if (tmp[i].includes("_") === true) {
                 let tmp1 = tmp[i].split("_");
                 produk = await TarikProduk(tmp1[0].toUpperCase());
                 if (produk.length !== 0) {
                   if (produk[tmp1[1] - 1] !== undefined) {
-                    render = await RenderProduk(produk[tmp1[1] - 1]);
-                    res.push({
-                      caption: render,
-                    });
+                    let shopee = produk[tmp1[1] - 1].shopee;
+                    if (shopee.length !== undefined || 0) {
+                      let cap = [];
+                      for (let s = 0; s < shopee.length; s++) {
+                        cap.push(`│${shopee[s].nama}\n│${shopee[s].link}`);
+                      }
+                      res.push({
+                        caption: `╭──「 *Link Produk* 」
+│Produk ${tmp1[0]} No ${tmp1[1]}
+${cap.join(`\n\r`)}
+╰───────────────`,
+                      });
+                    } else {
+                      res.push({
+                        caption: `╭──「 *Link Produk* 」
+│Produk ${tmp1[0]} No ${tmp[1]}
+│Tidak Memiliki Link
+╰───────────────`,
+                      });
+                    }
                   } else {
                     res.push({
                       caption: `╭──「 *Perintah Gagal* 」
 │Tidak dapat menemukan produk
-│nomor ${i} di kode : ${tmp[i]}
+│nomor ${tmp1[1]} di kode : ${tmp1[0]}
 ╰───────────────`,
                     });
                   }
@@ -39,7 +53,7 @@ async function Produk(pesan, kontak, res) {
                   res.push({
                     caption: `╭──「 *Perintah Gagal* 」
 │Tidak dapat menemukan produk
-│dengan kode : ${tmp[i]}
+│nomor${tmp1[1]} dengan kode : ${tmp1[0]}
 ╰───────────────`,
                   });
                 }
@@ -62,16 +76,32 @@ async function Produk(pesan, kontak, res) {
 ╰───────────────`,
                     });
                   } else {
-                    render = await RenderProduk(produk[0]);
-                    res.push({
-                      caption: render,
-                    });
+                    let shopee = produk[0].shopee;
+                    if (shopee.length !== undefined || 0) {
+                      let cap = [];
+                      for (let s = 0; s < shopee.length; s++) {
+                        cap.push(`│${shopee[s].nama}\n${shopee[s].link}`);
+                      }
+                      res.push({
+                        caption: `╭──「 *Link Produk* 」
+│Produk ${tmp[i].toUpperCase()}
+${cap.join(`\n\r`)}
+╰───────────────`,
+                      });
+                    } else {
+                      res.push({
+                        caption: `╭──「 *Link Produk* 」
+│Produk ${tmp[i].toUpperCase()}
+│Tidak Memiliki Link
+╰───────────────`,
+                      });
+                    }
                   }
                 } else {
                   res.push({
                     caption: `╭──「 *Perintah Gagal* 」
 │Tidak dapat menemukan produk
-│dengan kode : ${tmp[i]}
+│dengan kode : ${tmp[i].toUpperCase()}
 ╰───────────────`,
                   });
                 }
@@ -82,9 +112,9 @@ async function Produk(pesan, kontak, res) {
           res.push({
             caption: `╭──「 *Perintah Gagal* 」
 │Harap masukan kode produk
-│setelah perintah !produk
+│setelah perintah !link
 │Contoh: 
-│!Produk D1008 D1200 ...
+│!link D1008 D1200 ...
 ╰───────────────`,
           });
         }
@@ -122,4 +152,4 @@ async function Produk(pesan, kontak, res) {
   return res;
 }
 
-module.exports = Produk;
+module.exports = Link;

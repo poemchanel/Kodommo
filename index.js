@@ -1,4 +1,7 @@
 const { Client, LocalAuth, MessageMedia } = require("whatsapp-web.js"); // import Module WhatsappBot
+const { setTimeout } = require("timers/promises");
+
+// DB
 const HubungkanDatabase = require("./Function/Routes/HubungkanDatabase"); // import Fungsi untuk Koneksi ke DataBase
 
 // Reply Generator
@@ -6,20 +9,32 @@ const Ping = require("./Function/Generator/Ping");
 const Help = require("./Function/Generator/Help");
 const Daftar = require("./Function/Generator/Daftar");
 const Terima = require("./Function/Generator/Terima");
-const Produk = require("./Function/Generator/Produk");
+const Pangkat = require("./Function/Generator/Pangkat");
+const List = require("./Function/Generator/List");
 const Konveksi = require("./Function/Generator/Konveksi");
+const Produk = require("./Function/Generator/Produk");
+const Link = require("./Function/Generator/Link");
 const Undercut = require("./Function/Generator/Undercut");
 const Update = require("./Function/Generator/Update");
 const Auto = require("./Function/Generator/Auto");
+const Click = require("./Function/Generator/Click");
 
 // Notifikasi
-const { AutoSelesai } = require("./Function/Update/HargaProduks");
+const { AutoSelesai, AutoMulai } = require("./Function/Update/HargaProduks");
 const { KonveksiSelesai } = require("./Function/Update/HargaKonveksi");
 
 PreLaunch();
 async function PreLaunch() {
+  console.log("Menghubungkan DB");
   HubungkanDatabase();
+  await setTimeout(3000);
+
+  console.log("Menyalakan Bot");
   Kodommo();
+  await setTimeout(5000);
+
+  console.log("Memulai Auto");
+  AutoMulai();
 } // Mempersiapkan Database Sebelum Menyalakan Bot
 
 async function Kodommo() {
@@ -49,8 +64,12 @@ async function Kodommo() {
           generator = await Ping(msg, await msg.getContact());
           msg.reply("Pong");
           break;
-        case msg.body.toLowerCase() === "!help": // Cek Perintah yang Tersedia
+        case msg.body.toLowerCase().startsWith("!help"): // Cek Perintah yang Tersedia
           balas = await Help(await msg.getContact());
+          msg.reply(balas.caption);
+          break;
+        case msg.body.toLowerCase().startsWith("!list"): // Cek Perintah yang Tersedia
+          balas = await List(await msg.getContact());
           msg.reply(balas.caption);
           break;
         case msg.body.toLowerCase().startsWith("!daftar"): // Untuk apakah bot membalas
@@ -78,7 +97,22 @@ async function Kodommo() {
             msg.reply(`╭──「 *Perintah Gagal* 」
 │Harap tag kontak yang 
 │ingin diterima. 
-│cth: !daftar @kontak
+│contoh: !daftar @kontak
+╰───────────────`);
+          }
+        case msg.body.toLowerCase().startsWith("!Pangkat"): // Untuk apakah bot membalas
+          if (msg.mentionedIds.length !== 0) {
+            for (let i = 0; i < msg.mentionedIds.length; i++) {
+              let mentionid = await WaBot.getNumberId(msg.mentionedIds[i]);
+              let contact = await WaBot.getContactById(mentionid._serialized);
+              balas = await Pangkat(msg, await msg.getContact(), contact.number);
+              msg.reply(balas.caption, undefined, { mentions: [contact] });
+            }
+          } else {
+            msg.reply(`╭──「 *Perintah Gagal* 」
+│Harap tag kontak yang 
+│ingin Diubah Pangkat. 
+│contoh: !daftar @kontak
 ╰───────────────`);
           }
           break;
@@ -87,6 +121,16 @@ async function Kodommo() {
           for (let i = 0; i < balas.length; i++) {
             msg.reply(balas[i].caption);
           }
+          break;
+        case msg.body.toLowerCase().startsWith("!link"): // Cek Produk
+          balas = await Link(msg, await msg.getContact());
+          for (let i = 0; i < balas.length; i++) {
+            msg.reply(balas[i].caption);
+          }
+          break;
+        case msg.body.toLowerCase().startsWith("!click"): // Cek Produk
+          balas = await Click(msg, await msg.getContact());
+          msg.reply(balas.caption);
           break;
         case msg.body.toLowerCase().startsWith("!konveksi"): // Cek Produk
           balas = await Konveksi(msg, await msg.getContact());
@@ -134,10 +178,10 @@ async function Kodommo() {
   WaBot.on("disconnected", (reason) => {
     console.log("Client was logged out", reason);
   }); // Eksekusi Jika Bot LogOut
-  setInterval(CekAutoSelesai, 30000);
+  setInterval(CekAutoSelesai, 35000);
   async function CekAutoSelesai() {
     let selesai = await AutoSelesai();
-    console.log(`Auto Selesai : ${selesai.selesai}`);
+    // console.log(`Auto Selesai : ${selesai.selesai}`);
     if (selesai.selesai === true) {
       WaBot.sendMessage(
         selesai.nomor,
@@ -147,11 +191,9 @@ async function Kodommo() {
 ╰───────────────`
       );
     }
-  }
-  setInterval(CekKonveksiSelesai, 30000);
-  async function CekKonveksiSelesai() {
-    let selesai = await KonveksiSelesai();
-    console.log(`Konveksi Selesai : ${selesai.selesai}`);
+    setTimeout(5000);
+    selesai = await KonveksiSelesai();
+    // console.log(`Konveksi Selesai : ${selesai.selesai}`);
     if (selesai.selesai === true) {
       WaBot.sendMessage(
         selesai.nomor,
@@ -159,7 +201,7 @@ async function Kodommo() {
 │${selesai.status}
 │Total Produk ${selesai.totalproduk}
 │Berhasil Mengupdate ${selesai.diupdate} produk
-│Gagal Mengupdate ${selesai.failed.length} produk
+│Gagal Mengupdate ${selesai.gagal.length} produk
 ╰───────────────`
       );
     }

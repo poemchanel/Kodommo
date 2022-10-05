@@ -5,76 +5,76 @@ puppeteer.use(require("puppeteer-extra-plugin-anonymize-ua")());
 puppeteer.use(StealthPlugin());
 puppeteer.use(AdblockerPlugin({ blockTrackers: true }));
 
-const TarikProduks = require("../Routes/TarikProduks");
+const { setTimeout } = require("timers/promises");
+
 const UpdateProduk = require("../Routes/UpdateProduk");
+const TarikProduks = require("../Routes/TarikProduks");
 
 let ScrapUpdate = false;
 let log = [];
 let updated = 0;
 let produklength = 0;
-let queue = 0;
 let finish = false;
-let berhenti = 0;
-
-// const HubungkanDatabase = require("../Routes/HubungkanDatabase");
-// HubungkanDatabase();
-// ScrapUpdateOn();
+let stop = 0;
+let i = 0;
+let Produks;
+let failed = [];
+let interfered = false;
 
 function AutoCek(res) {
-  if (ScrapUpdate === true) {
-    res = {
-      status: `│Status Auto Scrap\n│dan Update Aktif`,
-      log: log,
-      diupdate: updated,
-      totalproduk: produklength,
-      antrian: queue,
-      state: ScrapUpdate,
-    };
+  let tmp = "";
+  if (ScrapUpdate == true) {
+    tmp = "Aktif";
   } else {
-    res = {
-      status: `│Status Auto Scrap\n│dan Update NonAktif`,
-      log: log,
-      diupdate: updated,
-      totalproduk: produklength,
-      antrian: queue,
-      state: ScrapUpdate,
-    };
+    tmp = "NonAktif";
   }
-  return res;
-}
-function AutoOn(res) {
-  if (ScrapUpdate === false) {
-    ScrapUpdate = true;
-    ScrapHargaProduk();
-    res = {
-      status: `│Mengaktifkan Auto\n│Scrap dan Update`,
-      log: log,
-      diupdate: updated,
-      totalproduk: produklength,
-      antrian: queue,
-    };
-  } else {
-    res = {
-      status: `│Status Auto Scrap\n│dan Update Telah Aktif`,
-      log: log,
-      diupdate: updated,
-      totalproduk: produklength,
-      antrian: queue,
-    };
-  }
-  return res;
-}
-function AutoOff(res) {
-  ScrapUpdate = false;
   res = {
-    status: `│Menonaktifkan Auto Scrap\n│dan Update`,
-    log: log,
+    status: tmp,
     diupdate: updated,
     totalproduk: produklength,
-    antrian: queue,
+    gagal: failed,
+    antrian: i,
+    log: log,
+    state: ScrapUpdate,
   };
   return res;
 }
+
+function AutoOn(res) {
+  if (ScrapUpdate === true) {
+    res = {
+      status: `Auto update telah aktif`,
+      diupdate: updated,
+      totalproduk: produklength,
+      gagal: failed,
+      antrian: i,
+    };
+  } else {
+    ScrapUpdate = true;
+    Ulang();
+    res = {
+      status: `Auto update diaktifkan kembali`,
+      diupdate: updated,
+      totalproduk: produklength,
+      gagal: failed,
+      antrian: i,
+    };
+  }
+  return res;
+}
+
+function AutoOff(res) {
+  ScrapUpdate = false;
+  res = {
+    status: `Update Konveksi Dihentikan`,
+    diupdate: updated,
+    totalproduk: produklength,
+    gagal: failed,
+    antrian: i,
+  };
+  return res;
+}
+
 function AutoSelesai(res) {
   res = {
     nomor: "120363043606962064@g.us",
@@ -82,7 +82,8 @@ function AutoSelesai(res) {
     log: log,
     diupdate: updated,
     totalproduk: produklength,
-    antrian: queue,
+    antrian: i,
+    gagal: failed,
     selesai: finish,
   };
   if (finish === true) {
@@ -90,197 +91,165 @@ function AutoSelesai(res) {
   }
   return res;
 }
-let Berhasil = 0;
 
-function Restart() {
+async function AutoMulai(res) {
+  ScrapUpdate = true;
   log = [];
+  failed = [];
   updated = 0;
-}
-async function ScrapHargaProduk() {
-  berhenti = 0;
-  log.push("│Persiapan Data Produk Dimulai");
-  const Produks = await TarikProduks();
+  Produks = await TarikProduks();
   produklength = Produks.length;
-  if (Produks.length !== 0) {
-    let i = 0;
-    ProduksLoop();
-    async function ProduksLoop() {
-      if (log.length > 30) {
-        log.splice(0, 5);
-      }
-      queue = i;
-      let data = Produks[i];
-      if (ScrapUpdate === true) {
-        const browser = await puppeteer.launch({ headless: true }); // Membuka Browser
-        try {
-          const page = await browser.newPage(); // Membuka Tab Baru di Browser
-          log.push(`│Memulai Update ${i}: ${data.konveksi}-${data.kodebarang}`);
-          if (ScrapUpdate === true) {
-            if (data.linkproduk !== "-") {
-              await page.goto(data.linkproduk);
+  i = 0;
+  finish = false;
+  ProduksLoop();
+  res = {
+    status: `Memulai update konveksi`,
+    totalproduk: produklength,
+  };
+  return res;
+}
+
+async function Ulang() {
+  i++;
+  if (i < produklength) {
+    if (ScrapUpdate === true) {
+      ProduksLoop();
+    }
+  } else {
+    finish = true;
+    i = 0;
+    await setTimeout(1800000);
+    AutoMulai();
+  }
+}
+
+async function ProduksLoop() {
+  stop = 0;
+  if (log.length > 30) {
+    log.splice(0, 5);
+  }
+  let data = Produks[i];
+  if (ScrapUpdate === true) {
+    let browser = await puppeteer.launch({ headless: true }); // Membuka Browser
+    let page = await browser.newPage();
+    log.push(`│Memulai Update ${i}: ${data.konveksi}-${data.kodebarang}`);
+    shopee = data.shopee;
+    if (shopee !== undefined) {
+      for (let j = 0; j < shopee.length; j++) {
+        if (interfered === true) {
+          browser = await puppeteer.launch({ headless: true }); // Membuka Browser
+          page = await browser.newPage();
+          interfered = false;
+        }
+        if (ScrapUpdate === true) {
+          if (shopee[j].link !== "-") {
+            try {
+              await page.goto(shopee[j].link);
               try {
                 await page.waitForSelector("[class='_1WIqzi']", { timeout: 3000 });
                 let statusclass = await page.$("[class='_1WIqzi']");
                 let statusvalue = await page.evaluate((el) => el.textContent, statusclass);
-                data.linkstatus = statusvalue;
-                log.push(`│->Produk ${data.kodebarang} link ${statusvalue}`);
+                shopee[j].status = statusvalue;
+                log.push(`│->Produk ${shopee[j].nama} link ${statusvalue}`);
               } catch (error) {
                 try {
-                  await page.waitForSelector("[class='_2Shl1j']");
-                  let element = await page.$("[class='_2Shl1j']");
-                  let value = await page.evaluate((el) => el.textContent, element);
-                  value = value.replace(/Rp/g, "").replace(/ /g, "").replace(".", "").replace(".", "");
-                  if (value.includes("-") === true) {
-                    value = value.split("-");
-                    if (data.hargaprodukmin == false) {
-                      value = value[1];
-                    } else {
-                      value = value[0];
+                  let disable = [];
+                  for (let k = 0; k < shopee[j].click.length; k++) {
+                    let element = await page.waitForSelector(`button[aria-label="${shopee[j].click[k]}"]`);
+                    let button = await page.evaluate((el) => el.getAttribute("aria-disabled"), element);
+                    if (button === false) {
+                      await page.click(`button[aria-label="${shopee[j].click[k]}"]`);
                     }
-                    data.hargaproduk = value;
-                  } else {
-                    data.hargaproduk = value;
+                    disable.push(button);
                   }
-                  data.linkstatus = "Aktif";
-                  log.push(`│->Produk ${data.kodebarang} link Aktif\n│   ╰ Harga : Rp.${value}`);
+                  console.log(disable);
+                  if (disable.includes("true") === true) {
+                    shopee[j].status = "Disable";
+                    log.push(`│->Produk ${shopee[j].nama} link Disable`);
+                  } else {
+                    await setTimeout(500);
+                    try {
+                      await page.waitForSelector("[class='_2Shl1j']", { timeout: 3000 });
+                      let element = await page.$("[class='_2Shl1j']");
+                      let value = await page.evaluate((el) => el.textContent, element);
+                      value = value.replace(/Rp/g, "").replace(/ /g, "").replace(".", "").replace(".", "");
+                      if (value.includes("-") === true) {
+                        shopee[j].harga = value;
+                        shopee[j].status = "Range";
+                        log.push(`│->Produk ${shopee[j].nama} link Range\n│   ╰ Harga : Rp.${value}`);
+                      } else {
+                        shopee[j].harga = value;
+                        shopee[j].status = "Aktif";
+                        log.push(`│->Produk ${shopee[j].nama} link Aktif\n│   ╰ Harga : Rp.${value}`);
+                      }
+                    } catch (error) {
+                      console.log(error);
+                      log.push(`│Proses scraping terhenti!\n│melanjutkan ulang proses\n│setelah 90 detik...`);
+                      failed.push(`\n│${i}: ${data.konveksi}-${data.kodebarang}`);
+                      interfered = true;
+                      await browser.close();
+                      await setTimeout(90000);
+                    }
+                  }
                 } catch (error) {
-                  data.linkstatus = "Bermasalah";
-                  log.push(`│->Produk ${data.kodebarang} link Bermasalah`);
+                  try {
+                    await page.waitForSelector("[class='_2Shl1j']", { timeout: 3000 });
+                    let element = await page.$("[class='_2Shl1j']");
+                    let value = await page.evaluate((el) => el.textContent, element);
+                    value = value.replace(/Rp/g, "").replace(/ /g, "").replace(".", "").replace(".", "");
+                    if (value.includes("-") === true) {
+                      shopee[j].harga = value;
+                      shopee[j].status = "Range";
+                      log.push(`│->Produk ${shopee[j].nama} link Range\n│   ╰ Harga : Rp.${value}`);
+                    } else {
+                      shopee[j].harga = value;
+                      shopee[j].status = "Aktif";
+                      log.push(`│->Produk ${shopee[j].nama} link Aktif\n│   ╰ Harga : Rp.${value}`);
+                    }
+                  } catch (error) {
+                    console.log(error);
+                    log.push(`│Proses scraping terhenti!\n│melanjutkan ulang proses\n│setelah 90 detik...`);
+                    failed.push(`\n│${i}: ${data.konveksi}-${data.kodebarang}`);
+                    interfered = true;
+                    await browser.close();
+                    await setTimeout(90000);
+                  }
                 }
               }
-            } else {
-              data.linkstatus = "Kosong";
-              log.push(`│->Produk ${data.kodebarang} link Kosong`);
+            } catch (error) {
+              shopee[j].status = "Bermasalah";
+              log.push(`│->Produk ${shopee[j].nama} link Bermasalah`);
             }
           } else {
-            berhenti = berhenti + 1;
-          }
-          if (ScrapUpdate === true) {
-            if (data.pesaing[0].linkpesaing != "-") {
-              await page.goto(data.pesaing[0].linkpesaing);
-              try {
-                await page.waitForSelector("[class='_1WIqzi']", { timeout: 3000 });
-                let statusclass0 = await page.$("[class='_1WIqzi']");
-                let statusvalue0 = await page.evaluate((el) => el.textContent, statusclass0);
-                data.pesaing[0].linkpesaingstatus = statusvalue0;
-                log.push(`│->Pesaing ${data.pesaing[0].namapesaing} link ${statusvalue0}`);
-              } catch (error) {
-                try {
-                  await page.waitForSelector("[class='_2Shl1j']");
-                  let element0 = await page.$("[class='_2Shl1j']");
-                  let value0 = await page.evaluate((el) => el.textContent, element0);
-                  value0 = value0.replace(/Rp/g, "").replace(/ /g, "").replace(".", "").replace(".", "");
-                  if (value0.includes("-") === true) {
-                    value0 = value0.split("-");
-                    if (data.pesaing[0].hargapesaingmin == false) {
-                      value0 = value0[1];
-                    } else {
-                      value0 = value0[0];
-                    }
-                    data.pesaing[0].hargapesaing = value0;
-                  } else {
-                    data.pesaing[0].hargapesaing = value0;
-                  }
-                  data.pesaing[0].linkpesaingstatus = "Aktif";
-                  log.push(`│->Pesaing ${data.pesaing[0].namapesaing} link Aktif\n│   ╰ Harga : Rp.${value0}`);
-                } catch (error) {
-                  data.pesaing[0].linkpesaingstatus = "Bermasalah";
-                  log.push(`│->Pesaing ${data.pesaing[0].namapesaing} link Bermasalah`);
-                }
-              }
-            } else {
-              data.pesaing[0].linkpesaingstatus = "Kosong";
-              log.push(`│->Pesaing ${data.pesaing[0].namapesaing} link Kosong`);
-            }
-          } else {
-            berhenti = berhenti + 1;
-          }
-          if (ScrapUpdate === true) {
-            if (data.pesaing[1].linkpesaing != "-") {
-              await page.goto(data.pesaing[1].linkpesaing);
-              try {
-                await page.waitForSelector("[class='_1WIqzi']", { timeout: 3000 });
-                let statusclass1 = await page.$("[class='_1WIqzi']");
-                let statusvalue1 = await page.evaluate((el) => el.textContent, statusclass1);
-                data.pesaing[1].linkpesaingstatus = statusvalue1;
-                log.push(`│->Pesaing ${data.pesaing[1].namapesaing} link ${statusvalue1}`);
-              } catch (error) {
-                try {
-                  await page.waitForSelector("[class='_2Shl1j']");
-                  let element1 = await page.$("[class='_2Shl1j']");
-                  let value1 = await page.evaluate((el) => el.textContent, element1);
-                  value1 = value1.replace(/Rp/g, "").replace(/ /g, "").replace(".", "").replace(".", "");
-                  if (value1.includes("-") === true) {
-                    value1 = value1.split("-");
-                    if (data.pesaing[1].hargapesaingmin == false) {
-                      value1 = value1[1];
-                    } else {
-                      value1 = value1[0];
-                    }
-                    data.pesaing[1].hargapesaing = value1;
-                  } else {
-                    data.pesaing[1].hargapesaing = value1;
-                  }
-                  data.pesaing[1].linkpesaingstatus = "Aktif";
-                  log.push(`│->Pesaing ${data.pesaing[1].namapesaing} link Aktif\n│   ╰ Harga : Rp.${value1}`);
-                } catch (error) {
-                  data.pesaing[1].linkpesaingstatus = "Bermasalah";
-                  log.push(`│->Pesaing ${data.pesaing[1].namapesaing} link Bermasalah`);
-                }
-              }
-            } else {
-              data.pesaing[1].linkpesaingstatus = "Kosong";
-              log.push(`│->Pesaing ${data.pesaing[1].namapesaing} link Kosong`);
-            }
-          } else {
-            berhenti = berhenti + 1;
-          }
-          if (ScrapUpdate === true) {
-            const UpdateStatus = await UpdateProduk(data);
-            log.push(`│${UpdateStatus}`);
-            Berhasil = 1;
-          } else {
-            berhenti = berhenti + 1;
-          }
-        } catch (error) {
-          console.log(error);
-          log.push(`│Proses scraping terhenti!\n│melanjutkan ulang proses\n│setelah 90 detik...`);
-          Berhasil = 0;
-        }
-        await browser.close();
-      } else {
-        berhenti = berhenti + 1;
-      }
-      if (berhenti > 0) {
-        i = i - 1;
-      }
-      if (Berhasil === 1) {
-        updated = updated + 1;
-        i++;
-        if (i < Produks.length) {
-          if (ScrapUpdate === true) {
-            ProduksLoop();
+            shopee[j].link = "Kosong";
+            log.push(`│->Produk ${shopee[j].nama} link Kosong`);
           }
         } else {
-          UlangiScrap();
+          stop = stop + 1;
         }
-      } else {
-        i++;
-        setTimeout(() => {
-          if (i < Produks.length) {
-            if (ScrapUpdate === true) {
-              ProduksLoop();
-            }
-          }
-        }, 60000);
       }
+    } else {
+      log.push(`│Produk ${data.konveksi}-${data.kodebarang} Link Kosong`);
     }
-    function UlangiScrap() {
-      log.push(`│Berhasil MenScraping dan\nMengupdate ${i} Produk\nMengulang Proses Dalam 30m...`);
-      finish = true;
-      setTimeout(Restart, 1800000);
+    if (interfered === false) {
+      await browser.close();
+    } else {
+      interfered = false;
     }
+    if (ScrapUpdate === true) {
+      const UpdateStatus = await UpdateProduk(data);
+      updated = updated + 1;
+      log.push(`│${UpdateStatus}`);
+    } else {
+      stop = stop + 1;
+    }
+  } else {
+    stop = stop + 1;
   }
+  if (stop > 0) {
+    i = i - 1;
+  }
+  Ulang();
 }
 
-module.exports = { AutoOn, AutoOff, AutoCek, AutoSelesai };
+module.exports = { AutoMulai, AutoOff, AutoOn, AutoCek, AutoSelesai };

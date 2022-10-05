@@ -18,7 +18,6 @@ async function Konveksi(pesan, kontak, res = []) {
               let produks = await TarikProduksKonveksi(tmp[i].toUpperCase());
               if (produks.length !== 0) {
                 const render = await RenderProduksKonveksiPDF(produks, tmp[i]);
-
                 res.push({ status: render, caption: `Konveksi` });
               } else {
                 res.push({

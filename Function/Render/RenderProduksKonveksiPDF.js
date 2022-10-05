@@ -1,97 +1,144 @@
 const { createCanvas } = require("canvas"); // import Module untuk Membuat file image
 const fs = require("fs"); // Import Modul membaca directory
 
+function CanvasSize(Produk, Res) {
+  let Shopee = [];
+  Res = { w: 450, l: 310 };
+  Produk.forEach((e) => {
+    Res.l = Res.l + 30;
+    try {
+      e.shopee.forEach((f) => {
+        if (!Shopee.includes(f.nama)) {
+          Shopee.push(f.nama);
+        }
+      });
+    } catch (error) {}
+  });
+  Res.w = Res.w + 90 * Shopee.length;
+  Res.Shopee = Shopee;
+  return Res;
+}
+
 async function RenderProduksKonveksiPDF(req, konveksi, res) {
   const produk = req;
-  let csize = {
-    w: 720, //Lebar
-    l: 180, //Panjang
-  }; //Ukuran Gambar Awal
-  produk.forEach((element) => {
-    csize.l = csize.l + 30;
-  }); //Update Ukuran Gambar Berdasarkan Banyaknya Produk yang ada d Konveksi
+
+  let csize = CanvasSize(req); // Canvas Size
+
+  let Shopee = csize.Shopee;
+
+  // Membuat kanvas
   const canvas = createCanvas(csize.w, csize.l, "pdf"); // Ukuran Gambar
   const context = canvas.getContext("2d");
   context.fillStyle = "#090b10"; // Warna Background
   context.fillRect(0, 0, csize.w, csize.l); // Memberi Warna Background
-  const post = {
-    title: `Daftar Produk di Konveksi ${produk[0].konveksi} : `, // Text Header
-    kolom0: "Kode",
-    kolom1: "Nama Barang",
-    kolom2: "Modal",
-    kolom3: "Jual",
-    kolom4: "Pesaing 1",
-    kolom5: "Pesaing 2",
-    footer: "Gunakan Perintah !P_<Kode Produk> untuk detail per produk", // Text Footer
-  }; // Daftar Header
+
   //Title
-  context.textAlign = "center"; // Posisi Text Rata = Tengah
   context.fillStyle = "#FFFFFF"; // Warna Text Warna = Putih
   context.font = "20pt 'Tahoma'"; // Text Ukuran, Font = Tahoma
-  context.fillText(post.title, 360, 50); // Letak Tulisan Judul
+  context.textAlign = "center"; // Posisi Text Rata = Tengah
+  context.fillText(`DAFTAR PRODUK`, csize.w / 2, 50); // Letak Tulisan Judul
+  context.fillText(`Di KONVEKSI ${konveksi} :`, csize.w / 2, 85); // Letak Tulisan Judul
+
+  //Table Header
+  context.textAlign = "center"; // Posisi Text Rata = Tengah
   context.strokeStyle = "#FFFFFF"; // Warna Kotak
-  context.font = "12pt 'Tahoma'"; // Text Selanjutnya Ukuran = 12pt, Font= Tamoha
-  let pt = { x: 50, y: 75 }; // Letak Awal Tabel
-  //Header
-  context.strokeRect(50, 75, 65, 30); // Kotak Kode
-  context.strokeRect(114, 75, 195, 30); // Kotak Nama Barang
-  context.strokeRect(310, 75, 90, 30); // Kotak Modal
-  context.strokeRect(400, 75, 90, 30); // Kotak Jual
-  context.strokeRect(490, 75, 90, 30); // Kotak Pesaing 1
-  context.strokeRect(580, 75, 90, 30); // Kotak Pesaing 2
-  context.fillText(post.kolom0, 82, 95); //  Kode
-  context.fillText(post.kolom1, 215, 95); // Nama Barang
-  context.fillText(post.kolom2, 355, 95); // Modal
-  context.fillText(post.kolom3, 445, 95); // Jual
-  context.fillText(post.kolom4, 535, 95); // Pesaing 1
-  context.fillText(post.kolom5, 625, 95); // Pesaing 2
-  // isi tabel
-  produk.forEach((element) => {
-    pt.y = pt.y + 30; //Setiap Produk Baru Letak Awal + 30
-    if (element.pesaing[0].linkpesaingstatus === "Aktif") {
-      if (element.pesaing[0].hargapesaing !== 0) {
-        if (element.pesaing[0].hargapesaing < element.hargaproduk) {
-          context.fillStyle = "#FF0000"; // Warna Tulisan Merah
-        } // Jika Harga Pesaing 1 Lebih Rendah maka Warna Tulisan akan menjadi Merah
-      } // Cek Jika ada data Pesaing 1
+  context.font = "12pt 'Tahoma'"; // Text Ukuran = 12pt, Font= Tamoha
+  context.strokeRect(50, 120, 65, 30); // Col Kode
+  context.fillText("Kode", 82.5, 140);
+  context.strokeRect(115, 120, 195, 30); // Col Nama Barang
+  context.fillText("Nama Barang", 212.5, 140);
+  context.strokeRect(310, 120, 90, 30); // Col Modal
+  context.fillText("Modal", 355, 140);
+  let ph = [
+    { x: 400, y: 120, tx: 445, ty: 140 },
+    { x: 490, y: 120, tx: 535, ty: 140 },
+    { x: 580, y: 120, tx: 625, ty: 140 },
+    { x: 670, y: 120, tx: 715, ty: 140 },
+  ];
+  var first = "DOMMO";
+  Shopee.sort((x, y) => (x == first ? -1 : y == first ? 1 : 0));
+  for (let i = 0; i < Shopee.length; i++) {
+    context.strokeRect(ph[i].x, ph[i].y, 90, 30);
+    context.fillText(Shopee[i], ph[i].tx, ph[i].ty);
+  }
+
+  //Isi Tabel
+  let piy = 0;
+  for (let j = 0; j < produk.length; j++) {
+    let DefaultColor = "#FFFFFF";
+    let DateNow = new Date();
+    let TimeDifference = Math.abs(DateNow - produk[j].updatedAt);
+    TimeDifference = Math.ceil(TimeDifference / (1000 * 60 * 60));
+    if (TimeDifference > 3) {
+      DefaultColor = "#C4B5FD";
     }
-    if (element.pesaing[1].linkpesaingstatus === "Aktif") {
-      if (element.pesaing[1].hargapesaing !== 0) {
-        if (element.pesaing[1].hargapesaing < element.hargaproduk) {
-          context.fillStyle = "#FF0000"; // Warna tulisan Merah
-        } // Jika Harga Pesaing 2 Lebih Rendah maka Warna Tulisan akan menjadi Merah
-      } // cek Jika ada data Pesaing 2
+    context.fillStyle = DefaultColor;
+    piy = piy + 30;
+    context.strokeRect(50, piy + 120, 65, 30); // Col Kode
+    context.fillText(produk[j].kodebarang, 82.5, piy + 140);
+    context.strokeRect(115, piy + 120, 195, 30); // Col Nama Barang
+    context.fillText(produk[j].namabarang.substring(0, 20), 212.5, piy + 140);
+    context.strokeRect(310, piy + 120, 90, 30); // Col Modal
+    context.fillText(produk[j].hargamodal, 355, piy + 140);
+
+    let hargafirst = 0;
+    if (produk[j].shopee !== undefined) {
+      produk[j].shopee.forEach((f) =>
+        f.nama === first && f.status === "Aktif" ? (hargafirst = f.harga) : (tes = f.harga)
+      );
     }
-    context.strokeRect(50, pt.y, 65, 30); // Kotak  Kode
-    context.strokeRect(114, pt.y, 195, 30); // Kotak Nama Barang
-    context.strokeRect(310, pt.y, 90, 30); // Kotak Modal
-    context.strokeRect(400, pt.y, 90, 30); // Kotak Jual
-    context.strokeRect(490, pt.y, 90, 30); // Kotak Pesaing 1
-    context.strokeRect(580, pt.y, 90, 30); // Kotak Pesaing 2
-    context.fillText(element.kodebarang, 82, pt.y + 20); // Kode Barang
-    context.fillText(element.namabarang.substring(0, 20), 215, pt.y + 20); // Nama Barang
-    context.fillText(element.hargamodal, 355, pt.y + 20); // Harga Modal
-    if (element.linkstatus === "Aktif") {
-      context.fillText(element.hargaproduk, 445, pt.y + 20); // Harga Produk
-    } else {
-      context.fillText(element.linkstatus, 445, pt.y + 20); // Harga Produk
+
+    if (Shopee !== undefined) {
+      for (let f = 0; f < Shopee.length; f++) {
+        context.strokeRect(ph[f].x, piy + ph[f].y, 90, 30); // Col
+        if (produk[j].shopee !== undefined) {
+          let Kosong = true;
+          produk[j].shopee.forEach((e) => {
+            if (e.nama === Shopee[f]) {
+              if (e.harga < hargafirst && e.status === "Aktif") {
+                context.fillStyle = "#FACC15";
+              }
+              if (e.status === "Aktif") {
+                context.fillText(e.harga, ph[f].tx, piy + ph[f].ty);
+              } else {
+                if (e.status === "Range" || e.status === "Bermasalah") {
+                  context.fillStyle = "#EF4444";
+                }
+                context.fillText(e.status, ph[f].tx, piy + ph[f].ty);
+              }
+              context.fillStyle = DefaultColor;
+              Kosong = false;
+            }
+          });
+          if (Kosong === true) {
+            context.fillText("-", ph[f].tx, piy + ph[f].ty);
+          }
+        } else {
+          context.fillText("-", ph[f].tx, piy + ph[f].ty);
+        }
+      }
     }
-    if (element.pesaing[0].linkpesaingstatus === "Aktif") {
-      context.fillText(element.pesaing[0].hargapesaing, 535, pt.y + 20); // Harga Pesaing 1
-    } else {
-      context.fillText(element.pesaing[0].linkpesaingstatus, 535, pt.y + 20); // Harga Pesaing 1
-    }
-    if (element.pesaing[1].linkpesaingstatus === "Aktif") {
-      context.fillText(element.pesaing[1].hargapesaing, 625, pt.y + 20); // Harga Pesaing 2
-    } else {
-      context.fillText(element.pesaing[1].linkpesaingstatus, 625, pt.y + 20); // Harga Pesaing 2
-    }
-    context.fillStyle = "#FFFFFF"; // Kembalikan Warna Tulisan ke Putih
-  }); // Ulangi Untuk setiap Produk yang ada
-  //footer
+  }
+
+  // //footer
   context.fillStyle = "#FFFFFF"; // Warna Text Menajdi Putih
+  context.font = "9pt 'Tahoma'"; // Text fornat = Italic , Ukuran = 13pt , Font = Tahoma
+  context.textAlign = "left"; // Posisi Text Rata = Tengah
+  context.fillText(
+    `Baru: Belum diupdate                     - : Link Kosong
+Diarsipkan: Prdouk Diarsipkan          Bermasalah: Link Salah
+Habis: Produk Habis                       Disable: Tombol Gagal
+Range: Harga Range                       Text Ungu : Updated >3jam`,
+    csize.w / 2 - 200,
+    csize.l - 130
+  ); //Letak Text
+
+  //Letak Text
+  context.textAlign = "center"; // Posisi Text Rata = Tengah
   context.font = "italic 13pt 'Tahoma'"; // Text fornat = Italic , Ukuran = 13pt , Font = Tahoma
-  context.fillText(post.footer, 360, csize.l - 25); //Letak Text
+  context.fillText("Gunakan Perintah !Produk_<Kode Produk>", csize.w / 2, csize.l - 50); //Letak Text
+  context.fillText("Untuk detail per produk", csize.w / 2, csize.l - 25); //Letak Text
+
   // Save PNG
   fs.writeFileSync(
     `./Function/Render/Docs/ProduksKonveksi${konveksi.toUpperCase()}.pdf`,
