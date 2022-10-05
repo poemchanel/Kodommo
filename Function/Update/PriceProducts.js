@@ -1,255 +1,257 @@
-const puppeteer = require("puppeteer-extra"); // Export Module untuk Scraping Web
-const StealthPlugin = require("puppeteer-extra-plugin-stealth");
-const AdblockerPlugin = require("puppeteer-extra-plugin-adblocker");
-puppeteer.use(require("puppeteer-extra-plugin-anonymize-ua")());
-puppeteer.use(StealthPlugin());
-puppeteer.use(AdblockerPlugin({ blockTrackers: true }));
+const TarikProduks = require("../Routes/Products/FindAll");
+const UpdateProduk = require("../Routes/Products/Update");
+const Scraping = require("./Scraping");
 
 const { setTimeout } = require("timers/promises");
 
-const UpdateProduk = require("../Routes/Products/Update");
-const TarikProduks = require("../Routes/Products/FindAll");
+// Setting
+let Set = {
+  // NotifNumber: "120363043606962064@g.us", // Number to notify when finish
+  NotifNumber: "6282246378074@c.us", // Number to notify when finish
+  LogLength: 30, // Maximum Log Length
+  StatusSKip: 24, // in Hours -> Skip scraping shopee status = Habis || Diarsipkan
+  FinishPause: 10, // in Minute -> Delay before Continue scraping after finish
+  Error1Pause: 90, // in Second -> Pause scraping when Error1 hapend
+  First: "DOMMO", // Our Warehouse Name
+};
 
-let ScrapUpdate = false;
-let log = [];
-let updated = 0;
-let produklength = 0;
-let finish = false;
-let stop = 0;
+let AutoState = true; // Auto Update On
+let Products = [];
 let i = 0;
-let Produks;
-let failed = [];
-let interfered = false;
+let f = 0;
+let Log = [];
+let ProductsUpdated = 0;
+let Skiped = [];
+let Finish = false;
+let ProductsUndercuted = [];
 
-function AutoCek(res) {
-  let tmp = "";
-  if (ScrapUpdate == true) {
-    tmp = "Aktif";
-  } else {
-    tmp = "NonAktif";
-  }
-  res = {
-    status: tmp,
-    diupdate: updated,
-    totalproduk: produklength,
-    gagal: failed,
+var startTime;
+var endTime;
+
+function AutoStatus(Res) {
+  Res = {
+    status: AutoState === true ? "Aktif" : "NonAktif",
+    diupdate: ProductsUpdated,
+    totalproduk: Products.length,
+    gagal: Skiped.length,
     antrian: i,
-    log: log,
-    state: ScrapUpdate,
+    log: Log,
+    state: AutoState,
   };
-  return res;
+  return Res;
 }
-
-function AutoOn(res) {
-  if (ScrapUpdate === true) {
-    res = {
-      status: `Auto update telah aktif`,
-      diupdate: updated,
-      totalproduk: produklength,
-      gagal: failed,
-      antrian: i,
-    };
+function AutoOn(Res) {
+  let Status;
+  if (AutoState === true) {
+    Status = `Auto update telah aktif`;
   } else {
-    ScrapUpdate = true;
-    Ulang();
-    res = {
-      status: `Auto update diaktifkan kembali`,
-      diupdate: updated,
-      totalproduk: produklength,
-      gagal: failed,
-      antrian: i,
-    };
+    Status = `Auto update diaktifkan kembali`;
+    AutoState = true;
+    Loop();
   }
-  return res;
+  Res = {
+    status: Status,
+    diupdate: ProductsUpdated,
+    totalproduk: Products.length,
+    skip: Skiped.length,
+    antrian: i,
+  };
+  return Res;
 }
-
-function AutoOff(res) {
-  ScrapUpdate = false;
-  res = {
+function AutoOff(Res) {
+  AutoState = false;
+  Res = {
     status: `Update Konveksi Dihentikan`,
-    diupdate: updated,
-    totalproduk: produklength,
-    gagal: failed,
+    diupdate: ProductsUpdated,
+    totalproduk: Products.length,
+    gagal: Skiped.length,
     antrian: i,
   };
-  return res;
+  return Res;
 }
-
-function AutoSelesai(res) {
-  res = {
-    nomor: "120363043606962064@g.us",
-    status: `Auto Update Selesai`,
-    log: log,
-    diupdate: updated,
-    totalproduk: produklength,
-    antrian: i,
-    gagal: failed,
-    selesai: finish,
+function AutoFinish(Res) {
+  Res = {
+    selesai: Finish,
+    nomor: Set.NotifNumber,
+    caption: `╭──「 *Informasi Update* 」
+│Auto Update Selesai
+│Berhasil Mengupdate ${ProductsUpdated}/${Products.length} produk
+╰───────────────`,
   };
-  if (finish === true) {
-    finish = false;
-  }
-  return res;
+  if (Finish === true) Finish = false;
+  return Res;
 }
-
-async function AutoMulai(res) {
-  ScrapUpdate = true;
-  log = [];
-  failed = [];
-  updated = 0;
-  Produks = await TarikProduks();
-  produklength = Produks.length;
-  i = 0;
-  finish = false;
-  ProduksLoop();
-  res = {
-    status: `Memulai update konveksi`,
-    totalproduk: produklength,
-  };
-  return res;
-}
-
-async function Ulang() {
-  i++;
-  if (i < produklength) {
-    if (ScrapUpdate === true) {
-      ProduksLoop();
+function AutoUndercut(Res) {
+  if (ProductsUndercuted.length !== 0) {
+    let Caption = [];
+    for (let u = 0; u < ProductsUndercuted.length; u++) {
+      Caption.push(
+        `╭──「 *Informasi Undercut* 」
+│Produk ${ProductsUndercuted.kodebarang} konveksi ${ProductsUndercuted.konveksi}
+│telah diundercut oleh ${ProductsUndercuted.NamaUndercut}
+│──「 *Harga Shopee* 」─────
+│Harga ${ProductsUndercuted.NamaFirst}: Rp.${ProductsUndercuted.HargaFirst}
+│Harga ${ProductsUndercuted.NamaUndercut}:
+│          ╰ Lama : Rp.${ProductsUndercuted.HargaUndercutOld}
+│          ╰ Baru : Rp.${ProductsUndercuted.HargaUndercutNew}
+╰───────────────`
+      );
     }
+    Res = {
+      selesai: true,
+      nomor: Set.NotifNumber,
+      caption: Caption,
+    };
+    ProductsUndercuted = [];
   } else {
-    finish = true;
-    i = 0;
-    await setTimeout(1800000);
-    AutoMulai();
+    Res = { selesai: false };
   }
+  return Res;
 }
 
-async function ProduksLoop() {
-  stop = 0;
-  if (log.length > 30) {
-    log.splice(0, 5);
-  }
-  let data = Produks[i];
-  if (ScrapUpdate === true) {
-    let browser = await puppeteer.launch({ headless: true }); // Membuka Browser
-    let page = await browser.newPage();
-    log.push(`│Memulai Update ${i}: ${data.konveksi}-${data.kodebarang}`);
-    shopee = data.shopee;
-    if (shopee !== undefined) {
-      for (let j = 0; j < shopee.length; j++) {
-        if (interfered === true) {
-          browser = await puppeteer.launch({ headless: true }); // Membuka Browser
-          page = await browser.newPage();
-          interfered = false;
-        }
-        if (ScrapUpdate === true) {
-          if (shopee[j].link !== "-") {
-            try {
-              await page.goto(shopee[j].link);
-              try {
-                await page.waitForSelector("[class='_1WIqzi']", { timeout: 3000 });
-                let statusclass = await page.$("[class='_1WIqzi']");
-                let statusvalue = await page.evaluate((el) => el.textContent, statusclass);
-                shopee[j].status = statusvalue;
-                log.push(`│->Produk ${shopee[j].nama} link ${statusvalue}`);
-              } catch (error) {
-                try {
-                  let disable = [];
-                  for (let k = 0; k < shopee[j].click.length; k++) {
-                    let element = await page.waitForSelector(`button[aria-label="${shopee[j].click[k]}"]`);
-                    let button = await page.evaluate((el) => el.getAttribute("aria-disabled"), element);
-                    if (button === false) {
-                      await page.click(`button[aria-label="${shopee[j].click[k]}"]`);
-                    }
-                    disable.push(button);
-                  }
-                  console.log(disable);
-                  if (disable.includes("true") === true) {
-                    shopee[j].status = "Disable";
-                    log.push(`│->Produk ${shopee[j].nama} link Disable`);
-                  } else {
-                    await setTimeout(500);
-                    try {
-                      await page.waitForSelector("[class='_2Shl1j']", { timeout: 3000 });
-                      let element = await page.$("[class='_2Shl1j']");
-                      let value = await page.evaluate((el) => el.textContent, element);
-                      value = value.replace(/Rp/g, "").replace(/ /g, "").replace(".", "").replace(".", "");
-                      if (value.includes("-") === true) {
-                        shopee[j].harga = value;
-                        shopee[j].status = "Range";
-                        log.push(`│->Produk ${shopee[j].nama} link Range\n│   ╰ Harga : Rp.${value}`);
-                      } else {
-                        shopee[j].harga = value;
-                        shopee[j].status = "Aktif";
-                        log.push(`│->Produk ${shopee[j].nama} link Aktif\n│   ╰ Harga : Rp.${value}`);
-                      }
-                    } catch (error) {
-                      console.log(error);
-                      log.push(`│Proses scraping terhenti!\n│melanjutkan ulang proses\n│setelah 90 detik...`);
-                      failed.push(`\n│${i}: ${data.konveksi}-${data.kodebarang}`);
-                      interfered = true;
-                      await browser.close();
-                      await setTimeout(90000);
-                    }
-                  }
-                } catch (error) {
-                  try {
-                    await page.waitForSelector("[class='_2Shl1j']", { timeout: 3000 });
-                    let element = await page.$("[class='_2Shl1j']");
-                    let value = await page.evaluate((el) => el.textContent, element);
-                    value = value.replace(/Rp/g, "").replace(/ /g, "").replace(".", "").replace(".", "");
-                    if (value.includes("-") === true) {
-                      shopee[j].harga = value;
-                      shopee[j].status = "Range";
-                      log.push(`│->Produk ${shopee[j].nama} link Range\n│   ╰ Harga : Rp.${value}`);
-                    } else {
-                      shopee[j].harga = value;
-                      shopee[j].status = "Aktif";
-                      log.push(`│->Produk ${shopee[j].nama} link Aktif\n│   ╰ Harga : Rp.${value}`);
-                    }
-                  } catch (error) {
-                    console.log(error);
-                    log.push(`│Proses scraping terhenti!\n│melanjutkan ulang proses\n│setelah 90 detik...`);
-                    failed.push(`\n│${i}: ${data.konveksi}-${data.kodebarang}`);
-                    interfered = true;
-                    await browser.close();
-                    await setTimeout(90000);
-                  }
-                }
-              }
-            } catch (error) {
-              shopee[j].status = "Bermasalah";
-              log.push(`│->Produk ${shopee[j].nama} link Bermasalah`);
+async function AutoStart(Res) {
+  Products = await TarikProduks();
+  i = 0;
+  f = 0;
+  Log = [];
+  ProductsUpdated = 0;
+  Skiped = [];
+  Finish = false;
+  Loop();
+  startTime = performance.now();
+  console.log(startTime);
+  Res = {
+    status: `Memulai Auto Update`,
+    totalproduk: Products.length,
+  };
+  return Res;
+}
+async function Loop() {
+  if (Log.length > Set.LogLength) Log.splice(0, 5); // Cut Log
+  if (i < Products.length) {
+    console.log(`${i}-${Products[i].konveksi}-${Products[i].kodebarang}`);
+    if (Products[i].shopee === undefined) {
+      Log.push(`│Produk ${Products[i].konveksi}-${Products[i].kodebarang} Link Kosong`);
+      i++;
+      Loop();
+    } else {
+      Log.push(`│Memulai Update: ${Products[i].konveksi}-${Products[i].kodebarang}`);
+      let Skip = false;
+      let Shopee = Products[i].shopee;
+      for (let s = 0; s < Shopee.length; s++) {
+        if (Shopee[s].status === "Habis" || Shopee[s].status === "Diarsipkan") {
+          if (
+            Math.ceil(AutoState === true && Math.abs(new Date() - Shopee[s].diupdate) / (1000 * 60 * 60)) >
+            Set.StatusSKip
+          ) {
+            let ScrapResult = await Scraping(Shopee[s]);
+            Shopee[s] = ScrapResult.shopee;
+            Log.push(ScrapResult.log);
+            console.log(ScrapResult.log);
+            if (Shopee[s].status.includes("Error")) Skip = true;
+            if (ScrapResult.shopee.status === "Error1" && ScrapResult.tor === false) {
+              await setTimeout(Set.Error1Pause * 1000);
             }
           } else {
-            shopee[j].link = "Kosong";
-            log.push(`│->Produk ${shopee[j].nama} link Kosong`);
+            Log.push(`│->Produk ${Shopee[s].nama} link ${Shopee[s].status} 🆙< ${Set.StatusSKip}j`);
+            console.log(`│->Produk ${Shopee[s].nama} link ${Shopee[s].status} 🆙< ${Set.StatusSKip}j`);
           }
         } else {
-          stop = stop + 1;
+          if (AutoState === true) {
+            let ScrapResult = await Scraping(Shopee[s]);
+            Shopee[s] = ScrapResult.shopee;
+            Log.push(ScrapResult.log);
+            console.log(ScrapResult.log);
+            if (Shopee[s].status.includes("Error")) Skip = true;
+            if (ScrapResult.shopee.status === "Error1" && ScrapResult.tor === false) {
+              await setTimeout(Set.Error1Pause * 1000);
+            }
+          }
         }
       }
-    } else {
-      log.push(`│Produk ${data.konveksi}-${data.kodebarang} Link Kosong`);
-    }
-    if (interfered === false) {
-      await browser.close();
-    } else {
-      interfered = false;
-    }
-    if (ScrapUpdate === true) {
-      const UpdateStatus = await UpdateProduk(data);
-      updated = updated + 1;
-      log.push(`│${UpdateStatus}`);
-    } else {
-      stop = stop + 1;
+      if (AutoState === true) {
+        let IdO = Products[i].shopee.findIndex((e) => e.nama === Set.First); // Index Old
+        let IdN = Shopee.findIndex((f) => f.nama === Set.First); // Index New
+        Shopee.forEach((g) => {
+          if (g.nama !== Set.First) {
+            if (IdN !== -1 && Shopee[IdN].harga > g.harga && Shopee[IdN].status === "Active" && g.status === "Active") {
+              let IdT = Products[i].shopee.findIndex((h) => h.nama === g.nama); // Index Temporary
+              if (Products[i].shopee[IdO].harga !== Shopee[IdN].harga || Products[i].shopee[IdT].harga !== g.harga) {
+                ProductsUndercuted.push({
+                  Konveksi: Products[i].konveksi,
+                  KodeProduk: Products[i].kodebarang,
+                  NamaFirst: Shopee[IdN].nama,
+                  HargaFirst: Shopee[IdN].harga,
+                  NamaUndercut: g.nama,
+                  HargaUndercutNew: g.harga,
+                  HargaUndercutOld: Products[i].shopee[IdT].harga,
+                });
+              }
+            }
+          }
+        });
+
+        Products[i].shopee = Shopee;
+        if (Skip === true) Skiped.push(Products[i]);
+        const UpdateStatus = await UpdateProduk(Products[i]);
+        Log.push(`│->${UpdateStatus}`);
+        i++;
+        Loop();
+      }
     }
   } else {
-    stop = stop + 1;
+    if (f < Skiped.length) {
+      console.log(`${f}-${Skiped[f].konveksi}-${Skiped[f].kodebarang}`);
+      Log.push(`│Memulai Update: ${Skiped[f].konveksi}-${Skiped[f].kodebarang}`);
+      let Shopee = Skiped[f].shopee;
+      for (let s = 0; s < Shopee.length; s++) {
+        if (Shopee[s].status.includes("Error")) {
+          if (AutoState === true) {
+            let ScrapResult = await Scraping(Shopee[s]);
+            Shopee[s] = ScrapResult.shopee;
+            Log.push(ScrapResult.log);
+            console.log(ScrapResult.log);
+            if (ScrapResult.shopee.status === "Error1" && ScrapResult.tor === false)
+              await setTimeout(Set.Error1Pause * 1000);
+          }
+        }
+      }
+      if (AutoState === true) {
+        let IdO = Products[i].shopee.findIndex((e) => e.nama === Set.First); // Index Old
+        let IdN = Shopee.findIndex((f) => f.nama === Set.First); // Index New
+        Shopee.forEach((g) => {
+          if (g.nama !== Set.First) {
+            if (IdN !== -1 && Shopee[IdN].harga > g.harga && Shopee[IdN].status === "Active" && g.status === "Active") {
+              let IdT = Products[i].shopee.findIndex((h) => h.nama === g.nama); // Index Temporary
+              if (Products[i].shopee[IdO].harga !== Shopee[IdN].harga || Products[i].shopee[IdT].harga !== g.harga) {
+                ProductsUndercuted.push({
+                  Konveksi: Products[i].konveksi,
+                  KodeProduk: Products[i].kodebarang,
+                  NamaFirst: Shopee[IdN].nama,
+                  HargaFirst: Shopee[IdN].harga,
+                  NamaUndercut: g.nama,
+                  HargaUndercutNew: g.harga,
+                  HargaUndercutOld: Products[i].shopee[IdT].harga,
+                });
+              }
+            }
+          }
+        });
+
+        Skiped[f].shopee = Shopee;
+        const UpdateStatus = await UpdateProduk(Skiped[f]);
+        Log.push(`│->${UpdateStatus}`);
+        f++;
+        Loop();
+      }
+    } else {
+      endTime = performance.now() - startTime;
+      console.log(`Selesai Dalam ${endTime} milliseconds`);
+      Finish = true;
+      await setTimeout(Set.FinishPause * 60000);
+      AutoStart();
+    }
   }
-  if (stop > 0) {
-    i = i - 1;
-  }
-  Ulang();
 }
 
-module.exports = { AutoMulai, AutoOff, AutoOn, AutoCek, AutoSelesai };
+module.exports = { AutoStart, AutoOff, AutoOn, AutoStatus, AutoFinish, AutoUndercut };

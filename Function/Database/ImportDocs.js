@@ -1,43 +1,17 @@
-const ProductModels = require("./Models/Products");
 const fs = require("fs");
 const csv = require("csv-parser");
 
 const DBConnect = require("../Routes/DBConnect");
-const DBState = require("../Routes/DBState");
+const ProductModels = require("./Models/Products");
 
 DBConnect();
 ReadCSV();
-//Cek Status Koneksi Database
-// const PersiapanDB = setInterval(StatusDB, 1000);
-// async function StatusDB() {
-//   const Status = await DBState();
-//   switch (Status) {
-//     case 0:
-//       console.log("Terjadi Kesalahan, Tidak Dapat Terhubung");
-//       clearInterval(PersiapanDB);
-//       break;
-//     case 1:
-//       console.log("Berhasil Terhubung");
-//       clearInterval(PersiapanDB);
-//       ReadCSV();
-//       break;
-//     case 2:
-//       console.log("Sedang Menghubungkan...");
-//       break;
-//     case 3:
-//       console.log("Koneksi Terputus, Mencoba Menghubungkan Kembali...");
-//       HubungkanDatabase();
-//       break;
-//     default:
-//       break;
-//   }
-// }
 
 const tmp = [];
 let konveksi = [];
 
 function ReadCSV() {
-  fs.createReadStream("./Docs/DONI.csv")
+  fs.createReadStream("./Docs/CARASUN.csv")
     .pipe(csv({}))
     .on("data", (data) => tmp.push(data))
     .on("end", () => {
@@ -58,8 +32,7 @@ function Refactor() {
       pesaing = {
         nama: e.anama,
         link: e.alink,
-        status: "New",
-        harga: 0,
+        diupdate: new Date(),
       };
       if (produk.shopee === undefined) {
         produk.shopee = [pesaing];
@@ -71,8 +44,7 @@ function Refactor() {
       pesaing = {
         nama: e.bnama,
         link: e.blink,
-        status: "New",
-        harga: 0,
+        diupdate: new Date(),
       };
       if (produk.shopee === undefined) {
         produk.shopee = [pesaing];
@@ -84,8 +56,7 @@ function Refactor() {
       pesaing = {
         nama: e.cnama,
         link: e.clink,
-        status: "New",
-        harga: 0,
+        diupdate: new Date(),
       };
       if (produk.shopee === undefined) {
         produk.shopee = [pesaing];
@@ -97,8 +68,7 @@ function Refactor() {
       pesaing = {
         nama: e.dnama,
         link: e.dlink,
-        status: "New",
-        harga: 0,
+        diupdate: new Date(),
       };
       if (produk.shopee === undefined) {
         produk.shopee = [pesaing];

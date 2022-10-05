@@ -2,14 +2,9 @@ const DBState = require("../../../Routes/DBState");
 const Verify = require("../../Contacts/Verify");
 const FindProduct = require("../../../Routes/Products/FindKodeBarang");
 const FindKonveksi = require("../../../Routes/Products/FindKonveksi");
-const PriceProduct = require("../../../Update/APIProduct");
-const {
-  HargaKonveksiMulai,
-  HargaKonveksiOff,
-  HargaKonveksiOn,
-  HargaKonveksiCek,
-} = require("../../../Update/APIKonveksi");
-const { AutoOff, AutoOn, AutoCek } = require("../../../Update/PriceProducts");
+const PriceProduct = require("../../../Update/PriceProduct");
+const { KonveksiStatus, KonvkesiOn, KonveksiOff, KonveksiStart } = require("../../../Update/PriceKonveksi");
+const { AutoOff, AutoOn, AutoStatus } = require("../../../Update/PriceProducts");
 const { setTimeout } = require("timers/promises");
 
 async function Update(Pesan, From, Res) {
@@ -65,7 +60,7 @@ async function RankAdmin(Pesan, Res) {
   return Res;
 }
 function ActionCek(Update, Res) {
-  Update = HargaKonveksiCek();
+  Update = KonveksiStatus();
   Res = `╭──「 *Perintah Berhasil* 」
 │Status Update Konveksi : ${Update.status}
 │Berhasil mengupdate ${Update.diupdate}/${Update.totalproduk}
@@ -75,7 +70,7 @@ function ActionCek(Update, Res) {
   return Res;
 }
 function ActionLog(Update, Res) {
-  Update = HargaKonveksiCek();
+  Update = KonveksiStatus();
   Res = `╭──「 *Perintah Berhasil* 」
 │Update Konveksi
 │──「 *Log* 」────────
@@ -84,7 +79,7 @@ ${Update.log.join(`\n\r`)}
   return Res;
 }
 function ActionFailed(Update, Res) {
-  Update = HargaKonveksiCek();
+  Update = KonveksiStatus();
   Res = `╭──「 *Perintah Berhasil* 」
 │Produk gagal diupdate
 │──「 *List* 」────────${Update.gagal.join(`\r`)}
@@ -92,10 +87,10 @@ function ActionFailed(Update, Res) {
   return Res;
 }
 async function ActionOn(Update, Res) {
-  Update = HargaKonveksiOff();
+  Update = KonveksiOff();
   Update = AutoOff();
   await setTimeout(5000);
-  Update = HargaKonveksiOn();
+  Update = KonvkesiOn();
   Res = `╭──「 *Perintah Berhasil* 」
 │${Update.status}
 │Berhasil mengupdate ${Update.diupdate}/${Update.totalproduk}
@@ -105,7 +100,7 @@ async function ActionOn(Update, Res) {
   return Res;
 }
 function ActionOff(Update, Res) {
-  Update = HargaKonveksiOff();
+  Update = KonveksiOff();
   Res = `╭──「 *Perintah Berhasil* 」
 │${Update.status}
 │Berhasil mengupdate ${Update.diupdate}/${Update.totalproduk}
@@ -126,7 +121,7 @@ async function ProductNumber(KodeProduk, Res) {
   const Product = await FindProduct(KodeProduk[0]);
   if (Product.length !== 0) {
     if (Product[KodeProduk[1] - 1] !== undefined) {
-      Res = await UpdateProduct(Product[KodeProduk[1] - 1]);
+      Res = await UpdateProduct(Product[KodeProduk[1] - 1], KodeProduk[1]);
     } else {
       Res = ProductNumberKosong(KodeProduk[0], KodeProduk[1]);
     }
@@ -137,12 +132,12 @@ async function ProductNumber(KodeProduk, Res) {
 }
 async function UpdateProduct(Product, Number, Res) {
   let on, cek, update;
-  cek = HargaKonveksiCek();
+  cek = KonveksiStatus();
   if (cek.state === true) {
-    cek = HargaKonveksiOff();
+    cek = KonveksiOff();
     on = "konveksi";
   }
-  cek = AutoCek();
+  cek = AutoStatus();
   if (cek.state === true) {
     cek = AutoOff();
     on = "auto";
@@ -156,7 +151,7 @@ async function UpdateProduct(Product, Number, Res) {
 ${update.log.join(`\n\r`)}
 ╰───────────────`;
   if (on === "konveksi") {
-    cek = HargaKonveksiOn();
+    cek = KonvkesiOn();
   } else if (on === "auto") {
     cek = AutoOn();
   }
@@ -211,9 +206,9 @@ async function Konveksi(KodeProduk, Res) {
 }
 async function UpdateKonveksi(Konveksi, KodeKonveksi, Action, Res) {
   Action = AutoOff();
-  Action = HargaKonveksiOff();
+  Action = KonveksiOff();
   await setTimeout(5000);
-  const Update = HargaKonveksiMulai(Konveksi, 0);
+  const Update = KonveksiStart(Konveksi, 0);
   Res = `╭──「 *Perintah Berhasil* 」
 │${Update.status} ${KodeKonveksi}
 │Total Porduk ${Update.totalproduk}

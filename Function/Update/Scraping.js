@@ -7,197 +7,101 @@ puppeteer.use(AdblockerPlugin({ blockTrackers: true }));
 
 const { setTimeout } = require("timers/promises");
 
-let Skiped = false;
-let UseTor = false;
-let StartTor;
 let Browser;
+let Setting = {
+  Headless: true, // Show Puppeteer Browser
+  UseTor: false, // Use Tor Service
+  TorOn: false, // Tor State
+  Tor: "socks5://127.0.0.2:9052", // Proxy Tor Service URL
+  ShopeeAPI: "https://shopee.co.id/api/v4/item/get?", // Shopeee API URL
+  BrowserState: "BN",
+};
 
-async function Login() {
-  if (StartTor - performance.now() > 90000) {
-    UseTor = false;
-  }
-  if (UseTor === true) {
-    Browser = await puppeteer.launch({ headless: false, args: ["--proxy-server=socks5://127.0.0.2:9052"] });
+async function OpenBrowser() {
+  if (Setting.TorOn === true) {
+    Browser = await puppeteer.launch({ headless: Setting.Headless, args: [`--proxy-server=${Setting.Tor}`] });
   } else {
-    Browser = await puppeteer.launch({ headless: false });
+    Browser = await puppeteer.launch({ headless: Setting.Headless });
   }
-  await setTimeout(2000);
+  Setting.BrowserState = Setting.TorOn === true ? "BP" : "BN";
+} // Opening Puppeteer Browser
 
-  // let [LoginPage] = await Browser.pages();
-  // await LoginPage.goto("https://shopee.co.id/buyer/login", { waitUntil: "networkidle0" });
-  // await LoginPage.focus("input[name=loginKey]");
-  // await LoginPage.keyboard.type("0895625865900");
-  // await LoginPage.focus("input[name=password]");
-  // await LoginPage.keyboard.type("Coba1234");
-  // await setTimeout(1000);
-  // await LoginPage.click("#main > div > div.vtexOX > div > div > form > div > div.yXry6s > button");
-  // await setTimeout(30000);
-}
-async function LogOut() {
-  await Browser.close();
-}
-
-function Scraping(Data, Res) {
-  let Log = [];
-  let Shopee = Data.shopee;
-  let Time = -4000;
-  Log.push(`│Memulai Update: ${Data.konveksi}-${Data.kodebarang}`);
-
-  var Scrap = new Promise((Rs, Rj) => {
-    Shopee.forEach(async (e, i, a) => {
-      Time = Time + 4000;
-      await setTimeout(Time);
-      let json;
-      const Page = await Browser.newPage();
-      try {
-        await Page.setRequestInterception(true);
-        Page.on("request", (request) => {
-          request.continue();
-        });
-        Page.on("response", async (response) => {
-          try {
-            if (response.url().startsWith("https://shopee.co.id/api/v4/item/get?")) {
-              json = await response.json();
-              e.api = response.url();
-              let samestocks = json.data.normal_stock;
-              let models = json.data.models;
-              if (e.status === "New") {
-                let sameprice = models.every((m, i, f) => m.price === f[0].price);
-                if (sameprice === true) {
-                  e.harga = parseInt(models[0].price.toString().slice(0, -5));
-                  e.kategori = models[0].name;
-                  e.stocks = true;
-                  e.stock = samestocks;
-                  samestocks === 0 ? (e.status = "Active") : (e.status = "Habis");
-                } else {
-                  e.status = "Option";
-                  e.stocks = false;
-                }
-                e.status === "Active"
-                  ? Log.push(`│->Produk ${e.nama} link Active\n│   ╰ Harga : Rp.${e.harga}`)
-                  : Log.push(`│->Produk ${e.nama} link ${e.status}`);
-              } else {
-                if (e.kategori !== "") {
-                  let index = models.findIndex((f) => f.name === e.kategori);
-                  e.harga = parseInt(models[index].price.toString().slice(0, -5));
-                  if (e.stocks !== true) {
-                    e.stock = models[index].normal_stock;
-                    models[index].normal_stock === 0 ? (e.status = "Active") : (e.status = "Habis");
-                  } else {
-                    e.stock = samestocks;
-                    samestocks === 0 ? (e.status = "Active") : (e.status = "Habis");
-                  }
-                }
-                e.status === "Active"
-                  ? Log.push(`│->Produk ${e.nama} link Active\n│   ╰ Harga : Rp.${e.harga}`)
-                  : Log.push(`│->Produk ${e.nama} link ${e.status}`);
-              }
-            }
-          } catch (error) {
-            console.log(error);
-            e.status = "Skip";
-            Skiped = true;
-          }
-        });
-        await Page.goto(e.link);
-        await Page.waitForSelector("[class='_2Shl1j']", { timeout: 30000 });
-        await Page.close();
-      } catch (error) {
-        console.log(error);
-        await Page.close();
+async function Scraping(Shopee, Res) {
+  let done = false;
+  let Json = {};
+  await OpenBrowser();
+  const Page = await Browser.newPage();
+  try {
+    // Intercept Request
+    await Page.setRequestInterception(true);
+    Page.on("request", (request) => {
+      if (request.resourceType() == "font" || request.resourceType() === "image") {
+        request.abort();
+      } else {
+        if (Json.data === undefined) request.continue();
       }
-      if (i === a.length - 1) Rs();
     });
-  });
-  return (Res = Scrap.then((res) => {
-    LogOut();
-    if (Skiped === true) {
-      UseTor === false ? (StartTor = performance.now()) : (StartTor = 0);
-      UseTor === false ? (UseTor = true) : (UseTor = false);
-      Skiped = false;
+    Page.on("response", async (response) => {
+      if (response.url().startsWith(Setting.ShopeeAPI)) Json = await response.json();
+    });
+    await Page.goto(Shopee.link, { waitUntil: "networkidle0" });
+    // Check Status
+    try {
+      await Page.waitForSelector("[class='R5BcWE']", { timeout: 1500 });
+      let StatusClass = await Page.$("[class='R5BcWE']");
+      let StatusValue = await Page.evaluate((el) => el.textContent, StatusClass);
+      Shopee.status = StatusValue === "Diarsipkan" ? "Diarsipkan" : "Habis";
+    } catch (error) {
+      Shopee.status = "Active";
     }
-    Data.shopee = Shopee;
-    res = {
-      log: Log,
-      produks: Data,
-    };
-    return res;
-  }));
-} // Do all at same time
+    // Check Price
+    try {
+      await Page.waitForSelector("[class='_2Shl1j']", { timeout: 1500 });
+      let PriceClass = await Page.$("[class='_2Shl1j']");
+      let PriceValue = await Page.evaluate((el) => el.textContent, PriceClass);
+      PriceValue = PriceValue.replace(/Rp/g, "").replace(/ /g, "").replace(".", "").replace(".", ""); // Filter
+      if (PriceValue.includes("-") === false) {
+        Shopee.harga = PriceValue;
+        done = true;
+      } else {
+        if (Shopee.status === "Active") {
+          if (Shopee.kategori === undefined) {
+            Shopee.status = "Option";
+            done = true;
+          } else {
+            if (Shopee.kategori !== "") {
+              let Models = Json.data.models;
+              let index = await Models.findIndex((f) => f.name === Shopee.kategori);
+              Shopee.harga = parseInt(Models[index].price.toString().slice(0, -5));
+              Shopee.stock = Models[index].normal_stock;
+              Shopee.status = Shopee.stock === 0 ? "Habis" : "Active";
+              done = true;
+            } else done = true;
+          }
+        } else {
+          done = true;
+        }
+      }
+    } catch (error) {
+      Shopee.status = "Error1";
+      if (Setting.UseTor === true) Setting.TorOn = !Setting.TorOn;
+      done = true;
+    }
+  } catch (error) {
+    Shopee.status = "Error0";
+    done = true;
+  }
+  for (let z = 0; done === false; z++) {
+    await setTimeout(500);
+  }
+  await Browser.close();
+  Shopee.diupdate = new Date();
+  const Log =
+    Shopee.status === "Active"
+      ? `│->${Setting.BrowserState} Produk ${Shopee.nama} link Active\n│   ╰ Harga : Rp.${Shopee.harga}`
+      : `│->${Setting.BrowserState} Produk ${Shopee.nama} link ${Shopee.status}`;
+  Res = { shopee: Shopee, log: Log, tor: Setting.UseTor };
+  return Res;
+} // Scraping Data
 
-// async function Scraping(Data, Res) {
-//   let Log = [];
-//   let Shopee = Data.shopee;
-//   let Time = 0;
-//   Log.push(`│Memulai Update: ${Data.konveksi}-${Data.kodebarang}`);
-//   for (let i = 0; i < Shopee.length; i++) {
-//     e = Shopee[i];
-//     let json;
-//     const Page = await Browser.newPage();
-//     try {
-//       await Page.setRequestInterception(true);
-//       Page.on("request", (request) => {
-//         request.continue();
-//       });
-//       Page.on("response", async (response) => {
-//         try {
-//           if (response.url().startsWith("https://shopee.co.id/api/v4/item/get?")) {
-//             json = await response.json();
-//             e.api = response.url();
-//           }
-//         } catch (error) {
-//           e.status = "Skip";
-//         }
-//       });
-//       await Page.goto(e.link);
-//       await Page.waitForSelector("[class='_2Shl1j']", { timeout: 10000 });
-
-//       let samestocks = json.data.normal_stock;
-//       let models = json.data.models;
-//       if (e.status === "New") {
-//         let sameprice = models.every((m, i, f) => m.price === f[0].price);
-//         if (sameprice === true) {
-//           e.harga = parseInt(models[0].price.toString().slice(0, -5));
-//           e.kategori = models[0].name;
-//           e.stocks = true;
-//           e.stock = samestocks;
-//           samestocks === 0 ? (e.status = "Active") : (e.status = "Habis");
-//         } else {
-//           e.status = "Option";
-//           e.stocks = false;
-//         }
-//         e.status === "Active"
-//           ? Log.push(`│->Produk ${e.nama} link Active\n│   ╰ Harga : Rp.${e.harga}`)
-//           : Log.push(`│->Produk ${e.nama} link ${e.status}`);
-//       } else {
-//         if (e.kategori !== "") {
-//           let index = models.findIndex((f) => f.name === e.kategori);
-//           e.harga = parseInt(models[index].price.toString().slice(0, -5));
-//           if (e.stocks !== true) {
-//             e.stock = models[index].normal_stock;
-//             models[index].normal_stock === 0 ? (e.status = "Active") : (e.status = "Habis");
-//           } else {
-//             e.stock = samestocks;
-//             samestocks === 0 ? (e.status = "Active") : (e.status = "Habis");
-//           }
-//         }
-//         e.status === "Active"
-//           ? Log.push(`│->Produk ${e.nama} link Active\n│   ╰ Harga : Rp.${e.harga}`)
-//           : Log.push(`│->Produk ${e.nama} link ${e.status}`);
-//       }
-//       await Page.close();
-//     } catch (error) {
-//       await Page.close();
-//       e.status = "Skip";
-//       await setTimeout(90000);
-//     }
-//   }
-//   Data.shopee = Shopee;
-//   Res = {
-//     log: Log,
-//     produks: Data,
-//   };
-//   return Res;
-// } // Do 1 after another
-
-module.exports = { Login, Scraping };
+module.exports = Scraping; //Exporting Funtion

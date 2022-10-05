@@ -3,17 +3,17 @@ const Verify = require("../../Contacts/Verify");
 const FindProduct = require("../../../Routes/Products/FindKodeBarang");
 const UpdateProduct = require("../../../Routes/Products/Update");
 
-async function ApiName(Pesan, From, Res) {
+async function Option(Msg, From, Res) {
   const State = await DBState();
   if (State === 1) {
     const Rank = await Verify(From);
     switch (Rank) {
       case "superadmin":
-        let Split = Pesan.replace(/!api/i, "")
+        let Split = Msg.replace(/!kategori/i, "")
           .split(" ")
           .filter((e) => e !== "");
         if (Split.length === 4) {
-          Res = await CekProduk(Split);
+          Res = await CheckProduct(Split);
         } else {
           Res = FormatWrong();
         }
@@ -31,29 +31,29 @@ async function ApiName(Pesan, From, Res) {
   return Res;
 }
 // Respon
-async function CekProduk(Pesan, Res) {
+async function CheckProduct(Msg, Res) {
   let Produks;
-  if (Pesan[0].includes("_") === true) {
-    let KodeProduk = Pesan[0].toUpperCase().split("_");
+  if (Msg[0].includes("_") === true) {
+    let KodeProduk = Msg[0].toUpperCase().split("_");
     Produks = await FindProduct(KodeProduk[0]);
     if (Produks.length === 0) {
-      Res = ProductKosong(KodeProduk[0], `Nomor ${KodeProduk[0]}`);
+      Res = NoProduct(KodeProduk[0], `Nomor ${KodeProduk[0]}`);
     } else {
-      Res = CekShopee(Pesan, Produks[KodeProduk[1] - 1]);
+      Res = CheckShopee(Msg, Produks[KodeProduk[1] - 1]);
     }
   } else {
-    Produks = await FindProduct(Pesan[0].toUpperCase());
+    Produks = await FindProduct(Msg[0].toUpperCase());
     if (Produks.length === 0) {
-      Res = ProductKosong(Pesan[0], "");
+      Res = NoProduct(Msg[0], "");
     } else if (Produks.length > 1) {
-      Res = ProdukBanyak(Pesan[0].toUpperCase(), Produks);
+      Res = Products(Msg[0].toUpperCase(), Produks);
     } else {
-      Res = CekShopee(Pesan, Produks[0]);
+      Res = CheckShopee(Msg, Produks[0]);
     }
   }
   return Res;
 }
-function ProductKosong(KodeProduk, Number, Res) {
+function NoProduct(KodeProduk, Number, Res) {
   Res = `╭──「 *Perintah Gagal* 」
 │Tidak ditemukan produk dengan
 │kode ${KodeProduk} ${Number}
@@ -63,39 +63,34 @@ function ProductKosong(KodeProduk, Number, Res) {
 ╰───────────────`;
   return Res;
 }
-function ProdukBanyak(KodeProduk, Produk, Res) {
+function Products(KodeProduk, Produk, Res) {
   let j = 1;
   Res = `╭──「 *Perintah Berhasil* 」
 │Ditemukan lebih dari 1 produk
 │dengan kode ${KodeProduk}
 │──「 *i* 」────────
 │Gunakan perintah 
-│!Api ${KodeProduk}_<Noproduk>
+│!Kategori ${KodeProduk}_<Noproduk>
 │──「 *List Nomor ${KodeProduk}* 」─${Produk.map(
     (e) => `\n│ ${j++}: ${e.konveksi}-${e.namabarang.substring(0, 12)}...`
   )}
 ╰───────────────`;
   return Res;
 }
-function CekShopee(Pesan, Produk) {
-  let Posisi;
+function CheckShopee(Msg, Produk) {
   if (Produk.shopee !== undefined) {
-    if (Produk.shopee !== 0) {
-      Posisi = Produk.shopee.findIndex((e) => e.nama === Pesan[1].toUpperCase());
-      if (Posisi !== -1) {
-        Res = Action(Pesan, Produk, Posisi);
-      } else {
-        Res = ShopeeNamaKosong(Pesan[0], Pesan[1]);
-      }
+    let Posisi = Produk.shopee.findIndex((e) => e.nama === Msg[1].toUpperCase());
+    if (Posisi !== -1) {
+      Res = Action(Msg, Produk, Posisi);
     } else {
-      Res = ShopeeKosong(Pesan[0]);
+      Res = ShopeeNameUndefined(Msg[0], Msg[1]);
     }
   } else {
-    Res = ShopeeKosong(Pesan[0]);
+    Res = NoShopee(Msg[0]);
   }
   return Res;
 }
-function ShopeeKosong(KodeProduk, Res) {
+function NoShopee(KodeProduk, Res) {
   Res = `╭──「 *Perintah Gagal* 」
 │Produk dengan kode ${KodeProduk}  
 │tidak memiliki link Shopee
@@ -105,7 +100,7 @@ function ShopeeKosong(KodeProduk, Res) {
 ╰───────────────`;
   return Res;
 }
-function ShopeeNamaKosong(KodeProduk, NamaShopee, Res) {
+function ShopeeNameUndefined(KodeProduk, NamaShopee, Res) {
   Res = `╭──「 *Perintah Gagal* 」
 │Produk dengan kode ${KodeProduk}   
 │tidak memiliki Link shopee
@@ -116,53 +111,35 @@ function ShopeeNamaKosong(KodeProduk, NamaShopee, Res) {
 ╰───────────────`;
   return Res;
 }
-function Action(Pesan, Produk, Posisi, Res) {
-  switch (Pesan[2].toUpperCase()) {
+function Action(Msg, Produk, Posisi, Res) {
+  switch (Msg[2].toUpperCase()) {
     case "ADD":
     case "TAMBAH":
-      Res = ActionTambah(Pesan, Produk, Posisi);
+      Res = ActionAdd(Msg[3], Produk, Posisi);
       break;
     case "DELETE":
     case "HAPUS":
-      Res = ActionHapus(Pesan, Produk, Posisi);
+      Res = ActionDelete(Produk, Posisi);
       break;
     default:
-      Res = ActionTidakTerdaftar(Pesan[2]);
+      Res = ActionUnregistered(Msg[2]);
       break;
   }
   return Res;
 }
-async function ActionTambah(Pesan, Produk, Posisi, Res) {
-  let ProdukUpdated = Produk;
-  if (ProdukUpdated.shopee[Posisi].api !== undefined) {
-    ProdukUpdated.shopee[Posisi].api.name = Pesan[3];
-    const UpdateStatus = await UpdateProduct(ProdukUpdated);
-    Res = UpdateStatus;
-  } else {
-    Res = ApiKosong(Pesan);
-  }
+async function ActionAdd(Kategori, Produk, Posisi, Res) {
+  Produk.shopee[Posisi].kategori = Kategori;
+  const UpdateStatus = await UpdateProduct(Produk);
+  Res = UpdateStatus;
   return Res;
 }
-function ApiKosong(Pesan, Res) {
-  Res = `╭──「 *Perintah Gagal* 」
-│Link ${Pesan[1]} pada produk
-│kode ${Pesan[0]} 
-│Tidak memiliki API
-╰───────────────`;
+async function ActionDelete(Produk, Posisi, Res) {
+  Produk.shopee[Posisi].kategori = "";
+  const UpdateStatus = await UpdateProduct(Produk);
+  Res = UpdateStatus;
   return Res;
 }
-async function ActionHapus(Produk, Posisi, Res) {
-  let ProdukUpdated = Produk;
-  if (ProdukUpdated.shopee[Posisi].api !== undefined) {
-    ProdukUpdated.shopee[Posisi].api.name = "";
-    const UpdateStatus = await UpdateProduct(ProdukUpdated);
-    Res = UpdateStatus;
-  } else {
-    Res = ApiKosong(Pesan);
-  }
-  return Res;
-}
-function ActionTidakTerdaftar(Action, Res) {
+function ActionUnregistered(Action, Res) {
   Res = `╭──「 *Perintah Gagal* 」
 │Action ${Action} tidak terdaftar
 │──「 *Action List* 」─────
@@ -176,14 +153,14 @@ function FormatWrong(Res) {
 │Format perintah yang anda 
 │masukan salah/tidak lengkap
 │──「 *i* 」──────────
-│Format perintah !Api
-│!Api <KP> <S> <A> <AL>
+│Format perintah !Kategori
+│!Kategori <KP> <S> <A> <K>
 *│•<KP>* : Kode Produk 
 *│•<S>* : Dommo/NamaPesaing 
 *│•<A>* : Action 
-*│•<AL>* : Aria-Label 
+*│•<K>* : Kategori 
 │──「 *Contoh* 」───────
-│!Api D0001 DOMMO Tambah 80gr
+│!Kategori D0001 DOMMO Tambah 80gr
 ╰───────────────`;
   return Res;
 }
@@ -214,4 +191,4 @@ function DBDisconected(Res) {
 ╰───────────────`;
   return Res;
 }
-module.exports = ApiName;
+module.exports = Option;
