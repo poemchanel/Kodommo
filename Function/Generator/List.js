@@ -1,44 +1,49 @@
 const VerifikasiKontak = require("../VerifikasiKontak");
 const CekStatusDB = require("../Routes/CekStatusDB");
 
-async function Help(kontak, res) {
+async function List(kontak, res) {
   const StatusDB = await CekStatusDB();
   if (StatusDB.state === 1) {
     const pengguna = await VerifikasiKontak(kontak);
     switch (pengguna.pangkat) {
       case "superadmin":
       case "admin":
-        res = {
-          caption: `╭──「 *Daftar Perintah ${pengguna.pangkat}* 」
-│ *!Daftar* <TagKontak>
-│    ╰ Mendaftarkan kontak pengguna
-│ *!Terima* <TagKontak>
-│    ╰ Menerima kontak pengguna
-│ *!Produk* <Produk>
-│    ╰ Detail informasi produk
-│ *!Konveksi* <Konveksi>
-│    ╰ List harga produk
-│ *!Undercut* <Konveksi> :
-│    ╰ List harga produk Undercuted
-│ *!Update* <Produk/Konveksi/Perintah>
-│    ╰ Scraping dan Update harga
-│ *!Auto* <Perintah>
-│    ╰ Auto Scraping dan Update
-│       Semua Produk
-╰───────────────`,
-        };
-        break;
       case "member": // Kontak Berpangkat member
         res = {
-          caption: `╭──「 *Daftar Perintah ${pengguna.pangkat}* 」
-│ *!Daftar* <TagKontak>
-│    ╰ Mendaftarkan kontak pengguna
-│ *!Produk* <Produk>
-│    ╰ Detail informasi produk
-│ *!Konveksi* <Konveksi>
-│    ╰ List harga produk
-│ *!Undercut* <Konveksi> :
-│    ╰ List harga produk Undercuted
+          caption: `╭──「 *List Konveksi* 」
+*│•BOGOR* : Konveksi BOGOR
+*│•DONI* : Konveksi DONI
+*│•SONY* : Konveksi SONY
+*│•APEN* : Konveksi APEN
+*│•MAULSANDAL* : Konveksi MAUL SANDAL
+*│•SANDI* : Konveksi SANDI
+*│•TATA* : Konveksi TATA
+*│•AZARINE* : ~Konveksi AZARINE~
+*│•SCARLETT* : ~Konveksi SCARLETT~
+*│•IMPORTOSM* : Konveksi IMPORT OSM
+*│•ACNES* : Konveksi ACNES
+*│•BIOAQUA* : Konveksi BIOAQUA
+*│•CARASUN* : Konveksi CARASUN
+*│•EMINA* : Konveksi EMINA
+*│•EVERWHITE* : Konveksi EVERWHITE
+*│•FOCALLURE* : ~Konveksi FOCALLURE~
+*│•GRACEGLOW* : ~Konveksi GRACE & GLOW~
+*│•HANASUI* : ~Konveksi HANASUI~
+*│•HADALABO* : ~Konveksi HADALABO~
+*│•IMPLORA* : ~Konveksi IMPLORA~
+*│•LULULUN* : ~Konveksi LULULUN~
+*│•LEAGLORIA* : ~Konveksi LEA GLORIA~
+*│•SELSUN* : ~Konveksi SELSUN~
+*│•MADAMGIE* : ~Konveksi MADAM GIE~
+*│•SYB* : ~Konveksi SYB~
+*│•MEDIHEAL* : ~Konveksi MEDIHEAL~
+*│•PINKFLASH* : ~Konveksi PINKFLASH~
+*│•ROJUKISS* : ~Konveksi ROJUKISS~
+*│•SOMETHINC* : ~Konveksi SOMETHINC~
+*│•SKINAQUA* : ~Konveksi SKIN AQUA~
+*│•VIVA* : ~Konveksi VIVA~
+*│•WARDAH* : ~Konveksi WARDAH~
+*│•WHITELAB* : ~Konveksi WHITELAB~
 ╰───────────────`,
         };
         break;
@@ -75,4 +80,4 @@ async function Help(kontak, res) {
   return res;
 }
 
-module.exports = Help;
+module.exports = List;

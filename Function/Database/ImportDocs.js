@@ -1,16 +1,16 @@
-const ProductModels = require("./Models/Products");
+const Produk = require("./Models/Produks");
 const fs = require("fs");
 const csv = require("csv-parser");
 
-const DBConnect = require("../Routes/DBConnect");
-const DBState = require("../Routes/DBState");
+const HubungkanDatabase = require("../Routes/HubungkanDatabase");
+const CekStatusDB = require("../Routes/CekStatusDB");
 
-DBConnect();
-ReadCSV();
+HubungkanDatabase();
+BacaCSV();
 //Cek Status Koneksi Database
 // const PersiapanDB = setInterval(StatusDB, 1000);
 // async function StatusDB() {
-//   const Status = await DBState();
+//   const Status = await CekStatusDB();
 //   switch (Status) {
 //     case 0:
 //       console.log("Terjadi Kesalahan, Tidak Dapat Terhubung");
@@ -19,7 +19,7 @@ ReadCSV();
 //     case 1:
 //       console.log("Berhasil Terhubung");
 //       clearInterval(PersiapanDB);
-//       ReadCSV();
+//       BacaCSV();
 //       break;
 //     case 2:
 //       console.log("Sedang Menghubungkan...");
@@ -36,15 +36,15 @@ ReadCSV();
 const tmp = [];
 let konveksi = [];
 
-function ReadCSV() {
-  fs.createReadStream("./Docs/CARASUN.csv")
+function BacaCSV() {
+  fs.createReadStream("./Docs/ACNES.csv")
     .pipe(csv({}))
     .on("data", (data) => tmp.push(data))
     .on("end", () => {
-      Refactor();
+      Mulai();
     });
 }
-function Refactor() {
+function Mulai() {
   tmp.forEach((e) => {
     let produk = {};
     let pesaing = {};
@@ -194,13 +194,13 @@ function Refactor() {
     }
     konveksi.push(produk);
   });
-  UploadKonveksi();
+  uploadKonveksi();
 }
 
-async function UploadKonveksi() {
+async function uploadKonveksi() {
   let i = 0;
   konveksi.forEach((e) => {
-    let produk = new ProductModels(e);
+    let produk = new Produk(e);
     produk.save();
     i++;
     console.log(`${i} ${e.kodebarang} Saved`);

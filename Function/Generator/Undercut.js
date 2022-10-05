@@ -1,57 +1,50 @@
 const VerifikasiKontak = require("../VerifikasiKontak");
 const CekStatusDB = require("../Routes/CekStatusDB");
+const TarikProduks = require("../Routes/TarikProduks");
+const RenderUndercutPDF = require("../Render/RenderUndercutPDF");
 
-async function Help(kontak, res) {
+async function Undercut(pesan, kontak, res) {
+  res = [];
   const StatusDB = await CekStatusDB();
   if (StatusDB.state === 1) {
     const pengguna = await VerifikasiKontak(kontak);
     switch (pengguna.pangkat) {
       case "superadmin":
       case "admin":
-        res = {
-          caption: `╭──「 *Daftar Perintah ${pengguna.pangkat}* 」
-│ *!Daftar* <TagKontak>
-│    ╰ Mendaftarkan kontak pengguna
-│ *!Terima* <TagKontak>
-│    ╰ Menerima kontak pengguna
-│ *!Produk* <Produk>
-│    ╰ Detail informasi produk
-│ *!Konveksi* <Konveksi>
-│    ╰ List harga produk
-│ *!Undercut* <Konveksi> :
-│    ╰ List harga produk Undercuted
-│ *!Update* <Produk/Konveksi/Perintah>
-│    ╰ Scraping dan Update harga
-│ *!Auto* <Perintah>
-│    ╰ Auto Scraping dan Update
-│       Semua Produk
-╰───────────────`,
-        };
-        break;
       case "member": // Kontak Berpangkat member
-        res = {
-          caption: `╭──「 *Daftar Perintah ${pengguna.pangkat}* 」
-│ *!Daftar* <TagKontak>
-│    ╰ Mendaftarkan kontak pengguna
-│ *!Produk* <Produk>
-│    ╰ Detail informasi produk
-│ *!Konveksi* <Konveksi>
-│    ╰ List harga produk
-│ *!Undercut* <Konveksi> :
-│    ╰ List harga produk Undercuted
+        let produks = await TarikProduks();
+        if (produks.length !== 0) {
+          const render = await RenderUndercutPDF(produks);
+          res.push({
+            status: render,
+            caption: `╭──「 *Perintah Berhasil* 」
+│Undercut Produks
+│Berhasil di Render
 ╰───────────────`,
-        };
+          });
+        } else {
+          res.push({
+            status: "gagal",
+            caption: `╭──「 *Perintah Gagal* 」
+│Tidak dapat menemukan
+│produks
+╰───────────────`,
+          });
+        }
         break;
       case "Kosong":
-        res = {
+        res.push({
+          status: "gagal",
           caption: `╭──「 *Perintah Ditolak* 」
 │Anda belum Terdaftar, Silahkan
 │mendaftar dengan !daftar
 ╰───────────────`,
-        };
+        });
         break;
+      case "baru":
       default: //Kontak Tidak Memiliki Pangkat
-        res = {
+        res.push({
+          status: "gagal",
           caption: `╭──「 *Perintah Ditolak* 」
 │Perintah ini hanya dapat 
 │diakses oleh :
@@ -60,19 +53,20 @@ async function Help(kontak, res) {
 │───────────────
 │Status anda saat ini : ${pengguna.pangkat}
 ╰───────────────`,
-        };
+        });
         break;
     } // Cek Pangkat Pengirim Pesan
   } else {
-    res = {
+    res.push({
+      status: "gagal",
       caption: `╭──「 *Maintenence* 」
 │Mohon Maaf @${kontak.number}, :)
 │Saat ini Bot sedang dalam
 │Maintenence...
 ╰───────────────`,
-    };
+    });
   }
   return res;
 }
 
-module.exports = Help;
+module.exports = Undercut;
