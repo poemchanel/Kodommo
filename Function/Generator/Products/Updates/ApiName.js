@@ -3,13 +3,13 @@ const Verify = require("../../Contacts/Verify");
 const FindProduct = require("../../../Routes/Products/FindKodeBarang");
 const UpdateProduct = require("../../../Routes/Products/Update");
 
-async function Click(Pesan, From, Res) {
+async function ApiName(Pesan, From, Res) {
   const State = await DBState();
   if (State === 1) {
     const Rank = await Verify(From);
     switch (Rank) {
       case "superadmin":
-        let Split = Pesan.replace(/!click/i, "")
+        let Split = Pesan.replace(/!api/i, "")
           .split(" ")
           .filter((e) => e !== "");
         if (Split.length === 4) {
@@ -70,7 +70,7 @@ function ProdukBanyak(KodeProduk, Produk, Res) {
 │dengan kode ${KodeProduk}
 │──「 *i* 」────────
 │Gunakan perintah 
-│!Click ${KodeProduk}_<Noproduk>
+│!Api ${KodeProduk}_<Noproduk>
 │──「 *List Nomor ${KodeProduk}* 」─${Produk.map(
     (e) => `\n│ ${j++}: ${e.konveksi}-${e.namabarang.substring(0, 12)}...`
   )}
@@ -120,11 +120,11 @@ function Action(Pesan, Produk, Posisi, Res) {
   switch (Pesan[2].toUpperCase()) {
     case "ADD":
     case "TAMBAH":
-      Res = ActionTambah(Pesan[3], Produk, Posisi);
+      Res = ActionTambah(Pesan, Produk, Posisi);
       break;
     case "DELETE":
     case "HAPUS":
-      Res = ActionHapus(Produk, Posisi);
+      Res = ActionHapus(Pesan, Produk, Posisi);
       break;
     default:
       Res = ActionTidakTerdaftar(Pesan[2]);
@@ -132,26 +132,34 @@ function Action(Pesan, Produk, Posisi, Res) {
   }
   return Res;
 }
-async function ActionTambah(AriaLabel, Produk, Posisi, Res) {
+async function ActionTambah(Pesan, Produk, Posisi, Res) {
   let ProdukUpdated = Produk;
-  if (ProdukUpdated.shopee[Posisi].click === undefined) {
-    ProdukUpdated.shopee[Posisi].click = [];
-    ProdukUpdated.shopee[Posisi].click.push(AriaLabel);
+  if (ProdukUpdated.shopee[Posisi].api !== undefined) {
+    ProdukUpdated.shopee[Posisi].api.name = Pesan[3];
     const UpdateStatus = await UpdateProduct(ProdukUpdated);
     Res = UpdateStatus;
   } else {
-    ProdukUpdated.shopee[Posisi].click.push(AriaLabel);
-    const UpdateStatus = await UpdateProduct(ProdukUpdated);
-    Res = UpdateStatus;
+    Res = ApiKosong(Pesan);
   }
+  return Res;
+}
+function ApiKosong(Pesan, Res) {
+  Res = `╭──「 *Perintah Gagal* 」
+│Link ${Pesan[1]} pada produk
+│kode ${Pesan[0]} 
+│Tidak memiliki API
+╰───────────────`;
   return Res;
 }
 async function ActionHapus(Produk, Posisi, Res) {
   let ProdukUpdated = Produk;
-  ProdukUpdated.shopee[Posisi].click = [];
-  console.log(ProdukUpdated.shopee[Posisi]);
-  const UpdateStatus = await UpdateProduct(ProdukUpdated);
-  Res = UpdateStatus;
+  if (ProdukUpdated.shopee[Posisi].api !== undefined) {
+    ProdukUpdated.shopee[Posisi].api.name = "";
+    const UpdateStatus = await UpdateProduct(ProdukUpdated);
+    Res = UpdateStatus;
+  } else {
+    Res = ApiKosong(Pesan);
+  }
   return Res;
 }
 function ActionTidakTerdaftar(Action, Res) {
@@ -168,14 +176,14 @@ function FormatWrong(Res) {
 │Format perintah yang anda 
 │masukan salah/tidak lengkap
 │──「 *i* 」──────────
-│Format perintah !Click
-│!Click <KP> <S> <A> <AL>
+│Format perintah !Api
+│!Api <KP> <S> <A> <AL>
 *│•<KP>* : Kode Produk 
 *│•<S>* : Dommo/NamaPesaing 
 *│•<A>* : Action 
 *│•<AL>* : Aria-Label 
 │──「 *Contoh* 」───────
-│!Click D0001 DOMMO Tambah 80gr
+│!Api D0001 DOMMO Tambah 80gr
 ╰───────────────`;
   return Res;
 }
@@ -206,4 +214,4 @@ function DBDisconected(Res) {
 ╰───────────────`;
   return Res;
 }
-module.exports = Click;
+module.exports = ApiName;

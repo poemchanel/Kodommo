@@ -84,7 +84,7 @@ async function RenderProduksKonveksiPDF(req, konveksi, res) {
     let hargafirst = 0;
     if (produk[j].shopee !== undefined) {
       produk[j].shopee.forEach((f) =>
-        f.nama === first && f.status === "Aktif" ? (hargafirst = f.harga) : (tes = f.harga)
+        f.nama === first && f.status === "Active" ? (hargafirst = f.harga) : (tes = f.harga)
       );
     }
 
@@ -95,15 +95,14 @@ async function RenderProduksKonveksiPDF(req, konveksi, res) {
           let Kosong = true;
           produk[j].shopee.forEach((e) => {
             if (e.nama === Shopee[f]) {
-              if (e.harga < hargafirst && e.status === "Aktif") {
+              if (e.harga < hargafirst && e.status === "Active") {
                 context.fillStyle = "#FACC15";
               }
-              if (e.status === "Aktif") {
+
+              if (e.status === "Active") {
                 context.fillText(e.harga, ph[f].tx, piy + ph[f].ty);
               } else {
-                if (e.status === "Range" || e.status === "Bermasalah") {
-                  context.fillStyle = "#EF4444";
-                }
+                context.fillStyle = "#EF4444";
                 context.fillText(e.status, ph[f].tx, piy + ph[f].ty);
               }
               context.fillStyle = DefaultColor;

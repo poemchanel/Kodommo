@@ -1,7 +1,7 @@
 const DBState = require("../../../Routes/DBState");
 const Verify = require("../../Contacts/Verify");
-const { AutoOn, AutoOff, AutoCek } = require("../../../Update/PriceProducts");
-const { HargaKonveksiOff } = require("../../../Update/PriceKonveksi");
+const { AutoOn, AutoOff, AutoCek } = require("../../../Update/APIProducts");
+const { HargaKonveksiOff } = require("../../../Update/APIKonveksi");
 const { setTimeout } = require("timers/promises");
 
 async function Auto(Pesan, From, Res) {

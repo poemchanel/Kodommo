@@ -2,13 +2,13 @@ const DBState = require("../../../Routes/DBState");
 const Verify = require("../../Contacts/Verify");
 const FindProduct = require("../../../Routes/Products/FindKodeBarang");
 const FindKonveksi = require("../../../Routes/Products/FindKonveksi");
-const PriceProduct = require("../../../Update/PriceProduct");
+const PriceProduct = require("../../../Update/APIProduct");
 const {
   HargaKonveksiMulai,
   HargaKonveksiOff,
   HargaKonveksiOn,
   HargaKonveksiCek,
-} = require("../../../Update/PriceKonveksi");
+} = require("../../../Update/APIKonveksi");
 const { AutoOff, AutoOn, AutoCek } = require("../../../Update/PriceProducts");
 const { setTimeout } = require("timers/promises");
 

@@ -25,40 +25,39 @@ async function List(From, Res) {
 }
 function RankMember(Res) {
   Res = `╭──「 *List Konveksi* 」
-*│ Kode   : Konveksi*
-*│•BOGOR* : Konveksi BOGOR
-*│•DONI* : Konveksi DONI
-*│•SONY* : Konveksi SONY
-*│•APEN* : Konveksi APEN
-*│•MAULSANDAL* : Konveksi MAUL SANDAL
-*│•SANDI* : Konveksi SANDI
-*│•TATA* : Konveksi TATA
-*│•AZARINE* : ~Konveksi AZARINE~
-*│•SCARLETT* : ~Konveksi SCARLETT~
-*│•IMPORTOSM* : Konveksi IMPORT OSM
-*│•ACNES* : Konveksi ACNES
-*│•BIOAQUA* : Konveksi BIOAQUA
-*│•CARASUN* : Konveksi CARASUN
-*│•EMINA* : Konveksi EMINA
-*│•EVERWHITE* : Konveksi EVERWHITE
-*│•FOCALLURE* : ~Konveksi FOCALLURE~
-*│•GRACEGLOW* : ~Konveksi GRACE & GLOW~
-*│•HANASUI* : ~Konveksi HANASUI~
-*│•HADALABO* : ~Konveksi HADALABO~
-*│•IMPLORA* : ~Konveksi IMPLORA~
-*│•LULULUN* : ~Konveksi LULULUN~
-*│•LEAGLORIA* : ~Konveksi LEA GLORIA~
-*│•SELSUN* : ~Konveksi SELSUN~
-*│•MADAMGIE* : ~Konveksi MADAM GIE~
-*│•SYB* : ~Konveksi SYB~
-*│•MEDIHEAL* : ~Konveksi MEDIHEAL~
-*│•PINKFLASH* : ~Konveksi PINKFLASH~
-*│•ROJUKISS* : ~Konveksi ROJUKISS~
-*│•SOMETHINC* : ~Konveksi SOMETHINC~
-*│•SKINAQUA* : ~Konveksi SKIN AQUA~
-*│•VIVA* : ~Konveksi VIVA~
-*│•WARDAH* : ~Konveksi WARDAH~
-*│•WHITELAB* : ~Konveksi WHITELAB~
+│• *BOGOR*
+│• ~*DONI*~
+│• ~*SONY*~
+│• ~*APEN*~
+│• ~*MAULSANDAL*~
+│• ~*SANDI*~
+│• ~*TATA*~
+│• ~*AZARINE*~
+│• ~*SCARLETT*~
+│• ~*IMPORTOSM*~
+│• ~*ACNES*~
+│• ~*BIOAQUA*~
+│• ~*CARASUN*~
+│• ~*EMINA*~
+│• ~*EVERWHITE*~
+│• ~*FOCALLURE*~
+│• ~*GRACEGLOW*~
+│• ~*HANASUI*~
+│• ~*HADALABO*~
+│• ~*IMPLORA*~
+│• ~*LULULUN*~
+│• ~*LEAGLORIA*~
+│• ~*SELSUN*~
+│• ~*MADAMGIE*~
+│• ~*SYB*~
+│• ~*MEDIHEAL*~
+│• ~*PINKFLASH*~
+│• ~*ROJUKISS*~
+│• ~*SOMETHINC*~
+│• ~*SKINAQUA*~
+│• ~*VIVA*~
+│• ~*WARDAH*~
+│• ~*WHITELAB*~
 ╰───────────────`;
   return Res;
 }

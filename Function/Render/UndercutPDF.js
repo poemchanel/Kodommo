@@ -14,7 +14,7 @@ async function RenderUndercutPDF(req, konveksi, res) {
       IndexFirst = e.shopee.findIndex((f) => f.nama === First);
       e.shopee.forEach((g) => {
         if (IndexFirst !== -1) {
-          if (e.shopee[IndexFirst].harga > g.harga && g.status === "Aktif") {
+          if (e.shopee[IndexFirst].harga > g.harga && g.status === "Active") {
             Undercuted = true;
           }
         }
@@ -103,7 +103,7 @@ async function RenderUndercutPDF(req, konveksi, res) {
       if (ProduksUndecut[j].shopee[l] !== undefined) {
         if (ProduksUndecut[j].shopee[l].nama !== First) {
           pt++;
-          if (ProduksUndecut[j].shopee[l].status !== "Aktif") {
+          if (ProduksUndecut[j].shopee[l].status !== "Active") {
             context.fillText(ProduksUndecut[j].shopee[l].status, ph[pt].tx, piy + ph[pt].ty);
           } else {
             if (ProduksUndecut[j].shopee[l].harga < ProduksUndecut[j].shopee[IndexFirst].harga) {
