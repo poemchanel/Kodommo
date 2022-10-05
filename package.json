@@ -4,8 +4,9 @@
   "description": "Latihan Buat Bot WhatsApp",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon index.js",
+    "test": "node whatsappbot.js",
+    "draw": "nodemon canvas.js"
   },
   "keywords": [
     "Bot",
@@ -14,6 +15,9 @@
   "author": "Duyy",
   "license": "ISC",
   "dependencies": {
+    "canvas": "^2.9.3",
+    "mongoose": "^6.5.2",
+    "nodemon": "^2.0.19",
     "qrcode-terminal": "^0.12.0",
     "whatsapp-web.js": "^1.17.1"
   }

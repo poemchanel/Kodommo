@@ -1,0 +1,4 @@
+Math.abs(
+  (data[0].dailyprice - (data[0].dailyprice * 0, 5)) /
+    (data[0].dailyprice - (data[0].dailyprice * 0, 5) - data[0].hargamodal)
+).toFixed(2);
