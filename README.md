@@ -3,7 +3,7 @@ adalah whatsapp bot
 
 ##ChangeLog
 
-###2.0.3 - 10/5
+###2.3.0 - 10/5
 
 - Function / Database / Models / Product
   - +field diupdate : Date Updated
