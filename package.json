@@ -1,16 +1,16 @@
 {
-  "name": "latihanbot",
-  "version": "0.0.1",
-  "description": "Latihan Buat Bot WhatsApp",
+  "name": "Wa-BotKodommo",
+  "version": "0.0.5",
+  "description": "Whatsapp Bot KODOMMO",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js",
-    "test": "node whatsappbot.js",
-    "draw": "nodemon canvas.js"
+    "start": "node index.js",
+    "upload": "node upload.js",
+    "tes": "node tes.js"
   },
   "keywords": [
     "Bot",
-    "WA"
+    "WhatsApp"
   ],
   "author": "Duyy",
   "license": "ISC",

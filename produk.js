@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require("mongoose"); // Export Module Manipulasi Database MongoDB
 
 const produkSchema = new mongoose.Schema({
   konveksi: String,
@@ -19,18 +19,25 @@ const produkSchema = new mongoose.Schema({
     type: Date,
     default: new Date(),
   },
-});
+}); // Format Dokumen Produk
 
 const konveksiSchema = new mongoose.Schema({
   kodekonveksi: String,
   namakonveksi: String,
   pesaing: [String],
-});
+}); // Format Dokumen Konveksi
 
 const penggunaSchema = new mongoose.Schema({
-  pengguna: String,
+  namapengguna: String,
+  nama: String,
   notelepon: String,
-});
+  nomor: String,
+  pangkat: String,
+  updatedAt: {
+    type: Date,
+    default: new Date(),
+  },
+}); // Format Dokumen Pengguna
 
 const Produk = mongoose.model("Produk", produkSchema);
 const Konveksi = mongoose.model("Konveksi", konveksiSchema);
@@ -40,4 +47,4 @@ module.exports = {
   Produk,
   Konveksi,
   Pengguna,
-};
+}; // Export Format Dokumen
