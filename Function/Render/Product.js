@@ -31,7 +31,7 @@ function RenderProduk(req, res) {
   let shopee;
   if (produk.shopee !== undefined) {
     shopee = `\n│──「 *Harga Shopee* 」─────${produk.shopee.map((e) => {
-      if (e.status === "Active") {
+      if (e.status === "Aktif") {
         return `\n*│•${e.nama}* : Rp.${e.harga}`;
       } else {
         return `\n*│•${e.nama}* : ~Rp.${e.harga}~ _${e.status}_`;

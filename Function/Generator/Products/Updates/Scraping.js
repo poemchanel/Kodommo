@@ -17,9 +17,9 @@ async function Login() {
     UseTor = false;
   }
   if (UseTor === true) {
-    Browser = await puppeteer.launch({ headless: false, args: ["--proxy-server=socks5://127.0.0.2:9052"] });
+    Browser = await puppeteer.launch({ headless: true, args: ["--proxy-server=socks5://127.0.0.2:9052"] });
   } else {
-    Browser = await puppeteer.launch({ headless: false });
+    Browser = await puppeteer.launch({ headless: true });
   }
   await setTimeout(2000);
 

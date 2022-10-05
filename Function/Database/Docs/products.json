@@ -1,0 +1,3377 @@
+[{
+  "_id": {
+    "$oid": "632d187e81510aea4477d07b"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1163",
+  "namabarang": "DIANA",
+  "hargamodal": 7500,
+  "dailyprice": 8500,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/product/135900627/5609577925/",
+      "status": "Skip",
+      "harga": 0,
+      "kategori": "",
+      "stocks": true,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=5609577925&shopid=135900627"
+    },
+    {
+      "nama": "MORY MONY",
+      "link": "https://shopee.co.id/MORYMONY-DIANA-Tote-Bag-Wanita-(Bisa-Ransel-Bisa-Selempang)-i.20287667.7902698606?sp_atk=b97b89fb-64fe-45db-9b1f-cf24389e9831",
+      "status": "Skip",
+      "harga": 0,
+      "kategori": "",
+      "stocks": true,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=7902698606&shopid=20287667"
+    }
+  ],
+  "deskripsi": "D1163 DIANA",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663900418253"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187e81510aea4477d07c"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1171",
+  "namabarang": "LUIS BULAT",
+  "hargamodal": 20055,
+  "dailyprice": 24999,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/-LOKAL--D1171-TAS-LUIS-BULAT-Tas-Ransel-Backpack-Korea-Fashion-MORYMONY-i.135900627.6217092180?sp_atk=db3d2dc7-24ba-48f5-a899-d68395247518",
+      "status": "Habis",
+      "harga": 24999,
+      "kategori": "Hitam",
+      "stocks": true,
+      "stock": 115,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=6217092180&shopid=135900627"
+    },
+    {
+      "nama": "MORY MONY",
+      "link": "https://shopee.co.id/MORYMONY-TAS-LUIS-BULAT-Tas-Ransel-Backpack-Korea-Fashion-i.20287667.655585528?sp_atk=9efaa786-e990-4db2-b50c-2ec9708c6e4f",
+      "status": "Active",
+      "harga": 200000,
+      "kategori": "CREAM",
+      "stocks": true,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=655585528&shopid=20287667"
+    },
+    {
+      "nama": "REYRESHY",
+      "link": "https://shopee.co.id/RR-TAS-LUIS-BULAT-Tas-Ransel-Backpack-Korea-Fashion-i.154549401.7532035979?sp_atk=cc73f437-40b3-48b0-8b6f-793b9ad91e8e&xptdk=cc73f437-40b3-48b0-8b6f-793b9ad91e8e",
+      "status": "Habis",
+      "harga": 28000,
+      "kategori": "LUIS HITAM",
+      "stocks": true,
+      "stock": 291,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=7532035979&shopid=154549401"
+    }
+  ],
+  "deskripsi": "D1171 LUIS BULAT",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663900433545"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187e81510aea4477d078"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1139",
+  "namabarang": "JABOX",
+  "hargamodal": 13920,
+  "dailyprice": 15499,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/product/135900627/5615827637/",
+      "status": "Active",
+      "harga": 17000,
+      "kategori": "Navy",
+      "stocks": true,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=5615827637&shopid=135900627"
+    },
+    {
+      "nama": "MORY MONY",
+      "link": "https://shopee.co.id/MORYMONY-TAS-JABOX-Tas-Ransel-Backpack-Fashion-Tas-Sekolah-i.20287667.464716169?sp_atk=65f71244-5a5b-4379-9057-d2beaf855335",
+      "status": "Active",
+      "harga": 200000,
+      "kategori": "PINK",
+      "stocks": true,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=464716169&shopid=20287667"
+    },
+    {
+      "nama": "REYRESHY",
+      "link": "https://shopee.co.id/RR-TAS-JABOX-Tas-Ransel-Backpack-Fashion-Tas-Sekolah-i.154549401.5437785361?sp_atk=d092990d-8994-4a31-a775-68cd16896610",
+      "status": "Habis",
+      "harga": 22000,
+      "kategori": "JABOX HITAM",
+      "stocks": true,
+      "stock": 84,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=5437785361&shopid=154549401"
+    }
+  ],
+  "deskripsi": "D1139 JABOX",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663900449616"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187e81510aea4477d07e"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1174",
+  "namabarang": "AURORA",
+  "hargamodal": 20000,
+  "dailyprice": 21999,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/-LOKAL--D1174-AURORA-Tas-Selempang-Wanita-Morymony-i.135900627.4117095565?sp_atk=1c5c4a08-fee2-4839-ad60-9950e637198e",
+      "status": "Habis",
+      "harga": 21999,
+      "kategori": "Hitam",
+      "stocks": true,
+      "stock": 443,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=4117095565&shopid=135900627"
+    },
+    {
+      "nama": "MORY MONY",
+      "link": "https://shopee.co.id/MORYMONY-AURORA-Tas-Selempang-Wanita-i.20287667.4815942600?sp_atk=0edc880e-d09a-4f09-82b8-2e22756a1dc5",
+      "status": "Option",
+      "harga": 0,
+      "kategori": "",
+      "stocks": false,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=4815942600&shopid=20287667"
+    },
+    {
+      "nama": "REYRESHY",
+      "link": "https://shopee.co.id/RR-AURORA-Tas-Selempang-Wanita-i.154549401.6332036911?sp_atk=3f3aef2d-e1a8-42d5-b33e-8db87a0ca8e9&xptdk=3f3aef2d-e1a8-42d5-b33e-8db87a0ca8e9",
+      "status": "Option",
+      "harga": 0,
+      "kategori": "",
+      "stocks": false,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=6332036911&shopid=154549401"
+    }
+  ],
+  "deskripsi": "D1174 AURORA",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663900466931"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187e81510aea4477d079"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1141",
+  "namabarang": "BUNNY",
+  "hargamodal": 14790,
+  "dailyprice": 16999,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/product/135900627/7015856986/",
+      "status": "Option",
+      "harga": 0,
+      "kategori": "",
+      "stocks": false,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=7015856986&shopid=135900627"
+    },
+    {
+      "nama": "MORY MONY",
+      "link": "https://shopee.co.id/MORYMONY-TAS-BUNNY-Tas-Ransel-Backpack-Fashion-i.20287667.464673697?sp_atk=ab9271bc-ed74-4ce7-a6fd-751329088cd0",
+      "status": "Active",
+      "harga": 15850,
+      "kategori": "PINK",
+      "stocks": true,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=464673697&shopid=20287667"
+    },
+    {
+      "nama": "REYRESHY",
+      "link": "https://shopee.co.id/RR-TAS-BUNNY-Tas-Ransel-Backpack-Fashion-i.154549401.4738025550?sp_atk=17114036-c50f-46e6-b894-3ea209b6957f&xptdk=17114036-c50f-46e6-b894-3ea209b6957f",
+      "status": "Active",
+      "harga": 22000,
+      "kategori": "BUNNY PINK BABY",
+      "stocks": true,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=4738025550&shopid=154549401"
+    }
+  ],
+  "deskripsi": "D1141 BUNNY",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663900485070"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187e81510aea4477d080"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1196",
+  "namabarang": "LOVA PINGKAN",
+  "hargamodal": 10800,
+  "dailyprice": 11999,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/-LOKAL--D1196-LOVA-PINGKAN-LOLY-BISA-COD-Dari-Jakarta-Tas-Selempang-Wanita-SLEMPANG-i.135900627.4417700245?sp_atk=da89bd61-a1ce-41a2-8a2b-6bd81cc993a7",
+      "status": "Active",
+      "harga": 70000,
+      "kategori": "Pink",
+      "stocks": true,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=4417700245&shopid=135900627"
+    }
+  ],
+  "deskripsi": "D1196 LOVA PINGKAN",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663900491819"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187e81510aea4477d081"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1203",
+  "namabarang": "TAPASYA",
+  "hargamodal": 13707,
+  "dailyprice": 15500,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/-LOKAL--D1203-TAPASYA-Tas-Selempang-Wanita-Morymony-i.135900627.6918241136?sp_atk=f2e28b9c-5c32-4307-8dab-669088c49ee1",
+      "status": "Habis",
+      "harga": 15499,
+      "kategori": "Navy",
+      "stocks": true,
+      "stock": 492,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=6918241136&shopid=135900627"
+    }
+  ],
+  "deskripsi": "D1203 TAPASYA",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663900500494"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187e81510aea4477d082"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1216",
+  "namabarang": "NANA",
+  "hargamodal": 13049,
+  "dailyprice": 15000,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/-LOKAL--D1216-TAS-RANSEL-NANA-Tas-Ransel-Backpack-Fashion-Wanita-MORYMONY-i.135900627.6820416454?sp_atk=d03e57f7-14f7-4387-a1c9-b9be5c890260",
+      "status": "Habis",
+      "harga": 15000,
+      "kategori": "Hitam",
+      "stocks": true,
+      "stock": 11,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=6820416454&shopid=135900627"
+    },
+    {
+      "nama": "MORY MONY",
+      "link": "https://shopee.co.id/MORYMONY-NANA-Tas-Ransel-Backpack-Fashion-Wanita-i.20287667.5316012656?sp_atk=36edee0a-70f4-46c8-822d-f642cd668659",
+      "status": "Active",
+      "harga": 200000,
+      "kategori": "HITAM",
+      "stocks": true,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=5316012656&shopid=20287667"
+    },
+    {
+      "nama": "REYRESHY",
+      "link": "https://shopee.co.id/RR-NANA-Tas-Ransel-Backpack-Fashion-Wanita-i.154549401.5732032753?sp_atk=328e4e46-67e8-4d8b-8ba2-2eb3cb74c4e8&xptdk=328e4e46-67e8-4d8b-8ba2-2eb3cb74c4e8",
+      "status": "Habis",
+      "harga": 16500,
+      "kategori": "NANA HITAM",
+      "stocks": true,
+      "stock": 762,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=5732032753&shopid=154549401"
+    }
+  ],
+  "deskripsi": "D1216 NANA",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663900519109"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187e81510aea4477d083"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1227",
+  "namabarang": "MILA BAG",
+  "hargamodal": 13050,
+  "dailyprice": 14500,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/-LOKAL--D1227-MILA-BAG-Tas-Selempang-Wanita-MORYMONY-DARI-JAKARTA-BISA-COD-i.135900627.4920734993?sp_atk=d1163bca-73b7-4a52-937f-2dafc8f6eec5",
+      "status": "Habis",
+      "harga": 14599,
+      "kategori": "HItam",
+      "stocks": true,
+      "stock": 1100,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=4920734993&shopid=135900627"
+    },
+    {
+      "nama": "MORY MONY",
+      "link": "https://shopee.co.id/MORYMONY-MILA-Tas-Selempang-Wanita-i.20287667.933252343?sp_atk=f607b2d0-32f4-4aaa-adc4-0e4d777104b9",
+      "status": "Habis",
+      "harga": 200000,
+      "kategori": "HITAM",
+      "stocks": true,
+      "stock": 16,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=933252343&shopid=20287667"
+    },
+    {
+      "nama": "REYRESHY",
+      "link": "https://shopee.co.id/RR-MILA-Tas-Selempang-Wanita-Terbaru-2021-i.154549401.6375994508?sp_atk=9592e43a-9a22-46f6-823f-1cdb31f0f94d&xptdk=9592e43a-9a22-46f6-823f-1cdb31f0f94d",
+      "status": "Habis",
+      "harga": 16500,
+      "kategori": "MILA PINK",
+      "stocks": true,
+      "stock": 920,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=6375994508&shopid=154549401"
+    }
+  ],
+  "deskripsi": "D1227 MILA BAG",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663900536923"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187e81510aea4477d084"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1228",
+  "namabarang": "FELICIA",
+  "hargamodal": 11744,
+  "dailyprice": 13500,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/-LOKAL--D1228-FELICIA-Tas-Selempang-Wanita-Morymony-i.135900627.6220736473?sp_atk=067ddea9-2962-41a2-ac22-fddc977e5798",
+      "status": "Habis",
+      "harga": 15000,
+      "kategori": "Hitam",
+      "stocks": true,
+      "stock": 801,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=6220736473&shopid=135900627"
+    },
+    {
+      "nama": "MORY MONY",
+      "link": "https://shopee.co.id/MORYMONY-FELICIA-Tas-Selempang-Wanita-i.20287667.5116686689?sp_atk=ddeb67cb-e306-466e-b0bb-d250c09adebb",
+      "status": "Active",
+      "harga": 200000,
+      "kategori": "HITAM",
+      "stocks": true,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=5116686689&shopid=20287667"
+    },
+    {
+      "nama": "REYRESHY",
+      "link": "https://shopee.co.id/RR-FELICIA-Tas-Selempang-Wanita-i.154549401.4344611760?sp_atk=a1365c5f-ea5c-4cb6-a95c-90acf211e394&xptdk=a1365c5f-ea5c-4cb6-a95c-90acf211e394",
+      "status": "Habis",
+      "harga": 18800,
+      "kategori": "FELICIA MERAH",
+      "stocks": true,
+      "stock": 677,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=4344611760&shopid=154549401"
+    }
+  ],
+  "deskripsi": "D1228 FELICIA",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663900555701"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187e81510aea4477d085"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1238",
+  "namabarang": "RANSEL SPORT",
+  "hargamodal": 17311,
+  "dailyprice": 19999,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/-LOKAL--D1238-Tas-Ransel-Sport-Bag-Punggung-Olahraga--Backpack-Pria-Wanita-i.135900627.5441335996?sp_atk=3b6ce082-d727-4310-8cab-8062d1195548",
+      "status": "Option",
+      "harga": 0,
+      "kategori": "",
+      "stocks": false,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=5441335996&shopid=135900627"
+    }
+  ],
+  "deskripsi": "D1238 RANSEL SPORT",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663900561623"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187e81510aea4477d086"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1254",
+  "namabarang": "GITA",
+  "hargamodal": 12180,
+  "dailyprice": 15000,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/-LOKAL--D1254-TAS-GITA-Tas-Selempang-Wanita-Morymony-i.135900627.7425740966?sp_atk=64a3c9d5-17f4-4b12-abc3-53707f6bc066",
+      "status": "Skip",
+      "harga": 0,
+      "kategori": "",
+      "stocks": true,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=7425740966&shopid=135900627"
+    },
+    {
+      "nama": "MORY MONY",
+      "link": "https://shopee.co.id/MORYMONY-GITA-Tas-Selempang-Wanita-i.20287667.3101540399?sp_atk=fe822c8a-85be-45f2-b51e-8ad9e252d3bc",
+      "status": "Skip",
+      "harga": 0,
+      "kategori": "",
+      "stocks": true,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=3101540399&shopid=20287667"
+    },
+    {
+      "nama": "REYRESHY",
+      "link": "https://shopee.co.id/RR-GITA-Tas-Selempang-Wanita-i.154549401.5844220017?sp_atk=d0fe4106-084b-46db-b192-02a670820320&xptdk=d0fe4106-084b-46db-b192-02a670820320",
+      "status": "Skip",
+      "harga": 0,
+      "kategori": "",
+      "stocks": true,
+      "stock": 0,
+      "api": ""
+    }
+  ],
+  "deskripsi": "D1254 GITA",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663900867058"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187e81510aea4477d07d"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1172",
+  "namabarang": "MONICA",
+  "hargamodal": 23490,
+  "dailyprice": 28000,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/-LOKAL--D1172-MONICA-Tas-Ransel-dan-Selempang-2in1-MORYMONY-BISA-COD-JAKARTA-i.135900627.7317094805?sp_atk=e247babc-9eb1-472a-bdd3-e4b4b8028ed5",
+      "status": "Habis",
+      "harga": 28000,
+      "kategori": "Hitam",
+      "stocks": true,
+      "stock": 273,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=7317094805&shopid=135900627"
+    },
+    {
+      "nama": "MORY MONY",
+      "link": "https://shopee.co.id/MORYMONY-MONICA-Tas-Ransel-dan-Selempang-2in1-i.20287667.7901033388?sp_atk=118e581d-935f-443b-8f49-eec8554dc5f7",
+      "status": "Habis",
+      "harga": 25650,
+      "kategori": "PUTIH",
+      "stocks": true,
+      "stock": 788,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=7901033388&shopid=20287667"
+    },
+    {
+      "nama": "REYRESHY",
+      "link": "https://shopee.co.id/RR-MONICA-Tas-Ransel-dan-Slempang-2in1-i.154549401.7832031354?sp_atk=c3ba9594-263a-4fbd-b5ce-1999c9625ddc&xptdk=c3ba9594-263a-4fbd-b5ce-1999c9625ddc",
+      "status": "Habis",
+      "harga": 28500,
+      "kategori": "MONICA HITAM",
+      "stocks": true,
+      "stock": 264,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=7832031354&shopid=154549401"
+    }
+  ],
+  "deskripsi": "D1172 MONICA",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663900886136"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187e81510aea4477d07f"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1192",
+  "namabarang": "MARY",
+  "hargamodal": 15660,
+  "dailyprice": 16999,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/-LOKAL--D1192-MARY-Tas-Selempang-Wanita-MORYMONY-DARI-JAKARTA-BISA-COD-i.135900627.3917757083?sp_atk=575b41c1-609f-41e8-8b63-2857691806e6",
+      "status": "Habis",
+      "harga": 16999,
+      "kategori": "Hitam",
+      "stocks": true,
+      "stock": 1351,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=3917757083&shopid=135900627"
+    },
+    {
+      "nama": "MORY MONY",
+      "link": "https://shopee.co.id/MORYMONY-MARY-Tas-Selempang-Wanita-i.20287667.6816013513?sp_atk=d44fc909-61af-42dc-816e-181204c7d7da",
+      "status": "Active",
+      "harga": 200000,
+      "kategori": "HITAM",
+      "stocks": true,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=6816013513&shopid=20287667"
+    },
+    {
+      "nama": "REYRESHY",
+      "link": "https://shopee.co.id/RR-MARY-Tas-Selempang-Wanita-i.154549401.3832141492?sp_atk=5d79604c-2433-46ad-92ac-d4159ddc6fd4&xptdk=5d79604c-2433-46ad-92ac-d4159ddc6fd4",
+      "status": "Habis",
+      "harga": 17000,
+      "kategori": "MARY HITAM",
+      "stocks": true,
+      "stock": 116,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=3832141492&shopid=154549401"
+    }
+  ],
+  "deskripsi": "D1192 MARY",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663900903088"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187e81510aea4477d089"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1265",
+  "namabarang": "XINA",
+  "hargamodal": 12179,
+  "dailyprice": 14999,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/-LOKAL--D1265-TAS-KAZUMI-XINA-TAS-SELEMPANG-WANITA-MORYMONY-i.135900627.7025884990?sp_atk=bbd15428-6d26-4fb5-951b-3279103bc5bb",
+      "status": "Habis",
+      "harga": 14999,
+      "kategori": "Merah",
+      "stocks": true,
+      "stock": 280,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=7025884990&shopid=135900627"
+    }
+  ],
+  "deskripsi": "D1265 XINA",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663900908631"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187e81510aea4477d08a"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1336",
+  "namabarang": "RAVEN",
+  "hargamodal": 10875,
+  "dailyprice": 12999,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/-LOKAL--D1336-TAS-RAVEN-Tas-Selempang-Wanita-i.135900627.5142719754?sp_atk=1ff92a6e-6657-4879-9dcc-7877bc7cbcad",
+      "status": "Habis",
+      "harga": 12999,
+      "kategori": "Pink",
+      "stocks": true,
+      "stock": 246,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=5142719754&shopid=135900627"
+    },
+    {
+      "nama": "MORY MONY",
+      "link": "https://shopee.co.id/MORYMONY-RAVEN-Tas-Selempang-Wanita-i.20287667.5738880923?sp_atk=e93833ec-13f9-4b60-a0c7-d03012867c85",
+      "status": "Active",
+      "harga": 200000,
+      "kategori": "PINK",
+      "stocks": true,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=5738880923&shopid=20287667"
+    },
+    {
+      "nama": "REYRESHY",
+      "link": "https://shopee.co.id/RR-RAVEN-Tas-Selempang-Wanita-i.154549401.4162057238?sp_atk=ff8140df-453f-403c-8b53-a4a95ab7be53&xptdk=ff8140df-453f-403c-8b53-a4a95ab7be53",
+      "status": "Habis",
+      "harga": 14200,
+      "kategori": "RAVEN HITAM",
+      "stocks": true,
+      "stock": 314,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=4162057238&shopid=154549401"
+    }
+  ],
+  "deskripsi": "D1336 RAVEN",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663900925543"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187e81510aea4477d08b"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1370",
+  "namabarang": "WAISTBAG AS",
+  "hargamodal": 7822,
+  "dailyprice": 8899,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/-LOKAL--D1370-WAISTBAG-AS-Tas-Selempang-Pria-Wanita-MORYMONY-i.135900627.4951518836?sp_atk=b04c2e4f-fc17-4806-913f-3862a97d71e8",
+      "status": "Option",
+      "harga": 0,
+      "kategori": "",
+      "stocks": false,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=4951518836&shopid=135900627"
+    },
+    {
+      "nama": "MORY MONY",
+      "link": "https://shopee.co.id/MORYMONY-WAISTBAG-AS-Tas-Selempang-Pria-Wanita-i.20287667.3316171585?sp_atk=e270a04c-061e-4baf-a8ed-d2720e29859b",
+      "status": "Habis",
+      "harga": 7999,
+      "kategori": "NAVY",
+      "stocks": true,
+      "stock": 72,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=3316171585&shopid=20287667"
+    }
+  ],
+  "deskripsi": "D1370 WAISTBAG AS",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663900938713"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187e81510aea4477d08c"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1371",
+  "namabarang": "CHUNJI",
+  "hargamodal": 19879,
+  "dailyprice": 23850,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/-LOKAL--D1371-TAS-RANSEL-CHUNJI-Tas-Ransel-Backpack-Pria-dan-Wanita-MORYMONY-i.135900627.5553546521?sp_atk=68221ac4-6ffc-4fa8-8612-b95dd4214089",
+      "status": "Active",
+      "harga": 23850,
+      "kategori": "Abu Muda",
+      "stocks": true,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=5553546521&shopid=135900627"
+    },
+    {
+      "nama": "MORY MONY",
+      "link": "https://shopee.co.id/MORYMONY-CHUNJI-Tas-Ransel-Backpack-Pria-dan-Wanita-i.20287667.5552918540?sp_atk=c5010591-5544-4b65-89e7-9d95c3c42811",
+      "status": "Active",
+      "harga": 200000,
+      "kategori": "ABU",
+      "stocks": true,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=5552918540&shopid=20287667"
+    }
+  ],
+  "deskripsi": "D1371 CHUNJI",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663900949669"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187e81510aea4477d08d"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1382",
+  "namabarang": "ELEMENT",
+  "hargamodal": 10440,
+  "dailyprice": 11999,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/-LOKAL--D1382-WAISTBAG-ELEMENT-Tas-Selempang-Pria-(Bisa-Ransel)-i.135900627.5660294376?sp_atk=6f31855f-942c-4213-92bf-18709c4d8676",
+      "status": "Option",
+      "harga": 0,
+      "kategori": "",
+      "stocks": false,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=5660294376&shopid=135900627"
+    },
+    {
+      "nama": "MORY MONY",
+      "link": "https://shopee.co.id/MORYMONY-ELEMENT-Waistbag-Tas-Pinggang-Selempang-Pria-Wanita-i.20287667.5650018580?sp_atk=10d7de19-b7f9-4e68-8709-2d60a2f2bdf4",
+      "status": "Habis",
+      "harga": 200000,
+      "kategori": "HITAM",
+      "stocks": true,
+      "stock": 50,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=5650018580&shopid=20287667"
+    }
+  ],
+  "deskripsi": "D1382 ELEMENT",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663900960651"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187e81510aea4477d08e"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1385",
+  "namabarang": "DHEA",
+  "hargamodal": 10440,
+  "dailyprice": 12499,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/-LOKAL--D1385-WAISTBAG-DHEA-Tas-Selempang-Pria-Wanita-i.135900627.6364057484?sp_atk=a4a8f2d2-4314-4496-bbc5-4e973f05d76a",
+      "status": "Habis",
+      "harga": 12499,
+      "kategori": "PUTIH",
+      "stocks": true,
+      "stock": 176,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=6364057484&shopid=135900627"
+    },
+    {
+      "nama": "REYRESHY",
+      "link": "https://shopee.co.id/RR-DHEA-Tas-Selempang-Waistbag-i.154549401.5237735264?sp_atk=2befe659-229b-43bd-b19d-43bea9cd4a6a&xptdk=2befe659-229b-43bd-b19d-43bea9cd4a6a",
+      "status": "Habis",
+      "harga": 13000,
+      "kategori": "DHEA MERAH",
+      "stocks": true,
+      "stock": 101,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=5237735264&shopid=154549401"
+    }
+  ],
+  "deskripsi": "D1385 DHEA",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663900971134"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187f81510aea4477d08f"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1407",
+  "namabarang": "CHAVA",
+  "hargamodal": 21315,
+  "dailyprice": 24499,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/-LOKAL--D1407-Tas-Selempang-CHAVA-Tas-Selempang-Wanita-i.135900627.4467493443?sp_atk=127111e2-788b-4f1b-b1bc-8c71aec32e7a",
+      "status": "Habis",
+      "harga": 24499,
+      "kategori": "HITAM",
+      "stocks": true,
+      "stock": 449,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=4467493443&shopid=135900627"
+    },
+    {
+      "nama": "MORY MONY",
+      "link": "https://shopee.co.id/MORYMONY-CHAVA-Tas-Selempang-Wanita-i.20287667.5238125186?sp_atk=95afea1c-a94d-4074-a4d0-384ac20f638d",
+      "status": "Active",
+      "harga": 10000,
+      "kategori": "HITAM",
+      "stocks": true,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=5238125186&shopid=20287667"
+    },
+    {
+      "nama": "REYRESHY",
+      "link": "https://shopee.co.id/RR-CHAVA-Tas-Selempang-Wanita-i.154549401.7944219355?sp_atk=c6cf99de-6b51-496d-980f-60a5dd27a5dd&xptdk=c6cf99de-6b51-496d-980f-60a5dd27a5dd",
+      "status": "Habis",
+      "harga": 25800,
+      "kategori": "CHAVA MERAH",
+      "stocks": true,
+      "stock": 456,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=7944219355&shopid=154549401"
+    }
+  ],
+  "deskripsi": "D1407 CHAVA",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663900987912"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187f81510aea4477d090"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1408",
+  "namabarang": "RISTI",
+  "hargamodal": 21750,
+  "dailyprice": 22999,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/-LOKAL--D1408-Tas-RISTI-Tas-Ransel-Backpack-Fashion-Wanita-(BORDIR)-i.135900627.6467492199?sp_atk=5d2eae1b-cab2-454f-a2c3-577019c2de8c",
+      "status": "Habis",
+      "harga": 22999,
+      "kategori": "Hitam",
+      "stocks": true,
+      "stock": 224,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=6467492199&shopid=135900627"
+    },
+    {
+      "nama": "REYRESHY",
+      "link": "https://shopee.co.id/RR-RISTI-Tas-Ransel-Backpack-Fashion-Wanita-(BORDIR)-i.154549401.7749425085?sp_atk=6f62f43d-c308-44bf-8233-e257e0f3535d&xptdk=6f62f43d-c308-44bf-8233-e257e0f3535d",
+      "status": "Habis",
+      "harga": 27000,
+      "kategori": "RISTI MERAH",
+      "stocks": true,
+      "stock": 254,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=7749425085&shopid=154549401"
+    }
+  ],
+  "deskripsi": "D1408 RISTI",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663900998295"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187f81510aea4477d091"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1410",
+  "namabarang": "RIANA",
+  "hargamodal": 22620,
+  "dailyprice": 24899,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/-LOKAL--D1410-Tas-RIANA-Tas-Selempang-Wanita-i.135900627.9501956125?sp_atk=79c84017-0076-4658-812e-2cce3fcef3c9",
+      "status": "Habis",
+      "harga": 24899,
+      "kategori": "Merah",
+      "stocks": true,
+      "stock": 701,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=9501956125&shopid=135900627"
+    },
+    {
+      "nama": "MORY MONY",
+      "link": "https://shopee.co.id/MORYMONY-RIANA-Tas-Selempang-Wanita-i.20287667.2333748705?sp_atk=597e0f2b-7316-4144-9505-8efdf650ae4d",
+      "status": "Habis",
+      "harga": 25000,
+      "kategori": "COKLAT",
+      "stocks": true,
+      "stock": 800000,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=2333748705&shopid=20287667"
+    },
+    {
+      "nama": "REYRESHY",
+      "link": "https://shopee.co.id/RR-RIANA-Tas-Selempang-Wanita-i.154549401.4443349818?sp_atk=a26d277d-6ee5-45b6-b721-300d82d9502f&xptdk=a26d277d-6ee5-45b6-b721-300d82d9502f",
+      "status": "Habis",
+      "harga": 27600,
+      "kategori": "RIANA HITAM",
+      "stocks": true,
+      "stock": 678,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=4443349818&shopid=154549401"
+    }
+  ],
+  "deskripsi": "D1410 RIANA",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663901016496"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187f81510aea4477d092"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1421",
+  "namabarang": "STEVI",
+  "hargamodal": 13050,
+  "dailyprice": 14500,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/-LOKAL--D1421-Selempang-STEVI-Tas-selempang-Sling-bag-Jahit-i.135900627.3467728226?sp_atk=444e8233-2733-4aa3-9b70-69a458af5718",
+      "status": "Habis",
+      "harga": 14500,
+      "kategori": "PUTIH",
+      "stocks": true,
+      "stock": 1475,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=3467728226&shopid=135900627"
+    },
+    {
+      "nama": "MORY MONY",
+      "link": "https://shopee.co.id/MORMON-STEVI-Tas-Selempang-Wanita-Slingbag-i.20287667.9315834688?sp_atk=e3f90052-e196-4bf2-97b1-1c3188ad3957&xptdk=e3f90052-e196-4bf2-97b1-1c3188ad3957",
+      "status": "Option",
+      "harga": 0,
+      "kategori": "",
+      "stocks": false,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=9315834688&shopid=20287667"
+    },
+    {
+      "nama": "REYRESHY",
+      "link": "https://shopee.co.id/RR-Stevi-Tas-selempang-Sling-bag-Jahit-slr-C1--i.154549401.6164188128?sp_atk=fc271b78-4438-41fb-bebe-1504dc840bdd&xptdk=fc271b78-4438-41fb-bebe-1504dc840bdd",
+      "status": "Habis",
+      "harga": 16000,
+      "kategori": "STEVI HITAM",
+      "stocks": true,
+      "stock": 1082,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=6164188128&shopid=154549401"
+    }
+  ],
+  "deskripsi": "D1421 STEVI",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663901034696"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187f81510aea4477d093"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1426",
+  "namabarang": "BAIM",
+  "hargamodal": 7140,
+  "dailyprice": 8299,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/-LOKAL--D1426-Waistbag-BAIM-Waistbag-Tas-Pinggang-Pria-Wanita-i.135900627.3269295835?sp_atk=32f91c36-4054-4ec7-b5e3-1e5abf481f7b",
+      "status": "Active",
+      "harga": 8299,
+      "kategori": "COKLAT",
+      "stocks": true,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=3269295835&shopid=135900627"
+    },
+    {
+      "nama": "MORY MONY",
+      "link": "https://shopee.co.id/MORYMONY-BAIM-Waistbag-Tas-Pinggang-Pria-Wanita-i.20287667.6358975837?sp_atk=89878da3-4874-432b-83a6-b1aa5210e420",
+      "status": "Active",
+      "harga": 8500,
+      "kategori": "NAVY",
+      "stocks": true,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=6358975837&shopid=20287667"
+    },
+    {
+      "nama": "REYRESHY",
+      "link": "https://shopee.co.id/RR-BAIM-Waistbag-Tas-Pinggang-Pria-Wanita-i.154549401.3369010699?sp_atk=1149bbef-964a-4636-966c-89f16c945e00&xptdk=1149bbef-964a-4636-966c-89f16c945e00",
+      "status": "Habis",
+      "harga": 11500,
+      "kategori": "BAIM NAVY",
+      "stocks": true,
+      "stock": 186,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=3369010699&shopid=154549401"
+    }
+  ],
+  "deskripsi": "D1426 BAIM",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663901051799"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187f81510aea4477d094"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1427",
+  "namabarang": "CLARA",
+  "hargamodal": 12180,
+  "dailyprice": 13500,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/-LOKAL--D1427-CLARA-Shoulder-Bag-Tas-bahu-wanita-fashion-i.135900627.3370145052?sp_atk=6f4d8e60-af5a-4de0-8055-dd09e6afc761",
+      "status": "Habis",
+      "harga": 13500,
+      "kategori": "HITAM",
+      "stocks": true,
+      "stock": 75,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=3370145052&shopid=135900627"
+    },
+    {
+      "nama": "MORY MONY",
+      "link": "https://shopee.co.id/MORYMONY-CLARA-Shoulder-Bag-Tas-Bahu-Wanita-Handbag-Tas-Jinjing-Tenteng-Wanita-i.20287667.3754480498?sp_atk=ed75c69d-6d89-47ff-ae6c-9868a89daff8",
+      "status": "Active",
+      "harga": 200000,
+      "kategori": "PINK",
+      "stocks": true,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=3754480498&shopid=20287667"
+    },
+    {
+      "nama": "REYRESHY",
+      "link": "https://shopee.co.id/JRbrands-Clara-Shoulder-Bag-Tas-Kerut-Tas-selempang-wanita-totebag-wanita-tas-kerut-i.141554532.3875205630?sp_atk=29553def-89c1-4564-a507-b06e9de0034f&xptdk=29553def-89c1-4564-a507-b06e9de0034f",
+      "status": "Option",
+      "harga": 0,
+      "kategori": "",
+      "stocks": false,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=3875205630&shopid=141554532"
+    }
+  ],
+  "deskripsi": "D1427 CLARA",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663901068873"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187f81510aea4477d095"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1434",
+  "namabarang": "BOMBER",
+  "hargamodal": 22185,
+  "dailyprice": 26500,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/-LOKAL--D1434-TAS-BOMBER-Tas-Ransel-Backpack-Fashion-i.135900627.7178495118?sp_atk=45cfd94a-0477-4ee4-8809-f4809c7599c0",
+      "status": "Habis",
+      "harga": 24999,
+      "kategori": "ABU",
+      "stocks": true,
+      "stock": 221,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=7178495118&shopid=135900627"
+    },
+    {
+      "nama": "MORY MONY",
+      "link": "https://shopee.co.id/MORYMONY-BOMBER-Tas-Ransel-Backpack-Fashion-i.20287667.9700735941?sp_atk=2105aef9-9833-4983-9d37-1b429485a737",
+      "status": "Active",
+      "harga": 200000,
+      "kategori": "HITAM",
+      "stocks": true,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=9700735941&shopid=20287667"
+    }
+  ],
+  "deskripsi": "D1434 BOMBER",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663901079412"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187f81510aea4477d096"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1435",
+  "namabarang": "LILI",
+  "hargamodal": 16965,
+  "dailyprice": 19999,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/-LOKAL--D1435-TAS-LILI-UK-Tas-Selempang-Fashion-Wanita-i.135900627.3778593479?sp_atk=359d65bc-cf61-4ad1-a932-9dd7e7525f5c",
+      "status": "Habis",
+      "harga": 19999,
+      "kategori": "HITAM",
+      "stocks": true,
+      "stock": 204,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=3778593479&shopid=135900627"
+    },
+    {
+      "nama": "MORY MONY",
+      "link": "https://shopee.co.id/MORYMONY-UK-Tas-Selempang-Wanita-Slingbag-Batam-Murah-i.20287667.8517609176?sp_atk=9211e42c-1c94-4f2a-8c23-b946c4faf9a0",
+      "status": "Habis",
+      "harga": 200000,
+      "kategori": "PUTIH",
+      "stocks": true,
+      "stock": 99936,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=8517609176&shopid=20287667"
+    }
+  ],
+  "deskripsi": "D1435 LILI",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663901090853"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187e81510aea4477d087"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1259",
+  "namabarang": "MV",
+  "hargamodal": 15660,
+  "dailyprice": 18499,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/-LOKAL-DOMMO-D1259-TAS-MV-Tas-Ransel-Backpack-Fashion-Wanita-MORYMONY-i.135900627.7325858736?sp_atk=c8e0cca6-2919-4d84-943e-548edf1644f2&xptdk=c8e0cca6-2919-4d84-943e-548edf1644f2",
+      "status": "Habis",
+      "harga": 18499,
+      "kategori": "Hitam",
+      "stocks": true,
+      "stock": 130,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=7325858736&shopid=135900627"
+    }
+  ],
+  "deskripsi": "D1259 MV",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663901097337"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187e81510aea4477d088"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1262",
+  "namabarang": "EVALIA",
+  "hargamodal": 14786,
+  "dailyprice": 17499,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/-LOKAL--D1262-TAS-EVALIA-Tas-Selempang-Wanita-MORYMONY-SLEMPANG-TASSLEMPANG-i.135900627.3226033235?sp_atk=c8a51766-8e71-4a94-abb0-07802d715905",
+      "status": "Skip",
+      "harga": 0,
+      "kategori": "",
+      "stocks": true,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=3226033235&shopid=135900627"
+    },
+    {
+      "nama": "MORY MONY",
+      "link": "https://shopee.co.id/MORYMONY-EVALIA-Tas-Selempang-Wanita-i.20287667.2882052761?sp_atk=ffa2f88b-8053-41bf-8122-5fba6a045318",
+      "status": "Skip",
+      "harga": 0,
+      "kategori": "",
+      "stocks": true,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=2882052761&shopid=20287667"
+    },
+    {
+      "nama": "REYRESHY",
+      "link": "https://shopee.co.id/RR-EVALIA-Tas-Selempang-Wanita-i.154549401.9106639016?sp_atk=78776a0f-0c7e-40a1-9329-4964381a1f2d&xptdk=78776a0f-0c7e-40a1-9329-4964381a1f2d",
+      "status": "Habis",
+      "harga": 18500,
+      "kategori": "EVALIA MERAH",
+      "stocks": true,
+      "stock": 1418,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=9106639016&shopid=154549401"
+    }
+  ],
+  "deskripsi": "D1262 EVALIA",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663901304238"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187f81510aea4477d099"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1450",
+  "namabarang": "SOFIA",
+  "hargamodal": 14790,
+  "dailyprice": 16500,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/-LOKAL--D1450-Tas-SOFIA-Tas-Selempang-Wanita-morymony-i.135900627.9715264588?sp_atk=39e7453b-b9f1-4056-835d-a91b3778a3b2",
+      "status": "Habis",
+      "harga": 18000,
+      "kategori": "HITAM",
+      "stocks": true,
+      "stock": 297,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=9715264588&shopid=135900627"
+    },
+    {
+      "nama": "MORY MONY",
+      "link": "https://shopee.co.id/MORYMONY-SOFIA-Tas-Selempang-Wanita-i.20287667.5476566614?sp_atk=484fe173-3e90-4e08-90ae-923dad4cba0b",
+      "status": "Option",
+      "harga": 0,
+      "kategori": "",
+      "stocks": false,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=5476566614&shopid=20287667"
+    }
+  ],
+  "deskripsi": "D1450 SOFIA",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663901313735"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187f81510aea4477d09a"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1452",
+  "namabarang": "AURELIA",
+  "hargamodal": 16529,
+  "dailyprice": 19999,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/-LOKAL--D1452-Tas-Aurelia-Tas-Selempang-Wanita-i.135900627.8515271872?sp_atk=97179178-ea14-4c22-b67b-af23c6ffc299",
+      "status": "Habis",
+      "harga": 19999,
+      "kategori": "Hitam",
+      "stocks": true,
+      "stock": 608,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=8515271872&shopid=135900627"
+    }
+  ],
+  "deskripsi": "D1452 AURELIA",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663901318563"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187f81510aea4477d09b"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1461",
+  "namabarang": "ABIEL",
+  "hargamodal": 16095,
+  "dailyprice": 17999,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/-LOKAL--D1461-Tas-ABIEL-Shoulder-Bag-Tas-Wanita-Selempang-Wanita-i.135900627.8517195578?sp_atk=f164711a-4570-428a-8036-638d59f818ee",
+      "status": "Habis",
+      "harga": 17999,
+      "kategori": "Abu",
+      "stocks": true,
+      "stock": 705,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=8517195578&shopid=135900627"
+    },
+    {
+      "nama": "MORY MONY",
+      "link": "https://shopee.co.id/MORMON-ABIEL-Shoulder-Bag-Tas-Selempang-Wanita-Slingbag-i.20287667.9414786125?sp_atk=7b7fa3e8-ff27-4021-8300-c97a8c8a8583&xptdk=7b7fa3e8-ff27-4021-8300-c97a8c8a8583",
+      "status": "Option",
+      "harga": 0,
+      "kategori": "",
+      "stocks": false,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=9414786125&shopid=20287667"
+    }
+  ],
+  "deskripsi": "D1461 ABIEL",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663901329268"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187f81510aea4477d09c"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1462",
+  "namabarang": "RIBKA",
+  "hargamodal": 27045,
+  "dailyprice": 32500,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/-LOKAL--D1462-Tas-RIBKA-Tas-Ransel-Wanita-Backpack-Fashion-Wanita-i.135900627.8117196636?sp_atk=cf14a7c6-1597-419a-a620-d945bc71f713",
+      "status": "Habis",
+      "harga": 29999,
+      "kategori": "Hitam",
+      "stocks": true,
+      "stock": 703,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=8117196636&shopid=135900627"
+    },
+    {
+      "nama": "MORY MONY",
+      "link": "https://shopee.co.id/MORYMONY-RIBKA-Tas-Ransel-Wanita-i.20287667.8611489610?sp_atk=57d51fc4-377a-4e4c-be02-8c34764de5a5",
+      "status": "Habis",
+      "harga": 32500,
+      "kategori": "PUTIH",
+      "stocks": true,
+      "stock": 945,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=8611489610&shopid=20287667"
+    }
+  ],
+  "deskripsi": "D1462 RIBKA",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663901341320"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187f81510aea4477d09d"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1463",
+  "namabarang": "LESTI",
+  "hargamodal": 22185,
+  "dailyprice": 24500,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/-LOKAL--D1463-Tas-LESTI-Shoulder-Bag-Tas-Wanita-i.135900627.8217202733?sp_atk=3da290a6-a011-4de9-800e-218086ff3065",
+      "status": "Option",
+      "harga": 0,
+      "kategori": "",
+      "stocks": false,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=8217202733&shopid=135900627"
+    },
+    {
+      "nama": "MORY MONY",
+      "link": "https://shopee.co.id/MORYMONY-LESTI-Shoulder-Bag-Tas-Bahu-Wanita-Tas-Selempang-i.20287667.9914103163?sp_atk=703196f8-3d7d-4d04-85d3-64b6e3303425",
+      "status": "Option",
+      "harga": 0,
+      "kategori": "",
+      "stocks": false,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=9914103163&shopid=20287667"
+    }
+  ],
+  "deskripsi": "D1463 LESTI",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663901357286"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187f81510aea4477d09e"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1464",
+  "namabarang": "LUPIN",
+  "hargamodal": 8500,
+  "dailyprice": 14000,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/-LOKAL--D1464-Tas-LUPIN-Tas-Clutch-Wanita-i.135900627.6181047631?sp_atk=92fcbb4d-d301-41b1-a08e-6c4506d7fe21",
+      "status": "Active",
+      "harga": 150000,
+      "kategori": "Hitam",
+      "stocks": true,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=6181047631&shopid=135900627"
+    },
+    {
+      "nama": "MORY MONY",
+      "link": "https://shopee.co.id/MORYMONY-LUPIN-Tas-Clutch-Wanita-Handbag-Tas-Tangan-Tenteng-i.20287667.5177599706?sp_atk=622e2e4f-9867-4f3a-abf1-3a326aee0404",
+      "status": "Active",
+      "harga": 200000,
+      "kategori": "HITAM",
+      "stocks": true,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=5177599706&shopid=20287667"
+    }
+  ],
+  "deskripsi": "D1464 LUPIN",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663901367647"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187f81510aea4477d09f"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1465",
+  "namabarang": "RAMORA",
+  "hargamodal": 12180,
+  "dailyprice": 15000,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/-LOKAL--D1465-Tas-RAMORA-Tas-Selempang-Wanita-tas-Wanita-i.135900627.8717216678?sp_atk=4569d75c-fc80-467d-b5f6-91f30f56de33",
+      "status": "Habis",
+      "harga": 15000,
+      "kategori": "Kuning",
+      "stocks": true,
+      "stock": 228,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=8717216678&shopid=135900627"
+    },
+    {
+      "nama": "MORY MONY",
+      "link": "https://shopee.co.id/MORYMONY-RAMORA-Tas-Selempang-Wanita-i.20287667.5677649384?sp_atk=7e4d1c3a-c6b1-408f-b6cd-fd57855c2cac",
+      "status": "Active",
+      "harga": 200000,
+      "kategori": "MARUN",
+      "stocks": true,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=5677649384&shopid=20287667"
+    }
+  ],
+  "deskripsi": "D1465 RAMORA",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663901378358"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187f81510aea4477d0a0"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1466",
+  "namabarang": "SABRINA",
+  "hargamodal": 8500,
+  "dailyprice": 9999,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/-LOKAL--D1466-Tas-SABRINA-Shoulder-Bag-Tas-Bahu-Wanita-Transparant-i.135900627.9817219327?sp_atk=96abab14-3e18-4070-a4f6-c9d11b3cdbfa",
+      "status": "Habis",
+      "harga": 9999,
+      "kategori": "Putih",
+      "stocks": true,
+      "stock": 358,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=9817219327&shopid=135900627"
+    },
+    {
+      "nama": "MORY MONY",
+      "link": "https://shopee.co.id/MORYMONY-SABRINA-Shoulder-Bag-Tas-Selempang-Wanita-i.20287667.3377695265?sp_atk=cbd1b73e-0a70-424d-847c-cee58a7a16db",
+      "status": "Habis",
+      "harga": 200000,
+      "kategori": "HITAM",
+      "stocks": true,
+      "stock": 99984,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=3377695265&shopid=20287667"
+    }
+  ],
+  "deskripsi": "D1466 SABRINA",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663901389516"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187f81510aea4477d0a1"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1467",
+  "namabarang": "ALFIRA",
+  "hargamodal": 16965,
+  "dailyprice": 19999,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/-LOKAL--D1467-Tas-ALFIRA-Tas-Selempang-Wanita-i.135900627.9319433111?sp_atk=795a1dbc-f034-474f-9d32-dcbe7ab026e5",
+      "status": "Habis",
+      "harga": 19999,
+      "kategori": "Hitam",
+      "stocks": true,
+      "stock": 335,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=9319433111&shopid=135900627"
+    },
+    {
+      "nama": "MORY MONY",
+      "link": "https://shopee.co.id/MORYMONY-ALFIRA-Tas-Selempang-Wanita-i.20287667.3003067304?sp_atk=7a503a05-f0d5-426f-b28d-d2f46cf93650",
+      "status": "Skip",
+      "harga": 0,
+      "kategori": "",
+      "stocks": true,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=3003067304&shopid=20287667"
+    }
+  ],
+  "deskripsi": "D1467 ALFIRA",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663901494613"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187f81510aea4477d0a2"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1468",
+  "namabarang": "RANSEL DAYANA",
+  "hargamodal": 13000,
+  "dailyprice": 14999,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/-LOKAL--D1468-Ransel-DAYANA-Tas-Ransel-Backpack-Multifungsi-i.135900627.7580358896?sp_atk=0bd40052-d76d-4161-ae28-c2f693e9ffa9",
+      "status": "Habis",
+      "harga": 14999,
+      "kategori": "Mocca",
+      "stocks": true,
+      "stock": 2590,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=7580358896&shopid=135900627"
+    },
+    {
+      "nama": "MORY MONY",
+      "link": "https://shopee.co.id/MORYMONY-DAYANA-Tas-Ransel-Backpack-Fashion-Wanita-i.20287667.9609708993?sp_atk=8a9408fb-a56e-4202-864d-e6678d7df2bb",
+      "status": "Active",
+      "harga": 200000,
+      "kategori": "UNGU",
+      "stocks": true,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=9609708993&shopid=20287667"
+    }
+  ],
+  "deskripsi": "D1468 RANSEL DAYANA",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663901510048"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187f81510aea4477d0a3"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1469",
+  "namabarang": "TAS ASTELA - TAS SELEMPANG WANITA",
+  "hargamodal": 17399,
+  "dailyprice": 19499,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/-LOKAL-DOMMO-D1469-Tas-ASTELA-Tas-Selempang-Wanita-i.135900627.9319450236?sp_atk=5afa6bd6-8ed5-41cb-8390-f55903565a00&xptdk=5afa6bd6-8ed5-41cb-8390-f55903565a00",
+      "status": "Active",
+      "harga": 19499,
+      "kategori": "Hitam",
+      "stocks": true,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=9319450236&shopid=135900627"
+    },
+    {
+      "nama": "MORY MONY",
+      "link": "https://shopee.co.id/MORYMONY-ASTELA-Tas-Selempang-Wanita-Slingbag-Mini-Murah-i.20287667.8711360983?sp_atk=31e1177b-9124-424d-bffd-db8ee6451de4&xptdk=31e1177b-9124-424d-bffd-db8ee6451de4",
+      "status": "Active",
+      "harga": 200000,
+      "kategori": "MERAH",
+      "stocks": true,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=8711360983&shopid=20287667"
+    }
+  ],
+  "deskripsi": "D1469 TAS ASTELA - TAS SELEMPANG WANITA",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663901520102"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187f81510aea4477d0a4"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1470",
+  "namabarang": "WAISTBAG KENDAL - TAS PINGGANG PRIA WAISTBAG",
+  "hargamodal": 14790,
+  "dailyprice": 16499,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/-LOKAL-DOMMO-D1470-WAISTBAG-KENDAL-Tas-Pinggang-Pria-Waistbag-i.135900627.5780363213?sp_atk=39529ff1-f30d-44c4-b650-9fee9ba2592c&xptdk=39529ff1-f30d-44c4-b650-9fee9ba2592c",
+      "status": "Habis",
+      "harga": 16499,
+      "kategori": "Hitam",
+      "stocks": true,
+      "stock": 221,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=5780363213&shopid=135900627"
+    },
+    {
+      "nama": "MORY MONY",
+      "link": "https://shopee.co.id/MORYMONY-KENDAL-Tas-Pinggang-Pria-Waistbag-Murah-Selempang-i.20287667.7078123876?sp_atk=aaf78d67-69d0-495a-be59-352c9132f97d&xptdk=aaf78d67-69d0-495a-be59-352c9132f97d",
+      "status": "Active",
+      "harga": 200000,
+      "kategori": "COFFEE",
+      "stocks": true,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=7078123876&shopid=20287667"
+    }
+  ],
+  "deskripsi": "D1470 WAISTBAG KENDAL - TAS PINGGANG PRIA WAISTBAG",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663901531330"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187f81510aea4477d0a5"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1472",
+  "namabarang": "MEY",
+  "hargamodal": 13485,
+  "dailyprice": 14850,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/-LOKAL--D1472-Tas-MEY-Slingbag-i.135900627.6380363724?sp_atk=d4f58733-e57f-442d-8d72-c68eeb7a49d9",
+      "status": "Habis",
+      "harga": 14850,
+      "kategori": "Hitam",
+      "stocks": true,
+      "stock": 166,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=6380363724&shopid=135900627"
+    },
+    {
+      "nama": "MORY MONY",
+      "link": "https://shopee.co.id/MORYMONY-MEY-Slingbag-Tas-Selempang-Wanita-Mini-i.20287667.8713286507?sp_atk=78d3b3a3-046e-48e2-a87e-e4fd99ff048a",
+      "status": "Option",
+      "harga": 0,
+      "kategori": "",
+      "stocks": false,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=8713286507&shopid=20287667"
+    }
+  ],
+  "deskripsi": "D1472 MEY",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663901543063"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187f81510aea4477d0a6"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1473",
+  "namabarang": "KILUA",
+  "hargamodal": 13920,
+  "dailyprice": 15500,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/-LOKAL--D1473-Tas-KILUA-Tas-Selempang-Wanita-Tas-Fashion-Morymony-i.135900627.3010186851?sp_atk=4eac7d4f-9bb7-4044-aaec-9dfef759a050",
+      "status": "Habis",
+      "harga": 17000,
+      "kategori": "Hitam",
+      "stocks": true,
+      "stock": 1169,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=3010186851&shopid=135900627"
+    },
+    {
+      "nama": "MORY MONY",
+      "link": "https://shopee.co.id/MORYMONY-KILUA-Tas-Selempang-Wanita-i.20287667.3456939976?sp_atk=30e6d582-44a3-4e90-b073-61fcfaddc706",
+      "status": "Habis",
+      "harga": 10000,
+      "kategori": "HITAM",
+      "stocks": true,
+      "stock": 23,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=3456939976&shopid=20287667"
+    }
+  ],
+  "deskripsi": "D1473 KILUA",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663901553831"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187f81510aea4477d0a7"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1477",
+  "namabarang": "TAS BOY",
+  "hargamodal": 20445,
+  "dailyprice": 22999,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/-LOKAL--D1477-Tas-BOY-Ransel-Pria-Wanita-i.135900627.7781305748?sp_atk=4eeaa67b-d2e0-42ca-93b0-58d121894e67",
+      "status": "Option",
+      "harga": 0,
+      "kategori": "",
+      "stocks": false,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=7781305748&shopid=135900627"
+    },
+    {
+      "nama": "MORY MONY",
+      "link": "https://shopee.co.id/MORYMONY-BOY-Tas-Ransel-Backpack-Fashion-i.20287667.3779350491?sp_atk=6426f670-4a73-4151-9cab-02ee00f07ef0",
+      "status": "Active",
+      "harga": 10000,
+      "kategori": "HITAM",
+      "stocks": true,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=3779350491&shopid=20287667"
+    }
+  ],
+  "deskripsi": "D1477 TAS BOY",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663901563845"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187f81510aea4477d0a8"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1481",
+  "namabarang": "ESTER",
+  "hargamodal": 12180,
+  "dailyprice": 15000,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/-LOKAL--D1481-Tote-ESTER-Tote-Bag-Wanita-i.135900627.8230059076?sp_atk=d73caa22-2605-4a11-aaf1-7d8b214b397e",
+      "status": "Habis",
+      "harga": 13999,
+      "kategori": "Putih",
+      "stocks": true,
+      "stock": 265,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=8230059076&shopid=135900627"
+    },
+    {
+      "nama": "MORY MONY",
+      "link": "https://shopee.co.id/MORYMONY-ESTER-Tote-Bag-Wanita-Murah-Kpop-i.20287667.8014103365?sp_atk=26fd7a39-d652-4449-812c-ba3a132f068f",
+      "status": "Active",
+      "harga": 200000,
+      "kategori": "MOCCA",
+      "stocks": true,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=8014103365&shopid=20287667"
+    }
+  ],
+  "deskripsi": "D1481 ESTER",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663901574320"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187f81510aea4477d0a9"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1482",
+  "namabarang": "CHLOE",
+  "hargamodal": 10831,
+  "dailyprice": 12999,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/-LOKAL--D1482-Tas-CHLOE-Tas-Selempang-Wanita-i.135900627.7682905026?sp_atk=6b59dde8-d21d-4abf-8ef7-e07dfe692683",
+      "status": "Habis",
+      "harga": 12999,
+      "kategori": "Coklat",
+      "stocks": true,
+      "stock": 41,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=7682905026&shopid=135900627"
+    },
+    {
+      "nama": "MORY MONY",
+      "link": "https://shopee.co.id/MORYMONY-CHLOE-Tas-Selempang-Wanita-i.20287667.7278668313?sp_atk=875ea626-92c0-4d43-bf97-946e9649e554",
+      "status": "Habis",
+      "harga": 13999,
+      "kategori": "PINK",
+      "stocks": true,
+      "stock": 163,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=7278668313&shopid=20287667"
+    }
+  ],
+  "deskripsi": "D1482 CHLOE",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663901588280"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187f81510aea4477d0aa"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1483",
+  "namabarang": "QALBY",
+  "hargamodal": 18269,
+  "dailyprice": 23000,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/-LOKAL--D1483-Tas-QALBY-Tas-Selempang-Wanita-i.135900627.4082918159?sp_atk=462b2c4d-e4f6-4b1e-a271-37865a10ee0b",
+      "status": "Habis",
+      "harga": 23000,
+      "kategori": "Maroon",
+      "stocks": true,
+      "stock": 786,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=4082918159&shopid=135900627"
+    },
+    {
+      "nama": "MORY MONY",
+      "link": "https://shopee.co.id/MORYMONY-QALBY-Tas-Selempang-Wanita-i.20287667.8215283961?sp_atk=75a31702-b8c6-4cbb-a129-8ff7458eb2f4",
+      "status": "Active",
+      "harga": 200000,
+      "kategori": "NAVY",
+      "stocks": true,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=8215283961&shopid=20287667"
+    }
+  ],
+  "deskripsi": "D1483 QALBY",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663901598822"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187f81510aea4477d0ab"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1484",
+  "namabarang": "MELISA",
+  "hargamodal": 15964,
+  "dailyprice": 19000,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/-LOKAL--D1484-Tas-MELISA-Tas-Selempang-Wanita-i.135900627.7282916448?sp_atk=e31c4884-46d5-482d-9e3b-73e51d86383c",
+      "status": "Habis",
+      "harga": 19350,
+      "kategori": "Abu",
+      "stocks": true,
+      "stock": 309,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=7282916448&shopid=135900627"
+    },
+    {
+      "nama": "MORY MONY",
+      "link": "https://shopee.co.id/MORYMONY-MELISA-Tas-Selempang-Wanita-Slingbag-i.20287667.9015836284?sp_atk=dd3ac1f9-9c74-49de-a34c-50ce1382be33",
+      "status": "Habis",
+      "harga": 19950,
+      "kategori": "ABIEL MERAH",
+      "stocks": true,
+      "stock": 21,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=9015836284&shopid=20287667"
+    }
+  ],
+  "deskripsi": "D1484 MELISA",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663901608835"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187f81510aea4477d0ac"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1485",
+  "namabarang": "TASBAHU GWEN",
+  "hargamodal": 18705,
+  "dailyprice": 21999,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/-LOKAL-DOMMO-D1485-GWEN-Shoulder-Bag-i.135900627.9034310965?sp_atk=85b042c7-0ea8-4880-8fca-5e833e7ee92b&xptdk=85b042c7-0ea8-4880-8fca-5e833e7ee92b",
+      "status": "Habis",
+      "harga": 21999,
+      "kategori": "HITAM",
+      "stocks": true,
+      "stock": 946,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=9034310965&shopid=135900627"
+    },
+    {
+      "nama": "MORY MONY",
+      "link": "https://shopee.co.id/MORMON-GWEN-Shoulder-Bag-Tas-Selempang-Wanita-i.20287667.3004254339?sp_atk=f5ad60cd-743f-49a7-8123-e11f04259d2b&xptdk=f5ad60cd-743f-49a7-8123-e11f04259d2b",
+      "status": "Habis",
+      "harga": 20900,
+      "kategori": "PUTIH",
+      "stocks": true,
+      "stock": 2232,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=3004254339&shopid=20287667"
+    }
+  ],
+  "deskripsi": "D1485 TASBAHU GWEN",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663901620978"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187f81510aea4477d097"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1439",
+  "namabarang": "ANATA",
+  "hargamodal": 14784,
+  "dailyprice": 17799,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/-LOKAL--D1439-Tas-ANATA-Tas-Selempang-Wanita-i.135900627.9213936826?sp_atk=ac0f453e-9f4e-4162-8c4f-2cafee4c4563",
+      "status": "Habis",
+      "harga": 15999,
+      "kategori": "Hitam",
+      "stocks": true,
+      "stock": 18,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=9213936826&shopid=135900627"
+    },
+    {
+      "nama": "MORY MONY",
+      "link": "https://shopee.co.id/MORYMONY-ANATA-Tas-Selempang-Wanita-i.20287667.3182830258?sp_atk=a71c42c6-2a68-4082-a418-1262039077bb",
+      "status": "Active",
+      "harga": 10000,
+      "kategori": "MARUN",
+      "stocks": true,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=3182830258&shopid=20287667"
+    }
+  ],
+  "deskripsi": "D1439 ANATA",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663901632224"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187f81510aea4477d098"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1440",
+  "namabarang": "TAS AR",
+  "hargamodal": 16965,
+  "dailyprice": 18999,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/-LOKAL--D1440-Tas-AR-Tas-Selempang-Wanita-i.135900627.8913943918?sp_atk=63794763-c8ad-49dc-b51e-bac5ccfc7982",
+      "status": "Option",
+      "harga": 0,
+      "kategori": "",
+      "stocks": false,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=8913943918&shopid=135900627"
+    },
+    {
+      "nama": "MORY MONY",
+      "link": "https://shopee.co.id/MORYMONY-AR-Tas-Selempang-Wanita-Slingbag-Shoulder-Bag-Tas-Tenteng-Rante-Jinjing-Murah-i.20287667.3468471538?sp_atk=8114ea42-a9ea-40e7-a8eb-cd5d9f5cb4a5",
+      "status": "Habis",
+      "harga": 10000,
+      "kategori": "TOSCA",
+      "stocks": true,
+      "stock": 4607,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=3468471538&shopid=20287667"
+    }
+  ],
+  "deskripsi": "D1440 TAS AR",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663901643281"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187f81510aea4477d0af"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1488",
+  "namabarang": "DOWNEY",
+  "hargamodal": 9135,
+  "dailyprice": 10500,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/-LOKAL--D1488-Tas-DOWNEY-Tas-Wanita-i.135900627.3584416675?sp_atk=b04bdb45-4990-425b-8f72-f90001f2a6d3",
+      "status": "Habis",
+      "harga": 10499,
+      "kategori": "Hitam",
+      "stocks": true,
+      "stock": 624,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=3584416675&shopid=135900627"
+    },
+    {
+      "nama": "MORY MONY",
+      "link": "https://shopee.co.id/MORYMONY-DOWNEY-Tas-Wanita-Handbag-Tas-Tangan-Pouch-Hp-Kosmetik-Wanita-i.20287667.7315161248?sp_atk=8ec95644-4a02-4c94-a2a2-590a81119395",
+      "status": "Habis",
+      "harga": 10005,
+      "kategori": "HITAM",
+      "stocks": true,
+      "stock": 2398,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=7315161248&shopid=20287667"
+    }
+  ],
+  "deskripsi": "D1488 DOWNEY",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663901654014"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187f81510aea4477d0b0"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1490",
+  "namabarang": "PRIZA",
+  "hargamodal": 15225,
+  "dailyprice": 17500,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/-LOKAL--D1490-Tas-PRIZA-Tas-Selempang-Wanita-i.135900627.9637387761?sp_atk=e460ccbd-eb09-4ff0-82d7-7827377e863a",
+      "status": "Skip",
+      "harga": 0,
+      "kategori": "",
+      "stocks": true,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=9637387761&shopid=135900627"
+    },
+    {
+      "nama": "MORY MONY",
+      "link": "https://shopee.co.id/MORYMONY-PRIZA-Tas-Selempang-Wanita-i.20287667.8115279345?sp_atk=aa8788e5-9334-4c61-854c-e4e5601eb1cc",
+      "status": "Skip",
+      "harga": 0,
+      "kategori": "",
+      "stocks": true,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=8115279345&shopid=20287667"
+    }
+  ],
+  "deskripsi": "D1490 PRIZA",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663901855581"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187f81510aea4477d0b1"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1500",
+  "namabarang": "SUZY",
+  "hargamodal": 8264,
+  "dailyprice": 9990,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/-LOKAL--D1500-Tas-SUZY-Tas-Selempang-Wanita-MORYMONY-i.135900627.10117983915?sp_atk=7c8ff330-8dde-4566-af99-bc0b2fee8de0",
+      "status": "Skip",
+      "harga": 0,
+      "kategori": "",
+      "stocks": true,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=10117983915&shopid=135900627"
+    },
+    {
+      "nama": "MORY MONY",
+      "link": "https://shopee.co.id/MORYMONY-SUZY-Tas-Selempang-Wanita-i.20287667.6177801114?sp_atk=4d1a57d6-ac37-445f-863f-95b33b6612b9",
+      "status": "Skip",
+      "harga": 0,
+      "kategori": "",
+      "stocks": true,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=6177801114&shopid=20287667"
+    }
+  ],
+  "deskripsi": "D1500 SUZY",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663902057625"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187f81510aea4477d0b2"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1508",
+  "namabarang": "TOTE BIG",
+  "hargamodal": 5644,
+  "dailyprice": 6300,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/-LOKAL--D1508-TOTEBAG-BIG-varian-sablon-PAKAI-PEREKAT-i.135900627.10855900897?sp_atk=3aa5ea4c-cfee-43d6-aa46-784912712586",
+      "status": "Habis",
+      "harga": 6449,
+      "kategori": "KARTUN BARBAPAPA",
+      "stocks": true,
+      "stock": 6230,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=10855900897&shopid=135900627"
+    },
+    {
+      "nama": "MORY MONY",
+      "link": "https://shopee.co.id/TOTEBAG-BIG-varian-sablon-C7-MORYMONY-i.20287667.9193866082?sp_atk=c31b6565-9ae7-4c48-aa65-1d8c257a74c6",
+      "status": "Option",
+      "harga": 0,
+      "kategori": "",
+      "stocks": false,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=9193866082&shopid=20287667"
+    }
+  ],
+  "deskripsi": "D1508 TOTE BIG",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663902067760"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187f81510aea4477d0b3"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1509",
+  "namabarang": "TOTE ART",
+  "hargamodal": 5644,
+  "dailyprice": 6999,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/-LOKAL-DOMMO-D1509-Tote-bag-Art-Printing-Planet-Full-Color-PAKAI-PEREKAT-i.135900627.13122273660?sp_atk=34ba6632-3b4b-48ff-b93e-1f208dff796c",
+      "status": "Habis",
+      "harga": 6499,
+      "kategori": "Circus Hitam",
+      "stocks": true,
+      "stock": 8659,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=13122273660&shopid=135900627"
+    }
+  ],
+  "deskripsi": "D1509 TOTE ART",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663902072423"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187f81510aea4477d0b4"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1511",
+  "namabarang": "EAGLE",
+  "hargamodal": 7225,
+  "dailyprice": 9000,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/-D1511-THE-EAGLE-EYE-TAS-SELEMPANG-WANITA-MINI-LUCU-i.135900627.10260155484?sp_atk=c2b2ba68-ddd8-4290-a81e-eeb329081be9",
+      "status": "Habis",
+      "harga": 9999,
+      "kategori": "NAVY",
+      "stocks": true,
+      "stock": 2686,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=10260155484&shopid=135900627"
+    },
+    {
+      "nama": "MORY MONY",
+      "link": "https://shopee.co.id/MORYMONY-EAGLE-EYES-Tas-Selempang-Tas-Batam-Pocket-i.20287667.3902798669?sp_atk=847e669d-9f22-4d05-b417-d338ebba94c9",
+      "status": "Habis",
+      "harga": 200000,
+      "kategori": "MOCA",
+      "stocks": true,
+      "stock": 99915,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=3902798669&shopid=20287667"
+    },
+    {
+      "nama": "REYRESHY",
+      "link": "https://shopee.co.id/THE-EAGLE-EYES-Sling-Bag-Tas-Selempang-Mini-Pocket-Wanita-Bag-Mini-Cewek-HP-i.1611358.1766376725?sp_atk=f1a3076e-c5ba-4244-9f5c-fff0bf305ed0&xptdk=f1a3076e-c5ba-4244-9f5c-fff0bf305ed0",
+      "status": "Option",
+      "harga": 0,
+      "kategori": "",
+      "stocks": false,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=1766376725&shopid=1611358"
+    }
+  ],
+  "deskripsi": "D1511 EAGLE",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663902087637"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187f81510aea4477d0b5"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1513",
+  "namabarang": "FINO",
+  "hargamodal": 10005,
+  "dailyprice": 11000,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/-D1513-TAS-FINO-Slingbag-Tas-Selempang-Wanita-i.135900627.13033060999?sp_atk=4bb1347e-2506-4c66-85bd-df0682562ffe",
+      "status": "Habis",
+      "harga": 11000,
+      "kategori": "ABU",
+      "stocks": true,
+      "stock": 4152,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=13033060999&shopid=135900627"
+    },
+    {
+      "nama": "MORY MONY",
+      "link": "https://shopee.co.id/MORYMONY-FINO-Slingbag-Tas-Selempang-Wanita-i.20287667.8476535909?sp_atk=e5f028cb-c55b-434e-a2a8-8696136291e6",
+      "status": "Active",
+      "harga": 7000,
+      "kategori": "COKLAT",
+      "stocks": true,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=8476535909&shopid=20287667"
+    }
+  ],
+  "deskripsi": "D1513 FINO",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663902098720"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187f81510aea4477d0b6"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1514",
+  "namabarang": "TOTE PEREKAT",
+  "hargamodal": 2900,
+  "dailyprice": 3600,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/-LOKAL-DOMMO-D1514-Totebag-tote-(PAKAI-PEREKAT)-Karakter-Tote-bag-kpop-murah-wanita-custom-motif-i.135900627.9700766473?sp_atk=c57b2ba8-c0c1-4afc-a8bd-c3c36c02889e",
+      "status": "Option",
+      "harga": 0,
+      "kategori": "",
+      "stocks": false,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=9700766473&shopid=135900627"
+    },
+    {
+      "nama": "MORY MONY",
+      "link": "https://shopee.co.id/-LOKAL-MORYMONY-D1386-Totebag-tote-Karakter-Tote-bag-kpop-murah-wanita-custom-motif-i.20287667.13114168399?sp_atk=5459f099-8300-4ae7-b722-ca480b3c3739&xptdk=5459f099-8300-4ae7-b722-ca480b3c3739",
+      "status": "Active",
+      "harga": 200000,
+      "kategori": "GUAVA",
+      "stocks": true,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=13114168399&shopid=20287667"
+    }
+  ],
+  "deskripsi": "D1514 TOTE PEREKAT",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663902110157"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187f81510aea4477d0b7"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1525",
+  "namabarang": "TOTEBAG BIUBIU CAT MOTIF ABSTRAK KANVAS KUCING AESTHETIC",
+  "hargamodal": 5655,
+  "dailyprice": 7499,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/DOMMO-D1525-Totebag-BiuBiu-Cat-Motif-Abstrak-Kanvas-Kucing-Aesthetic-i.135900627.17330532101?sp_atk=e6938e5e-9a53-4d5b-86ed-990dc7f1b2b2",
+      "status": "Habis",
+      "harga": 7499,
+      "kategori": "Kucing Coklat",
+      "stocks": true,
+      "stock": 5069,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=17330532101&shopid=135900627"
+    },
+    {
+      "nama": "MORY MONY",
+      "link": "https://shopee.co.id/Totebag-BiuBiu-Cat-Motif-Abstrak-Kanvas-Kucing-Aestethic-Morymony-i.20287667.13275287420?sp_atk=6e6ba872-a7e6-4c6c-8b7f-8264415451b3",
+      "status": "Active",
+      "harga": 200000,
+      "kategori": "NIU CAT CREAM",
+      "stocks": true,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=13275287420&shopid=20287667"
+    }
+  ],
+  "deskripsi": "D1525 TOTEBAG BIUBIU CAT MOTIF ABSTRAK KANVAS KUCING AESTHETIC",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663902121055"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187f81510aea4477d0b8"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D6073",
+  "namabarang": "KOTAK PENYIMPANAN SIZE L",
+  "hargamodal": 11348,
+  "dailyprice": 13500,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/DOMMO-D6073-Tempat-Kotak-Wadah-Penyimpanan-Bubuk-Portabel-Sealed-Anti-Tumpah-Kotak-Makanan-Box-i.135900627.16005857328?sp_atk=10b52d31-2fb4-4f1c-b0a9-1a1413aa62c7&xptdk=10b52d31-2fb4-4f1c-b0a9-1a1413aa62c7",
+      "status": "Option",
+      "harga": 0,
+      "kategori": "",
+      "stocks": false,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=16005857328&shopid=135900627"
+    }
+  ],
+  "deskripsi": "D6073 KOTAK PENYIMPANAN SIZE L",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663902126027"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187f81510aea4477d0b9"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D6073",
+  "namabarang": "KOTAK PENYIMPANAN SIZE S",
+  "hargamodal": 11315,
+  "dailyprice": 12500,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/DOMMO-D6073-Tempat-Kotak-Wadah-Penyimpanan-Bubuk-Portabel-Sealed-Anti-Tumpah-Kotak-Makanan-Box-i.135900627.16005857328?sp_atk=10b52d31-2fb4-4f1c-b0a9-1a1413aa62c7&xptdk=10b52d31-2fb4-4f1c-b0a9-1a1413aa62c7",
+      "status": "Option",
+      "harga": 0,
+      "kategori": "",
+      "stocks": false,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=16005857328&shopid=135900627"
+    }
+  ],
+  "deskripsi": "D6073 KOTAK PENYIMPANAN SIZE S",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663902131573"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187f81510aea4477d0ba"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "K0001",
+  "namabarang": "2 IN 1 LOKAL",
+  "hargamodal": 1260,
+  "dailyprice": 1440,
+  "shopee": [
+    {
+      "nama": "MORY MONY",
+      "link": "https://shopee.co.id/MORYMONY-AKSESORIS-TAS-2-IN-1-Gantungan-Kunci-Hiasan-Tas-Ransel-Tote-Selempang-ToteBag-Shoulder-Wanita-Murah-Lucu-Kpop-i.20287667.2714494999?sp_atk=5c6870d0-219d-4ed2-a0d8-8e4c2ba4d875",
+      "status": "Habis",
+      "harga": 1740,
+      "kategori": "2 in 1",
+      "stocks": true,
+      "stock": 5129,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=2714494999&shopid=20287667"
+    }
+  ],
+  "deskripsi": "GANTUNGAN 2 IN 1 LOKAL",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663902136547"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187f81510aea4477d0bb"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1455",
+  "namabarang": "Tas SEKAR",
+  "hargamodal": 16000,
+  "dailyprice": 19999,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/-LOKAL-DOMMO-D1455-Tas-SEKAR-Tas-Selempang-Wanita-Tas-Wanita-i.135900627.9116883523?sp_atk=354d57a5-bbfb-4b89-9d51-74b39adf1554&xptdk=354d57a5-bbfb-4b89-9d51-74b39adf1554",
+      "status": "Habis",
+      "harga": 19999,
+      "kategori": "Merah",
+      "stocks": true,
+      "stock": 201,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=9116883523&shopid=135900627"
+    },
+    {
+      "nama": "MORY MONY",
+      "link": "https://shopee.co.id/MORMON-SEKAR-Tas-Selempang-Wanita-i.20287667.6377354184?sp_atk=7f1d31da-78d6-48de-81d8-6b66bd51a170&xptdk=7f1d31da-78d6-48de-81d8-6b66bd51a170",
+      "status": "Habis",
+      "harga": 13775,
+      "kategori": "UNGU",
+      "stocks": true,
+      "stock": 100522,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=6377354184&shopid=20287667"
+    }
+  ],
+  "deskripsi": "D1455 Tas Sekar",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663902148061"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187f81510aea4477d0bc"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1521",
+  "namabarang": "Tas Boba",
+  "hargamodal": 20000,
+  "dailyprice": 22999,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/DOMMO-D1521-Tas-Boba-Bubble-Drink-Anak-Terlaris-!!!-Tas-Anak-Tas-lucu-Tas-murah-Tas-Viral-i.135900627.16420030416?sp_atk=c7131121-6757-4602-840b-284af6d869b1&xptdk=c7131121-6757-4602-840b-284af6d869b1",
+      "status": "Skip",
+      "harga": 0,
+      "kategori": "",
+      "stocks": true,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=16420030416&shopid=135900627"
+    },
+    {
+      "nama": "MORY MONY",
+      "link": "https://shopee.co.id/HC-Tas-Ransel-Boba-Bubble-Drink-Viral-High-Quality-Tas-Anak-Terbaru-Usia-3-6-Tahun-Tas-Ransel-Boneka-Boba-Tas-Ransel-Anak-Boneka-Lucu-Imut-i.26177891.13885311165?sp_atk=1c98c002-d50f-4673-8039-3c3daed98c74&xptdk=1c98c002-d50f-4673-8039-3c3daed98c74",
+      "status": "Skip",
+      "harga": 0,
+      "kategori": "",
+      "stocks": true,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=13885311165&shopid=26177891"
+    },
+    {
+      "nama": "REYRESHY",
+      "link": "https://shopee.co.id/TAS-BOBA-RANSEL-ANAK-VIRAL-TERLARIS-PINK-BROWN-KUNING-HIJAU-MAROON-i.281101674.15054805395?sp_atk=cfa59b7c-c767-4b0a-8d53-e700cc1a73cd&xptdk=cfa59b7c-c767-4b0a-8d53-e700cc1a73cd",
+      "status": "Skip",
+      "harga": 0,
+      "kategori": "",
+      "stocks": true,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=15054805395&shopid=281101674"
+    }
+  ],
+  "deskripsi": "D1521 Tas Boba",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663902449571"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187f81510aea4477d0bd"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D6027",
+  "namabarang": "GANTUNGAN 1 IN 1",
+  "hargamodal": 450,
+  "dailyprice": 495,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/product/135900627/3269025920/",
+      "status": "Skip",
+      "harga": 0,
+      "kategori": "",
+      "stocks": true,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=3269025920&shopid=135900627"
+    }
+  ],
+  "deskripsi": "D6027 GANTUNGAN 1 IN 1",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663902551575"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187f81510aea4477d0ad"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1486",
+  "namabarang": "NATALI",
+  "hargamodal": 15225,
+  "dailyprice": 18000,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/-LOKAL--D1486-Tas-NATALI-Shoulder-Bag-i.135900627.9834314889?sp_atk=9fd1cfd9-422a-43f1-85df-b409e4ff9d9b",
+      "status": "Skip",
+      "harga": 0,
+      "kategori": "",
+      "stocks": true,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=9834314889&shopid=135900627"
+    },
+    {
+      "nama": "MORY MONY",
+      "link": "https://shopee.co.id/MORYMONY-NATALI-Shoulder-Bag-Tas-Bahu-Wanita-Mini-i.20287667.8715829650?sp_atk=46471761-4e4e-4d65-b133-d1625909b261",
+      "status": "Skip",
+      "harga": 0,
+      "kategori": "",
+      "stocks": true,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=8715829650&shopid=20287667"
+    }
+  ],
+  "deskripsi": "D1486 NATALI",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663902756112"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187f81510aea4477d0ae"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1487",
+  "namabarang": "MEKAR",
+  "hargamodal": 9135,
+  "dailyprice": 10999,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/-LOKAL--D1487-MEKAR-Tas-Selempang-Wanita-i.135900627.3284058079?sp_atk=69ba3b75-bd5f-4f24-8863-2f9e52d1a1a7",
+      "status": "Skip",
+      "harga": 0,
+      "kategori": "",
+      "stocks": true,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=3284058079&shopid=135900627"
+    }
+  ],
+  "deskripsi": "D1487 MEKAR",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663902858156"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187e81510aea4477d068"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1068",
+  "namabarang": "LOVE PART 2",
+  "hargamodal": 11048,
+  "dailyprice": 14500,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/-LOKAL-DOMMO-TAS-LOVE-PART-2-D1068-Bacpack-Mikro-Tas-Ransel-Fashion-MORYMONY-COD-NATSYA-i.135900627.3409684750?sp_atk=2392e93e-3091-4520-b64a-7ba9d40f0214",
+      "status": "Skip",
+      "harga": 0,
+      "kategori": "",
+      "stocks": true,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=3409684750&shopid=135900627"
+    }
+  ],
+  "deskripsi": "D1068 LOVE PART 2",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663902957590"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187e81510aea4477d06c"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1072",
+  "namabarang": "MILEA",
+  "hargamodal": 13050,
+  "dailyprice": 17999,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/-LOKAL--D1072-TAS-MILEA-Tas-Ransel-Backpack-(Bisa-Ransel-Bisa-Selempang)-MORYMONY-i.135900627.7309583284?sp_atk=74495a6a-ec01-4fb4-a880-b6a1dd6ef139",
+      "status": "Skip",
+      "harga": 0,
+      "kategori": "",
+      "stocks": true,
+      "stock": 0,
+      "api": ""
+    },
+    {
+      "nama": "MORY MONY",
+      "link": "https://shopee.co.id/MORYMONY-TAS-MILEA-Tas-Ransel-Backpack-(-Bisa-Ransel-Bisa-Selempang-)-i.20287667.1873407400?sp_atk=fb5f7483-9e4f-41c1-9e4f-2c159f08c5c9",
+      "status": "Skip",
+      "harga": 0,
+      "kategori": "",
+      "stocks": true,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=1873407400&shopid=20287667"
+    },
+    {
+      "nama": "REYRESHY",
+      "link": "https://shopee.co.id/RR-TAS-MILEA-Tas-Ransel-Backpack-(Bisa-Ransel-Bisa-Selempang)-i.154549401.6638051789?sp_atk=1641361f-8cf1-4bac-b632-4331711c9d0c&xptdk=1641361f-8cf1-4bac-b632-4331711c9d0c",
+      "status": "Skip",
+      "harga": 0,
+      "kategori": "",
+      "stocks": true,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=6638051789&shopid=154549401"
+    }
+  ],
+  "deskripsi": "D1072 MILEA",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663903262585"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187e81510aea4477d069"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1069",
+  "namabarang": "AGNES - TAS RANSEL BACKPACK FASHION MORYMONY BISA COD DARI JAKARTA",
+  "hargamodal": 11120,
+  "dailyprice": 12999,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/-LOKAL-DOMMO-D1069-AGNES-Tas-Ransel-Backpack-Fashion-MORYMONY-BISA-COD-DARI-JAKARTA-i.135900627.6609605264?sp_atk=c75c7be6-5f56-48ce-9581-b022c10eca7a&xptdk=c75c7be6-5f56-48ce-9581-b022c10eca7a",
+      "status": "Skip",
+      "harga": 0,
+      "kategori": "",
+      "stocks": true,
+      "stock": 0,
+      "api": ""
+    },
+    {
+      "nama": "MORY MONY",
+      "link": "https://shopee.co.id/MORYMONY-AGNES-Tas-Ransel-Backpack-Fashion-i.20287667.2864230299?sp_atk=c070f83d-47e7-4452-b2bc-498ee3a6f588&xptdk=c070f83d-47e7-4452-b2bc-498ee3a6f588",
+      "status": "Skip",
+      "harga": 0,
+      "kategori": "",
+      "stocks": true,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=2864230299&shopid=20287667"
+    },
+    {
+      "nama": "REYRESHY",
+      "link": "https://shopee.co.id/RR-AGNES-Tas-Ransel-Backpack-Fashion-i.154549401.3643013454?sp_atk=4cdf7faa-8dbb-4878-9e35-b613425285be&xptdk=4cdf7faa-8dbb-4878-9e35-b613425285be",
+      "status": "Skip",
+      "harga": 0,
+      "kategori": "",
+      "stocks": true,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=3643013454&shopid=154549401"
+    }
+  ],
+  "deskripsi": "D1069 AGNES - TAS RANSEL BACKPACK FASHION MORYMONY BISA COD DARI JAKARTA",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663903588691"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187e81510aea4477d072"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1102",
+  "namabarang": "TOTE BEAR BISA BAYAR DI TEMPAT COD TOTE BAG WANITA MORYMONY BISA COD",
+  "hargamodal": 7500,
+  "dailyprice": 9500,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/-LOKAL-DOMMO-D1102-TOTE-BEAR-BISA-BAYAR-DI-TEMPAT-COD-Tote-Bag-Wanita-MORYMONY-BISA-COD-i.135900627.7309602337?sp_atk=c6508e0e-1602-46cf-8ab9-306becfb35f9&xptdk=c6508e0e-1602-46cf-8ab9-306becfb35f9",
+      "status": "Skip",
+      "harga": 0,
+      "kategori": "",
+      "stocks": true,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=7309602337&shopid=135900627"
+    }
+  ],
+  "deskripsi": "D1102 TOTE BEAR BISA BAYAR DI TEMPAT COD TOTE BAG WANITA MORYMONY BISA COD",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663903688149"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187e81510aea4477d071"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1094",
+  "namabarang": "KASAMI",
+  "hargamodal": 7830,
+  "dailyprice": 8999,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/-LOKAL-DOMMO-D1094-KASAMI-Tote-Bag-MORYMONY-BISA-COD-DARI-JAKARTA-TAS-SELEMPANG-WANITA-i.135900627.5908627908?sp_atk=f1fbaf4a-5db5-4a19-83bd-d0489a64d4f3&xptdk=f1fbaf4a-5db5-4a19-83bd-d0489a64d4f3",
+      "status": "Skip",
+      "harga": 0,
+      "kategori": "",
+      "stocks": true,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=5908627908&shopid=135900627"
+    },
+    {
+      "nama": "MORY MONY",
+      "link": "https://shopee.co.id/MORYMONY-KASAMI-Totebag-Tas-Selempang-Tote-Bag-Murah-i.20287667.7301266408?sp_atk=fe87565f-cee1-4780-9834-ead8b981ae4c",
+      "status": "Skip",
+      "harga": 0,
+      "kategori": "",
+      "stocks": true,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=7301266408&shopid=20287667"
+    },
+    {
+      "nama": "REYRESHY",
+      "link": "https://shopee.co.id/RR-KASAMI-Tas-Tote-Bag-wanita-Pakai-Resleting-i.154549401.5937724629?sp_atk=69b7cc80-8130-4720-98ff-2ceda85ac386&xptdk=69b7cc80-8130-4720-98ff-2ceda85ac386",
+      "status": "Skip",
+      "harga": 0,
+      "kategori": "",
+      "stocks": true,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=5937724629&shopid=154549401"
+    }
+  ],
+  "deskripsi": "D1094 KASAMI",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663903994217"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187e81510aea4477d06b"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1071",
+  "namabarang": "MIKO",
+  "hargamodal": 13049,
+  "dailyprice": 16500,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/-LOKAL--D1071-TAS-MIKO-Tas-Ransel-Backpack-Fashion-Bahan-Mikro-MORYMONY-BISA-COD-i.135900627.6109585188?sp_atk=dd97f64d-79dd-4646-a550-6302864f558e",
+      "status": "Habis",
+      "harga": 16500,
+      "kategori": "Hitam",
+      "stocks": true,
+      "stock": 1085,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=6109585188&shopid=135900627"
+    }
+  ],
+  "deskripsi": "D1071 MIKO",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663904001533"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187e81510aea4477d07a"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1153",
+  "namabarang": "TOKYO",
+  "hargamodal": 7500,
+  "dailyprice": 11000,
+  "deskripsi": "D1153 TOKYO",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663899775111"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187e81510aea4477d06d"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1076",
+  "namabarang": "IZY",
+  "hargamodal": 9500,
+  "dailyprice": 10999,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/-LOKAL--D1076-WAISTBAG-IZY-TAS-PINGGANG-WANITA-MORYMONY-SLINGBAG-BISA-COD-JAKARTA-i.135900627.3408740720?sp_atk=164e6977-8fd9-4399-a5d0-163ad8e5d4f2",
+      "status": "Habis",
+      "harga": 12499,
+      "kategori": "Putih",
+      "stocks": true,
+      "stock": 297,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=3408740720&shopid=135900627"
+    },
+    {
+      "nama": "MORY MONY",
+      "link": "https://shopee.co.id/WAISTBAG-MORYMONY-IZY-Tas-Pinggang-Wanita-i.20287667.1410993379?sp_atk=df7c3406-60fc-4e75-b253-8404514e1a2a",
+      "status": "Option",
+      "harga": 0,
+      "kategori": "",
+      "stocks": false,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=1410993379&shopid=20287667"
+    },
+    {
+      "nama": "REYRESHY",
+      "link": "https://shopee.co.id/RR-WAISTBAG-MORYMONY-IZY-Tas-Pinggang-Wanita-i.154549401.3532145070?sp_atk=8504d4b6-edeb-4c19-8691-10497da7808f&xptdk=8504d4b6-edeb-4c19-8691-10497da7808f",
+      "status": "Habis",
+      "harga": 12500,
+      "kategori": "01 PUTIH",
+      "stocks": true,
+      "stock": 1015,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=3532145070&shopid=154549401"
+    }
+  ],
+  "deskripsi": "D1076 IZY",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663904019861"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187e81510aea4477d06e"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1080",
+  "namabarang": "POM POM",
+  "hargamodal": 400,
+  "dailyprice": 550,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/-LOKAL--D1080-POMPOM-POM-Gantungan-Tas-Ransel-Selempang-Tote-MORYMONY-BISA-COD-JAKARTA-CO100-i.135900627.5765063136?sp_atk=aa098acd-30ed-4eee-900c-cc2db00c1e0c",
+      "status": "Skip",
+      "harga": 0,
+      "kategori": "",
+      "stocks": true,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=5765063136&shopid=135900627"
+    },
+    {
+      "nama": "MORY MONY",
+      "link": "https://shopee.co.id/POMPOM-Gantungan-Tas-Ransel-Selempang-Tote-Totebag-Slingbag-Shoulder-Wanita-Murah-Lucu-Kpop-Bts-i.20287667.995073047?sp_atk=e48a705f-632b-4247-b6e6-edd295eaf715",
+      "status": "Skip",
+      "harga": 0,
+      "kategori": "",
+      "stocks": true,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=995073047&shopid=20287667"
+    }
+  ],
+  "deskripsi": "D1080 POM POM",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663904220023"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187e81510aea4477d070"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1087",
+  "namabarang": "LIDYA",
+  "hargamodal": 7500,
+  "dailyprice": 9600,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/-LOKAL--D1087-TAS-TOTEBAG-LIDYA-Tote-Bag-Wanita-MORYMONY-i.135900627.5608611925?sp_atk=08de2ac4-f91a-4ca2-8ed6-529d89995936",
+      "status": "Skip",
+      "harga": 0,
+      "kategori": "",
+      "stocks": true,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=5608611925&shopid=135900627"
+    },
+    {
+      "nama": "MORY MONY",
+      "link": "https://shopee.co.id/MORYMONY-LIDYA-Tote-Bag-Wanita-i.20287667.2874064517?sp_atk=6fd32cb0-424f-438f-9e96-99d4e241694d",
+      "status": "Skip",
+      "harga": 0,
+      "kategori": "",
+      "stocks": true,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=2874064517&shopid=20287667"
+    }
+  ],
+  "deskripsi": "D1087 LIDYA",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663904422658"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187e81510aea4477d06a"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1070",
+  "namabarang": "CYNTHIA",
+  "hargamodal": 12615,
+  "dailyprice": 13999,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/-LOKAL--D1070-Backpack-Cynthia-Backpack-Micro-Tas-Ransel-Fashion-MORYMONY-i.135900627.5409587205?sp_atk=16bbc0ca-98e2-4695-af28-4961d431d5d4",
+      "status": "Skip",
+      "harga": 0,
+      "kategori": "",
+      "stocks": true,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=5409587205&shopid=135900627"
+    },
+    {
+      "nama": "MORY MONY",
+      "link": "https://shopee.co.id/Backpack-Micro-Tas-Ransel-Fashion-Morymony-i.20287667.2156995141?sp_atk=f98a98a0-d783-4cca-b45a-71793ea8b4e5",
+      "status": "Active",
+      "harga": 200000,
+      "kategori": "KUNING",
+      "stocks": true,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=2156995141&shopid=20287667"
+    }
+  ],
+  "deskripsi": "D1070 CYNTHIA",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663904532199"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187e81510aea4477d074"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1107",
+  "namabarang": "TALI LIMITED",
+  "hargamodal": 11745,
+  "dailyprice": 15500,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/-LOKAL--D1107-TAS-TALI-LIMITED-BISA-COD-BACKPACK-WANITA-MORYMONY-BISA-COD-RANSEL-i.135900627.7015108762?sp_atk=bec3ff85-0563-46e9-80dc-68616844b0dc",
+      "status": "Habis",
+      "harga": 15500,
+      "kategori": "Hitam",
+      "stocks": true,
+      "stock": 375,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=7015108762&shopid=135900627"
+    },
+    {
+      "nama": "MORY MONY",
+      "link": "https://shopee.co.id/MORYMONY-LIMITED-Backpack-Mikro-Tas-Ransel-Fashion-i.20287667.2157001169?sp_atk=f02b98e6-6bec-4362-a1dc-00df5bc8e3ee",
+      "status": "Active",
+      "harga": 200000,
+      "kategori": "HITAM",
+      "stocks": true,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=2157001169&shopid=20287667"
+    },
+    {
+      "nama": "REYRESHY",
+      "link": "https://shopee.co.id/RR-LIMITED-Backpack-Mikro-Tas-Ransel-Fashion-i.154549401.4232046629?sp_atk=4fcdc1cc-9f5c-429c-a044-2de2bd1f468b&xptdk=4fcdc1cc-9f5c-429c-a044-2de2bd1f468b",
+      "status": "Habis",
+      "harga": 17000,
+      "kategori": "LIMITED NAVY",
+      "stocks": true,
+      "stock": 259,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=4232046629&shopid=154549401"
+    }
+  ],
+  "deskripsi": "D1107 TALI LIMITED",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663904547310"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187e81510aea4477d075"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1121",
+  "namabarang": "KEIKO",
+  "hargamodal": 13049,
+  "dailyprice": 14500,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/product/135900627/3515883250/",
+      "status": "Habis",
+      "harga": 14499,
+      "kategori": "Hitam",
+      "stocks": true,
+      "stock": 562,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=3515883250&shopid=135900627"
+    },
+    {
+      "nama": "MORY MONY",
+      "link": "https://shopee.co.id/MORYMONY-KEIKO-Tas-Ransel-Backpack-Fashion-Wanita-Tas-Batam-i.20287667.3703141185?sp_atk=4b91bdda-046e-44ae-aee2-a26d938708e0",
+      "status": "Active",
+      "harga": 200000,
+      "kategori": "HITAM",
+      "stocks": true,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=3703141185&shopid=20287667"
+    },
+    {
+      "nama": "REYRESHY",
+      "link": "https://shopee.co.id/RR-KEIKO-Tas-Ransel-Backpack-Fashion-Wanita-i.154549401.4614062609?sp_atk=cf38599b-e78c-4bf0-bccc-562725a94644&xptdk=cf38599b-e78c-4bf0-bccc-562725a94644",
+      "status": "Habis",
+      "harga": 17000,
+      "kategori": "KEIKO HITAM",
+      "stocks": true,
+      "stock": 599,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=4614062609&shopid=154549401"
+    }
+  ],
+  "deskripsi": "D1121 KEIKO",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663904564786"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187e81510aea4477d076"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1130",
+  "namabarang": "MAXIXI",
+  "hargamodal": 19488,
+  "dailyprice": 20999,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/-LOKAL--D1130-TAS-MAXIXI-Dari-Jakarta-Bisa-COD-Tas-Ransel-Backpack-Wanita-morymony-i.135900627.5715793827?sp_atk=7d8ffee1-6c7b-46ad-97e8-778d0f50d75c",
+      "status": "Habis",
+      "harga": 20999,
+      "kategori": "Hitam",
+      "stocks": true,
+      "stock": 59,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=5715793827&shopid=135900627"
+    },
+    {
+      "nama": "MORY MONY",
+      "link": "https://shopee.co.id/MORYMONY-MAXIXI-Tas-Ransel-Backpack-Fashion-Wanita-i.20287667.4906282119?sp_atk=96d8c5f7-990a-4021-adbd-940cfb23352a",
+      "status": "Active",
+      "harga": 200000,
+      "kategori": "HIJAU",
+      "stocks": true,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=4906282119&shopid=20287667"
+    },
+    {
+      "nama": "REYRESHY",
+      "link": "https://shopee.co.id/RR-MAXIXI-Tas-Ransel-Backpack-Fashion-Wanita-i.154549401.3537866211?sp_atk=9d3a5d09-dc06-471e-83b4-dab527030324&xptdk=9d3a5d09-dc06-471e-83b4-dab527030324",
+      "status": "Habis",
+      "harga": 25000,
+      "kategori": "MAXIXI HITAM",
+      "stocks": true,
+      "stock": 270,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=3537866211&shopid=154549401"
+    }
+  ],
+  "deskripsi": "D1130 MAXIXI",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663904582294"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187e81510aea4477d077"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1135",
+  "namabarang": "FROZEN",
+  "hargamodal": 10440,
+  "dailyprice": 11999,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/-LOKAL--D1135-SLING-BAG-FROZEN-DARI-JAKARTA-SLINGBAG-Tas-Selempang-Wanita-MORYMONY-i.135900627.6615825397?sp_atk=1be72748-a1eb-439f-bce4-50d5a1238593",
+      "status": "Habis",
+      "harga": 11999,
+      "kategori": "Merah",
+      "stocks": true,
+      "stock": 2146,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=6615825397&shopid=135900627"
+    },
+    {
+      "nama": "MORY MONY",
+      "link": "https://shopee.co.id/MORYMONY-FROZEN-Tas-Selempang-Wanita-i.20287667.5809797548?sp_atk=0076e31d-c7ba-413a-816a-c6a80a673fe6",
+      "status": "Option",
+      "harga": 0,
+      "kategori": "",
+      "stocks": false,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=5809797548&shopid=20287667"
+    },
+    {
+      "nama": "REYRESHY",
+      "link": "https://shopee.co.id/RR-FROZEN-Tas-Selempang-Wanita-i.154549401.7137999357?sp_atk=939d5a49-e0ad-4a35-a884-b2675615d8bc",
+      "status": "Option",
+      "harga": 0,
+      "kategori": "",
+      "stocks": false,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=7137999357&shopid=154549401"
+    }
+  ],
+  "deskripsi": "D1135 FROZEN",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663904600870"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187e81510aea4477d06f"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1085",
+  "namabarang": "LOVE LOVE",
+  "hargamodal": 12615,
+  "dailyprice": 15500,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/-LOKAL--D1085-Backpack-TAS-LOVE-LOVE-Backpack-Micro-Tas-Ransel-Fashion-Morymony-i.135900627.4508614344?sp_atk=7620c383-c084-4383-b88f-ac24048f6e5e",
+      "status": "Habis",
+      "harga": 15500,
+      "kategori": "Abu",
+      "stocks": true,
+      "stock": 429,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=4508614344&shopid=135900627"
+    },
+    {
+      "nama": "MORY MONY",
+      "link": "https://shopee.co.id/MORYMONY-TAS-LOVE-LOVE-Backpack-Micro-Tas-Ransel-Fashion-i.20287667.1901492824?sp_atk=829d212b-5237-4dda-937a-ec86ba28266a",
+      "status": "Active",
+      "harga": 200000,
+      "kategori": "HITAM",
+      "stocks": true,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=1901492824&shopid=20287667"
+    },
+    {
+      "nama": "REYRESHY",
+      "link": "https://shopee.co.id/RR-TAS-LOVE-LOVE-Backpack-Micro-Tas-Ransel-Fashion-i.154549401.3901496195?sp_atk=d76e08dd-c90c-4989-bc3a-9e9e5ea4ebd8&xptdk=d76e08dd-c90c-4989-bc3a-9e9e5ea4ebd8",
+      "status": "Habis",
+      "harga": 17000,
+      "kategori": "DEMIAN MARUN",
+      "stocks": true,
+      "stock": 919,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=3901496195&shopid=154549401"
+    }
+  ],
+  "deskripsi": "D1085 LOVE LOVE",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663904623685"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "632d187e81510aea4477d073"
+  },
+  "konveksi": "DONI",
+  "kodebarang": "D1106",
+  "namabarang": "TAS MAROON",
+  "hargamodal": 12180,
+  "dailyprice": 13999,
+  "shopee": [
+    {
+      "nama": "DOMMO",
+      "link": "https://shopee.co.id/product/135900627/7114929142/",
+      "status": "Active",
+      "harga": 15000,
+      "kategori": "Navy",
+      "stocks": true,
+      "stock": 0,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=7114929142&shopid=135900627"
+    },
+    {
+      "nama": "MORY MONY",
+      "link": "https://shopee.co.id/MORYMONY-TAS-MAROON-Tas-Ransel-Backpack-Fashion-Wanita-Murah-i.20287667.2213504272?sp_atk=f574c802-7e8f-4512-ad2f-551ba001778a",
+      "status": "Habis",
+      "harga": 13000,
+      "kategori": "HITAM",
+      "stocks": true,
+      "stock": 132,
+      "api": "https://shopee.co.id/api/v4/item/get?itemid=2213504272&shopid=20287667"
+    }
+  ],
+  "deskripsi": "D1106 TAS MAROON",
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663904637022"
+    }
+  },
+  "__v": 0
+}]
