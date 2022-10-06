@@ -37,16 +37,18 @@ function RenderProduk(Product, Res) {
     shopee = `\n│──「 *Harga Shopee* 」─────${produk.shopee.map((e) => {
       let Updated = Math.ceil(Math.abs(new Date() - e.diupdate) / (1000 * 60 * 60));
       if (e.status === "Active") {
-        return `\n*│•${e.nama}* : Rp.${e.harga} 🆙${Updated}j`;
+        return `\n*│•${e.nama}* : Rp.${e.harga} 🆙${Updated}j lalu`;
       } else {
-        return `\n*│•${e.nama}* : ${e.status} 🆙${Updated}j`;
+        return `\n*│•${e.nama}* : ${e.status} 🆙${Updated}j lalu`;
       }
     })}`;
   } else {
     shopee = `\n│──「 *Harga Shopee* 」─────\n│Link Kosong`;
   }
 
-  Res = `${header}${body}${shopee}`;
+  // Footer
+  let footer = `\n╰───────────────`;
+  Res = `${header}${body}${shopee}${footer}`;
   return Res;
 }
 

@@ -52,6 +52,7 @@ async function Kodommo() {
   }); // Eksekusi Jika Gagal Login
   WaBot.on("ready", () => {
     console.log("Bot Aktif");
+    setInterval(Notifkasi, 35000);
   }); // Eksekusi Jika Bot Siap Digunakan
 
   let Generate;
@@ -172,7 +173,6 @@ async function Kodommo() {
   }); // Eksekusi Jika Bot LogOut
 
   // Notifikasi
-  setInterval(Notifkasi, 35000);
   async function Notifkasi() {
     let Check;
     Check = await KonveksiFinish();

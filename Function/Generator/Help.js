@@ -43,8 +43,8 @@ function RankSuperAdmin(Res) {
 │    ╰ Detail produk
 *│•!link* <KodeProduk>
 │    ╰ Link produk
-*│•!Click* <KP> <S> <A> <AL>
-│    ╰ Click kategory
+*│•!Kategori* <KP> <S> <A> <K>
+│    ╰ Kategori kategory
 *│•!Undercut*
 │    ╰ List produk undercuted
 *│•!Update* <Produk/Konveksi/Action>

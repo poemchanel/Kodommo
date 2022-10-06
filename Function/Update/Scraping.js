@@ -42,7 +42,9 @@ async function Scraping(Shopee, Res) {
       }
     });
     Page.on("response", async (response) => {
-      if (response.url().startsWith(Setting.ShopeeAPI)) Json = await response.json();
+      try {
+        if (response.url().startsWith(Setting.ShopeeAPI)) Json = await response.json();
+      } catch (error) {}
     });
     await Page.goto(Shopee.link, { waitUntil: "networkidle0" });
     // Check Status
@@ -98,8 +100,8 @@ async function Scraping(Shopee, Res) {
   Shopee.diupdate = new Date();
   const Log =
     Shopee.status === "Active"
-      ? `│->${Setting.BrowserState} Produk ${Shopee.nama} link Active\n│   ╰ Harga : Rp.${Shopee.harga}`
-      : `│->${Setting.BrowserState} Produk ${Shopee.nama} link ${Shopee.status}`;
+      ? `│ -${Setting.BrowserState} Produk ${Shopee.nama} link Active\n│   ╰ Harga : Rp.${Shopee.harga}`
+      : `│ -${Setting.BrowserState} Produk ${Shopee.nama} link ${Shopee.status}`;
   Res = { shopee: Shopee, log: Log, tor: Setting.UseTor };
   return Res;
 } // Scraping Data

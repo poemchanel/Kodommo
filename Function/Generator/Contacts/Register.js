@@ -44,14 +44,15 @@ function RankBaru(Number, Res) {
 ╰───────────────`;
   return Res;
 }
-function RankDefault(Rank, Res) {
+function RankDefault(Number, Rank, Res) {
   Res = `╭──「 *Perintah Ditolak* 」
 │Perintah ini hanya dapat diakses
 │oleh kontak berpangkat :
 │• *Admin*
 │• *Member*
 │──「 *i* 」──────────
-│Status anda saat ini : ${Rank}
+│Status @${Number} 
+│saat ini : ${Rank}
 ╰───────────────`;
   return Res;
 }

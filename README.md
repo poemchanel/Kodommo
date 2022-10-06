@@ -3,6 +3,23 @@ adalah whatsapp bot
 
 ##ChangeLog
 
+###2.3.1 - 10/6 Testing + Minor Fix
+
+- Import Docs ✓
+- Ping ✓
+- !Daftar ✓
+- !Terima ✓
+- !Pangkat ✓
+- !Help ✓
+- !List ✓
+- !Konveksi ✓
+- !Produk ✓
+- !Link ✓
+- !Kategori✓
+- !Undercut✓
+- !Update ✓
+- !Auto ✓
+
 ###2.3.0 - 10/5
 
 - Function / Database / Models / Product

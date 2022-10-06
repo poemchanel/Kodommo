@@ -62,10 +62,10 @@ async function RankAdmin(Pesan, Res) {
 function ActionCek(Update, Res) {
   Update = KonveksiStatus();
   Res = `╭──「 *Perintah Berhasil* 」
-│Status Update Konveksi : ${Update.status}
-│Berhasil mengupdate ${Update.diupdate}/${Update.totalproduk}
-│Gagal mengupdate ${Update.gagal.length} produk
-│Antrian update saat ini ${Update.antrian}/${Update.totalproduk}
+│Status Update Konveksi : ${Update.state === true ? "Aktif" : "NonAktif"}
+│Total Produk ${Update.totalproduk}
+│Berhasil mengupdate ${Update.diupdate}
+│Antrian update saat ini ${Update.antrian}
 ╰───────────────`;
   return Res;
 }
@@ -89,13 +89,12 @@ function ActionFailed(Update, Res) {
 async function ActionOn(Update, Res) {
   Update = KonveksiOff();
   Update = AutoOff();
-  await setTimeout(5000);
   Update = KonvkesiOn();
   Res = `╭──「 *Perintah Berhasil* 」
 │${Update.status}
-│Berhasil mengupdate ${Update.diupdate}/${Update.totalproduk}
-│Gagal mengupdate ${Update.gagal.length} produk
-│Antrian update saat ini ${Update.antrian}/${Update.totalproduk}
+│Total Produk ${Update.totalproduk}
+│Berhasil mengupdate ${Update.diupdate}
+│Antrian update saat ini ${Update.antrian}
 ╰───────────────`;
   return Res;
 }
@@ -103,9 +102,9 @@ function ActionOff(Update, Res) {
   Update = KonveksiOff();
   Res = `╭──「 *Perintah Berhasil* 」
 │${Update.status}
-│Berhasil mengupdate ${Update.diupdate}/${Update.totalproduk}
-│Gagal mengupdate ${Update.gagal.length} produk
-│Antrian update saat ini ${Update.antrian}/${Update.totalproduk}
+│Total Produk ${Update.totalproduk}
+│Berhasil mengupdate ${Update.diupdate}
+│Antrian update saat ini ${Update.antrian}
 ╰───────────────`;
   return Res;
 }
@@ -121,7 +120,7 @@ async function ProductNumber(KodeProduk, Res) {
   const Product = await FindProduct(KodeProduk[0]);
   if (Product.length !== 0) {
     if (Product[KodeProduk[1] - 1] !== undefined) {
-      Res = await UpdateProduct(Product[KodeProduk[1] - 1], KodeProduk[1]);
+      Res = await UpdateProduct(Product[KodeProduk[1] - 1], ` Nomor ${KodeProduk[1]}`);
     } else {
       Res = ProductNumberKosong(KodeProduk[0], KodeProduk[1]);
     }
@@ -132,16 +131,12 @@ async function ProductNumber(KodeProduk, Res) {
 }
 async function UpdateProduct(Product, Number, Res) {
   let on, cek, update;
-  cek = KonveksiStatus();
-  if (cek.state === true) {
-    cek = KonveksiOff();
-    on = "konveksi";
-  }
-  cek = AutoStatus();
-  if (cek.state === true) {
-    cek = AutoOff();
-    on = "auto";
-  }
+  cek = await KonveksiStatus();
+  if (cek.state === true) on = "konveksi";
+  cek = await AutoStatus();
+  if (cek.state === true) on = "auto";
+  await KonveksiOff();
+  await AutoOff();
   await setTimeout(5000);
   update = await PriceProduct(Product);
   Res = `╭──「 *Perintah Berhasil* 」
@@ -150,11 +145,8 @@ async function UpdateProduct(Product, Number, Res) {
 │──「 *Log* 」────────
 ${update.log.join(`\n\r`)}
 ╰───────────────`;
-  if (on === "konveksi") {
-    cek = KonvkesiOn();
-  } else if (on === "auto") {
-    cek = AutoOn();
-  }
+  if (on === "konveksi") cek = KonvkesiOn();
+  else if (on === "auto") cek = AutoOn();
   return Res;
 }
 function ProductNumberKosong(KodeProduk, Number, Res) {

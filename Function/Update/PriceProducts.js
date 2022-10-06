@@ -33,7 +33,7 @@ function AutoStatus(Res) {
     status: AutoState === true ? "Aktif" : "NonAktif",
     diupdate: ProductsUpdated,
     totalproduk: Products.length,
-    gagal: Skiped.length,
+    gagal: Skiped,
     antrian: i,
     log: Log,
     state: AutoState,
@@ -53,7 +53,6 @@ function AutoOn(Res) {
     status: Status,
     diupdate: ProductsUpdated,
     totalproduk: Products.length,
-    skip: Skiped.length,
     antrian: i,
   };
   return Res;
@@ -64,7 +63,6 @@ function AutoOff(Res) {
     status: `Update Konveksi Dihentikan`,
     diupdate: ProductsUpdated,
     totalproduk: Products.length,
-    gagal: Skiped.length,
     antrian: i,
   };
   return Res;
@@ -129,21 +127,23 @@ async function AutoStart(Res) {
 async function Loop() {
   if (Log.length > Set.LogLength) Log.splice(0, 5); // Cut Log
   if (i < Products.length) {
-    console.log(`${i}-${Products[i].konveksi}-${Products[i].kodebarang}`);
     if (Products[i].shopee === undefined) {
-      Log.push(`│Produk ${Products[i].konveksi}-${Products[i].kodebarang} Link Kosong`);
+      Log.push(`*│Produk ${Products[i].konveksi}-${Products[i].kodebarang} Link Kosong*`);
+      console.log(`│${i} Produk${Products[i].konveksi}-${Products[i].kodebarang} Link Kosong`);
+      ProductsUpdated++;
       i++;
       Loop();
     } else {
-      Log.push(`│Memulai Update: ${Products[i].konveksi}-${Products[i].kodebarang}`);
+      Log.push(`*│Memulai Update: ${Products[i].konveksi}-${Products[i].kodebarang}*`);
+      console.log(`│${i} Memulai Update: ${Products[i].konveksi}-${Products[i].kodebarang}`);
       let Skip = false;
       let Shopee = Products[i].shopee;
       for (let s = 0; s < Shopee.length; s++) {
         if (Shopee[s].status === "Habis" || Shopee[s].status === "Diarsipkan") {
-          if (
-            Math.ceil(AutoState === true && Math.abs(new Date() - Shopee[s].diupdate) / (1000 * 60 * 60)) >
-            Set.StatusSKip
-          ) {
+          let TimeDiference = Math.ceil(
+            AutoState === true && Math.abs(new Date() - Shopee[s].diupdate) / (1000 * 60 * 60)
+          );
+          if (TimeDiference > Set.StatusSKip) {
             let ScrapResult = await Scraping(Shopee[s]);
             Shopee[s] = ScrapResult.shopee;
             Log.push(ScrapResult.log);
@@ -153,8 +153,8 @@ async function Loop() {
               await setTimeout(Set.Error1Pause * 1000);
             }
           } else {
-            Log.push(`│->Produk ${Shopee[s].nama} link ${Shopee[s].status} 🆙< ${Set.StatusSKip}j`);
-            console.log(`│->Produk ${Shopee[s].nama} link ${Shopee[s].status} 🆙< ${Set.StatusSKip}j`);
+            Log.push(`│ -Produk ${Shopee[s].nama} link ${Shopee[s].status}\n│   ╰ 🆙 ${TimeDiference}jam lalu`);
+            console.log(`│ -Produk ${Shopee[s].nama} link ${Shopee[s].status}\n│   ╰ 🆙 ${TimeDiference}jam lalu`);
           }
         } else {
           if (AutoState === true) {
@@ -190,20 +190,24 @@ async function Loop() {
             }
           }
         });
-
         Products[i].shopee = Shopee;
-        if (Skip === true) Skiped.push(Products[i]);
+        if (Skip === true) {
+          Skiped.push(Products[i]);
+          ProductsUpdated--;
+        }
         const UpdateStatus = await UpdateProduk(Products[i]);
-        Log.push(`│->${UpdateStatus}`);
+        Log.push(`│ -${UpdateStatus}`);
+        ProductsUpdated++;
         i++;
         Loop();
       }
     }
   } else {
     if (f < Skiped.length) {
-      console.log(`${f}-${Skiped[f].konveksi}-${Skiped[f].kodebarang}`);
       Log.push(`│Memulai Update: ${Skiped[f].konveksi}-${Skiped[f].kodebarang}`);
+      console.log(`│${f} Memulai Update: ${Skiped[f].konveksi}-${Skiped[f].kodebarang}`);
       let Shopee = Skiped[f].shopee;
+      let Skip = false;
       for (let s = 0; s < Shopee.length; s++) {
         if (Shopee[s].status.includes("Error")) {
           if (AutoState === true) {
@@ -211,36 +215,38 @@ async function Loop() {
             Shopee[s] = ScrapResult.shopee;
             Log.push(ScrapResult.log);
             console.log(ScrapResult.log);
+            if (Shopee[s].status.includes("Error")) Skip = true;
             if (ScrapResult.shopee.status === "Error1" && ScrapResult.tor === false)
               await setTimeout(Set.Error1Pause * 1000);
           }
         }
       }
       if (AutoState === true) {
-        let IdO = Products[i].shopee.findIndex((e) => e.nama === Set.First); // Index Old
+        let IdO = Skiped[f].shopee.findIndex((e) => e.nama === Set.First); // Index Old
         let IdN = Shopee.findIndex((f) => f.nama === Set.First); // Index New
         Shopee.forEach((g) => {
           if (g.nama !== Set.First) {
             if (IdN !== -1 && Shopee[IdN].harga > g.harga && Shopee[IdN].status === "Active" && g.status === "Active") {
-              let IdT = Products[i].shopee.findIndex((h) => h.nama === g.nama); // Index Temporary
-              if (Products[i].shopee[IdO].harga !== Shopee[IdN].harga || Products[i].shopee[IdT].harga !== g.harga) {
+              let IdT = Skiped[f].shopee.findIndex((h) => h.nama === g.nama); // Index Temporary
+              if (Skiped[f].shopee[IdO].harga !== Shopee[IdN].harga || Skiped[f].shopee[IdT].harga !== g.harga) {
                 ProductsUndercuted.push({
-                  Konveksi: Products[i].konveksi,
-                  KodeProduk: Products[i].kodebarang,
+                  Konveksi: Skiped[f].konveksi,
+                  KodeProduk: Skiped[f].kodebarang,
                   NamaFirst: Shopee[IdN].nama,
                   HargaFirst: Shopee[IdN].harga,
                   NamaUndercut: g.nama,
                   HargaUndercutNew: g.harga,
-                  HargaUndercutOld: Products[i].shopee[IdT].harga,
+                  HargaUndercutOld: Skiped[f].shopee[IdT].harga,
                 });
               }
             }
           }
         });
-
+        if (Skip === true) ProductsUpdated--;
         Skiped[f].shopee = Shopee;
         const UpdateStatus = await UpdateProduk(Skiped[f]);
-        Log.push(`│->${UpdateStatus}`);
+        Log.push(`│ -${UpdateStatus}`);
+        ProductsUpdated++;
         f++;
         Loop();
       }

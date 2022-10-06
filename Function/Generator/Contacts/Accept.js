@@ -79,7 +79,6 @@ function RankDefault(Rank, Res) {
 │Perintah ini hanya dapat diakses
 │oleh kontak berpangkat :
 │• *Admin*
-│• *Member*
 │──「 *i* 」──────────
 │Status anda saat ini : ${Rank}
 ╰───────────────`;

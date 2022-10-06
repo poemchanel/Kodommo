@@ -115,8 +115,7 @@ function RankDefault(Rank, Res) {
   Res = `╭──「 *Perintah Ditolak* 」
 │Perintah ini hanya dapat diakses
 │oleh kontak berpangkat :
-│• *Admin*
-│• *Member*
+│• *SuperAdmin*
 │──「 *i* 」──────────
 │Status anda saat ini : ${Rank}
 ╰───────────────`;

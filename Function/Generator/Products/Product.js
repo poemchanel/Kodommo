@@ -107,8 +107,6 @@ function ProductKosong(KodeProduk, Res) {
 }
 function PesanKosong(Res) {
   Res = `╭──「 *Perintah Gagal* 」
-│Kode Produk Kosong
-│──「 *i* 」──────────
 │Harap masukan kode Produk
 │setelah perintah !Produk
 │──「 *Contoh* 」─────── 

@@ -60,8 +60,6 @@ function PesanKosong(Res) {
   Res = {
     status: "gagal",
     caption: `╭──「 *Perintah Gagal* 」
-│Kode konveksi kosong
-│──「 *i* 」──────────
 │Harap masukan kode konveksi
 │setelah perintah !konveksi
 │──「 *Contoh* 」───────
@@ -71,23 +69,29 @@ function PesanKosong(Res) {
   return Res;
 }
 function RankKosong(Res) {
-  Res = `╭──「 *Perintah Ditolak* 」
+  Res = {
+    status: "gagal",
+    caption: `╭──「 *Perintah Ditolak* 」
 │Kontak Anda belum Terdaftar
 │──「 *i* 」──────────
 │Silahkan mendaftar dengan
 │perintah !daftar
-╰───────────────`;
+╰───────────────`,
+  };
   return Res;
 }
 function RankDefault(Rank, Res) {
-  Res = `╭──「 *Perintah Ditolak* 」
+  Res = {
+    status: "gagal",
+    caption: `╭──「 *Perintah Ditolak* 」
 │Perintah ini hanya dapat diakses
 │oleh kontak berpangkat :
 │• *Admin*
 │• *Member*
 │──「 *i* 」──────────
 │Status anda saat ini : ${Rank}
-╰───────────────`;
+╰───────────────`,
+  };
   return Res;
 }
 function DBDisconected(Res) {

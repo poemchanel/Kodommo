@@ -128,7 +128,7 @@ function Action(Msg, Produk, Posisi, Res) {
   return Res;
 }
 async function ActionAdd(Kategori, Produk, Posisi, Res) {
-  Produk.shopee[Posisi].kategori = Kategori;
+  Produk.shopee[Posisi].kategori = Kategori.replace("+", " ");
   const UpdateStatus = await UpdateProduct(Produk);
   Res = UpdateStatus;
   return Res;

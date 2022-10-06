@@ -50,10 +50,12 @@ async function RankAdmin(Pesan, Res) {
 }
 async function ActionOn(Action, Res) {
   Action = await KonveksiOff();
-  await setTimeout(5000);
   Action = await AutoOn();
   Res = `╭──「 *Perintah Berhasil* 」
 │${Action.status}
+│Total produk ${Action.totalproduk}
+│Berhasil mengupdate ${Action.diupdate} produk
+│Menlanjutkan antrian ke ${Action.antrian + 1}
 ╰───────────────`;
   return Res;
 }
@@ -97,7 +99,7 @@ ${Action.gagal.join(`\n\r`)}
 }
 function ActionDefault(Pesan, Res) {
   Res = `╭──「 *Perintah Gagal* 」
-│Action ${Pesan}tidak terdaftar
+│Action ${Pesan} tidak terdaftar
 │──「 *List Action* 」──────
 │•!Auto on
 │•!Auto off
@@ -120,7 +122,6 @@ function RankDefault(Rank, Res) {
 │Perintah ini hanya dapat diakses
 │oleh kontak berpangkat :
 │• *Admin*
-│• *Member*
 │──「 *i* 」──────────
 │Status anda saat ini : ${Rank}
 ╰───────────────`;

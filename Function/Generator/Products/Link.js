@@ -83,9 +83,9 @@ function Products(Product, KodeProduk, Res) {
 │produk dengan kode ${KodeProduk}
 │──「 *i* 」──────────
 │Gunakan perintah 
-│!produk ${KodeProduk}_<Noproduk>
+│!Link ${KodeProduk}_<Noproduk>
 │──「 *Contoh* 」───────
-│!produk ${KodeProduk}_2
+│!Link ${KodeProduk}_2
 │──「 *List Nomor Produk ${KodeProduk.toUpperCase()}* 」─${Product.map(
     (e) => `\n│ ${j++}: ${e.konveksi}-${e.namabarang.substring(0, 12)}..`
   )}
@@ -121,8 +121,6 @@ function ShopeeKosong(KodeProduk, Number, Res) {
 }
 function PesanKosong(Res) {
   Res = `╭──「 *Perintah Gagal* 」
-│Kode Produk Kosong
-│──「 *i* 」──────────
 │Harap Masukan Kode Produk
 │setelah perintah !Link
 │──「 *Contoh* 」─────── 

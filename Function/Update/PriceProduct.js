@@ -23,15 +23,11 @@ async function PriceProduct(Product, Res) {
         let ScrapError = await Scraping(Shopee[s]);
         Shopee[s] = ScrapError.shopee;
         Log.push(ScrapError.log);
-      } else {
-        let ScrapError = await Scraping(Shopee[s]);
-        Shopee[s] = ScrapError.shopee;
-        Log.push(ScrapError.log);
       }
     }
     Product.shopee = Shopee;
     const UpdateStatus = await UpdateProduk(Product);
-    Log.push(`│->${UpdateStatus}`);
+    Log.push(`│ -${UpdateStatus}`);
   }
   Res = { log: Log };
   return Res;
